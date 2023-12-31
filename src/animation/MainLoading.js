@@ -3,7 +3,7 @@ import "./Loading.css";
 
 const MainLoading = ({ onFinished }) => {
   useEffect(() => {
-    // 마지막 세그먼트의 애니메이션이 끝난 후 콜백 호출
+    // 마지막 직사각형의 애니메이션이 끝난 후 콜백 호출
     setTimeout(onFinished, 2800); // 총 시간 조정 가능
   }, [onFinished]);
 

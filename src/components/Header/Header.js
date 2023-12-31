@@ -69,6 +69,9 @@ const MenuAnimation = ({ menuOpen, toggleMenu }) => {
   const handleCloseButton = () => {
     toggleMenu();
   };
+
+  let navigate = useNavigate();
+
   return (
     <div className={"menu-animation " + (menuOpen ? "open" : "close")}>
       <div className="menu-slide" id="slide1"></div>
@@ -80,6 +83,9 @@ const MenuAnimation = ({ menuOpen, toggleMenu }) => {
           Home
         </div>
         <div className="menu-item">Login</div>
+        <div className="menu-item" onClick={() => navigate("/character")}>
+          Character
+        </div>
         <div className="menu-item">Try Morpheus</div>
       </div>
     </div>

@@ -8,11 +8,14 @@ import "./LoginPage.css";
 
 const LoginPage = () => {
   let navigate = useNavigate();
+
+  //애니메이션 함수 부분
   const [loading, setLoading] = useState(true);
 
   const handleLoadingFinished = () => {
     setLoading(false);
   };
+
   return (
     <div className="login-page">
       {loading && <LoginLoading onFinished={handleLoadingFinished} />}
