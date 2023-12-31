@@ -66,7 +66,10 @@ const Header = () => {
 };
 
 const MenuAnimation = ({ menuOpen, toggleMenu }) => {
+  const [menuItemsVisible, setMenuItemsVisible] = useState(true);
+
   const handleCloseButton = () => {
+    setMenuItemsVisible(false);
     toggleMenu();
   };
 
@@ -78,16 +81,18 @@ const MenuAnimation = ({ menuOpen, toggleMenu }) => {
       <div className="menu-slide" id="slide2"></div>
       <div className="menu-slide" id="slide3"></div>
       <div className="menu-slide" id="slide4"></div>
-      <div className="menu-items">
-        <div className="menu-item" onClick={handleCloseButton}>
-          Home
+      {menuItemsVisible && (
+        <div className="menu-items">
+          <div className="menu-item" onClick={handleCloseButton}>
+            Home
+          </div>
+          <div className="menu-item">Login</div>
+          <div className="menu-item" onClick={() => navigate("/character")}>
+            Character
+          </div>
+          <div className="menu-item">Try Morpheus</div>
         </div>
-        <div className="menu-item">Login</div>
-        <div className="menu-item" onClick={() => navigate("/character")}>
-          Character
-        </div>
-        <div className="menu-item">Try Morpheus</div>
-      </div>
+      )}
     </div>
   );
 };

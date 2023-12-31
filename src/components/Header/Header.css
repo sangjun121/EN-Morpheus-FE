@@ -116,15 +116,15 @@ span {
 }
 .open #slide2 {
   top: 50%;
-  animation: slideIn 0.7s forwards;
+  animation: slideIn 0.8s forwards;
 }
 .open #slide3 {
   top: 25%;
-  animation: slideIn 0.9s forwards;
+  animation: slideIn 1.1s forwards;
 }
 .open #slide4 {
   top: 0;
-  animation: slideIn 1.1s forwards;
+  animation: slideIn 1.4s forwards;
 }
 
 .closing #slide1 {
@@ -133,15 +133,15 @@ span {
 }
 .closing #slide2 {
   top: 50%;
-  animation: getOut 0.7s forwards;
+  animation: getOut 0.8s forwards;
 }
 .closing #slide3 {
   top: 25%;
-  animation: getOut 0.9s forwards;
+  animation: getOut 1.1s forwards;
 }
 .closing #slide4 {
   top: 0;
-  animation: getOut 1.1s forwards;
+  animation: getOut 1.4s forwards;
 }
 
 @keyframes slideIn {
