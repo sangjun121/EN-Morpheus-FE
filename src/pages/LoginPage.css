@@ -1,0 +1,31 @@
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url(../images/background.png);
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: cover;
+  background-attachment: fixed;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: auto;
+}
+
+.login-header {
+  font-size: 50px;
+  cursor: pointer;
+}
+
+.login-header .login-logo {
+  color: #d49466;
+}
+
+.login-header .login-brand {
+  color: #162938;
+  font-family: Poppins-Bold;
+  padding-left: 10px;
+}
