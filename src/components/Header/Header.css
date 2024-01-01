@@ -12,6 +12,8 @@ span {
   font-family: "Poppins-Regular";
   font-size: 17px;
   padding: 5px 24px;
+  z-index: 1000;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
 }
 
 .header-right-component {
