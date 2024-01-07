@@ -12,8 +12,23 @@ span {
   font-family: "Poppins-Regular";
   font-size: 17px;
   padding: 5px 24px;
-  z-index: 1000;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+  left: 0;
+  right: 0;
+}
+
+.header-section.fixed-position {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: black;
+  font-family: "Poppins-Regular";
+  font-size: 17px;
+  padding: 5px 24px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+  position: fixed;
+  left: 0;
+  right: 0;
 }
 
 .header-right-component {

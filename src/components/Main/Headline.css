@@ -3,15 +3,46 @@
   font-family: Poppins-Bold;
   padding-top: 10%;
   color: white;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
     url(../../images/main_background.png);
   background-repeat: no-repeat;
   background-position: top center;
   background-size: 100%;
-  padding-bottom: 20%;
+  padding-bottom: 13%;
+}
+
+.headline-border {
+  border-top: 5px solid #fff;
+  border-radius: 5px;
+  margin: 30px auto;
+  width: 30%;
 }
 
 .headline-third {
   font-size: 20px;
   font-family: Poppins-Regular;
+  margin-bottom: 3%;
+}
+
+.try-morpheus .btn {
+  width: 250px;
+  height: 70px;
+  background: transparent;
+  border: 2px solid #fff;
+  outline: none;
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+  text-decoration: none;
+  border-radius: 4px;
+  margin-left: 40px;
+  font-size: 17px;
+  transition: 0.5s;
+  font-family: Poppins-Bold;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+}
+
+.try-morpheus .btn:hover {
+  background: #fff;
+  color: black;
 }
