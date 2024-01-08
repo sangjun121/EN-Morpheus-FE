@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import MainPage from './pages/MainPage';
 import LoginPage from './pages/LoginPage';
 import CharacterPage from './pages/CharacterPage';
+import FairyImageGeneratePage from './pages/FairyImageGeneratePage';
 
 function App() {
     return (
@@ -13,6 +14,10 @@ function App() {
                     <Route path="/" element={<MainPage />} />
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/character" element={<CharacterPage />} />
+                    <Route
+                        path="/fairyImageGenerate"
+                        element={<FairyImageGeneratePage />}
+                    />
                 </Routes>
             </div>
         </BrowserRouter>
