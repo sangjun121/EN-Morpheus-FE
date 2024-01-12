@@ -16,10 +16,8 @@ const MainPage = () => {
   return (
     <div className="main-page">
       {loading && <MainLoading onFinished={handleLoadingFinished} />}
-      <Header></Header>
-      <div className="main-container">
-        <Headline />
-      </div>
+      <Header />
+      <Headline />
     </div>
   );
 };

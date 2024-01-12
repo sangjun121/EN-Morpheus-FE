@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Header.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,6 +9,7 @@ import { faX } from "@fortawesome/free-solid-svg-icons";
 const Header = () => {
   let navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isFixed, setIsFixed] = useState(false);
 
   const toggleMenu = () => {
     if (menuOpen) {
@@ -24,8 +25,23 @@ const Header = () => {
     }
   };
 
+  const handleScroll = () => {
+    const position = window.scrollY;
+    setIsFixed(position > 1);
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <div className="header-section">
+    <div
+      className={isFixed ? "header-section fixed-position" : "header-section"}
+    >
       <div className="header-logo">
         <FontAwesomeIcon className="logo" icon={faBookQuran} />
         <span>MORPHEUS</span>
@@ -48,7 +64,7 @@ const Header = () => {
         </li>
         <button
           className="header-try-morpheus"
-          onClick={() => navigate("/tryMorpheus")}
+          onClick={() => navigate("/data-control")}
         >
           Try morpheus
         </button>
