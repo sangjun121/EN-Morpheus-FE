@@ -1,4 +1,4 @@
-.data-control-page {
+.scenario-making-page {
   background-image: url(../images/background.png);
   background-repeat: no-repeat;
   background-position: top center;
@@ -11,7 +11,7 @@
   width: 100vw;
 }
 
-.data-control-panel {
+.scenario-making-panel {
   display: flex;
   justify-content: center;
   gap: 20px;

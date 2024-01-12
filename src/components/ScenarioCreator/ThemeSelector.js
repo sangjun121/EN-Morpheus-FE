@@ -1,6 +1,8 @@
-import React, { useState, useReducer, useEffect } from "react";
-import reducer from "../../api/Reducer";
+import React, { useState, useEffect, useReducer } from "react";
+import { useNavigate } from "react-router-dom";
 import API from "../../api/API";
+import reducer from "../../api/Reducer";
+import "./ScenarioCreator.css";
 
 const predefinedTopics = [
   "The Importance of Sharing: A Story of Siblings Learning to Share Their Toys",
@@ -25,7 +27,7 @@ const predefinedTopics = [
   "Embracing Change: A Butterfly's Transformation and Its Lessons",
 ];
 
-const TopicSetupPage = () => {
+const ThemeSelector = ({ expanded, onClose }) => {
   //input텍스트창 안에 입력된 주제
   const [topic, setTopic] = useState("");
   //서버에서 받아온 주제들
@@ -33,16 +35,15 @@ const TopicSetupPage = () => {
   //items 에서 랜덤으로 추출한 주제들
   const [randomAiTopic, setRandomAiTopic] = useState([]);
 
+  //사용자가 최종 선택한 주제를 담을 state
+  const [selectedTheme, setSelectedTheme] = useState("");
+
   //서버 로딩, 연결 성공, 에러 판단로직
   const [state, dispatch] = useReducer(reducer, {
     loading: false,
     data: null,
     error: null,
   });
-
-  const handleInputChange = (event) => {
-    setTopic(event.target.value);
-  };
 
   //서버에서 ai가 선정한 주제들을 받아오는 함수
   // const fetchAiTopic = async () => {
@@ -68,6 +69,32 @@ const TopicSetupPage = () => {
   //   }
   // };
 
+  //서버에 최종으로 정해진 주제를 보내주며 다음 페이지로 넘어가게 해주는 함수
+  // const submitThemeAndNavigate = async () => {
+  //   dispatch({ type: "LOADING" });
+  //   try {
+  //     await API.post("url", { topic });
+  //     navigate("/select-character");
+  //   } catch (error) {
+  //     dispatch({ type: "ERROR", error });
+  //   }
+  // };
+
+  const handleInputChange = (event) => {
+    setTopic(event.target.value);
+  };
+  //close버튼 클릭 이벤트
+  const handleButtonClick = (event) => {
+    if (event) event.stopPropagation();
+    setSelectedTheme("");
+    onClose();
+  };
+  //theme select 버튼 클릭 이벤트
+  const handleThemeSelectButton = (event) => {
+    if (event) event.stopPropagation();
+    setSelectedTheme(topic);
+    onClose();
+  };
   //배열에서 랜덤으로 5개를 골라주는 함수
   const pickRandomItems = (/*data*/) => {
     const shuffled = [...aiTopic].sort(() => 0.5 - Math.random()); //data
@@ -77,39 +104,57 @@ const TopicSetupPage = () => {
   useEffect(() => {
     pickRandomItems();
   }, []);
-
   return (
-    <div>
-      <div className="topic-setup-headline">
-        Please write a fairy tale theme
+    <div className={`box-wrapper ${expanded ? "expanded" : ""}`}>
+      <div className="scenario-box-wrapper-headline">
+        <span className="step">Step 1</span>
+        <br></br>
+        {selectedTheme
+          ? 'Your Theme is "' + selectedTheme + '"'
+          : "Select Your Theme"}
       </div>
-      <div>
-        <input
-          type="text"
-          value={topic}
-          onChange={handleInputChange}
-          required
-        ></input>
-        <button className="process-theme" /*onClick={processTheme}*/>
-          processTheme
-        </button>
-      </div>
-      <div>for example</div>
-      <div className="random-theme">
-        {randomAiTopic.map((item, index) => (
+      {expanded && (
+        <div className="expanded-component">
+          <div className="topic-setup-headline">
+            Please write a fairy tale theme
+          </div>
+          <div>
+            <input
+              type="text"
+              value={topic}
+              onChange={handleInputChange}
+              required
+            ></input>
+            <button className="process-theme" /*onClick={processTheme}*/>
+              processTheme
+            </button>
+          </div>
+          <div>for example</div>
+          <div className="random-theme">
+            {randomAiTopic.map((item, index) => (
+              <button
+                key={index}
+                onClick={() => setTopic(item)}
+                className="random-theme-select"
+              >
+                {item}
+              </button>
+            ))}
+            <button onClick={pickRandomItems}>new theme</button>
+          </div>
           <button
-            key={index}
-            onClick={() => setTopic(item)}
-            className="random-theme-select"
+            className="theme-select-button"
+            onClick={handleThemeSelectButton}
           >
-            {item}
+            Select Theme
           </button>
-        ))}
-        <button onClick={pickRandomItems}>new theme</button>
-      </div>
-      <button>AI scenario</button>
+          <button className="box-close-button" onClick={handleButtonClick}>
+            Close
+          </button>
+        </div>
+      )}
     </div>
   );
 };
 
-export default TopicSetupPage;
+export default ThemeSelector;
