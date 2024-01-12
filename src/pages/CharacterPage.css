@@ -1,0 +1,11 @@
+.CharacterPage {
+    overflow: auto;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    background-color: antiquewhite;
+}
