@@ -1,0 +1,12 @@
+.CharacterResult {
+    display: flex;
+    flex-direction: column;
+}
+
+.confirmSelectionCharacterTitle {
+    margin-top: 100px;
+    text-align: left;
+    font-family: Poppins-Medium;
+    font-size: 50px;
+    color: #76453b;
+}

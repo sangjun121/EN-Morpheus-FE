@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './CharacterPrompt.css';
 import refreshButton from '../../images/CharacterPage/refresh.png';
 
@@ -182,23 +183,25 @@ const CharacterPrompt = () => {
             keywords: [
                 'Tall',
                 'Short',
+
                 'Slender',
                 'Muscular',
+
                 'Curly hair',
                 'Straight hair',
                 'Blond hair',
                 'Red hair',
                 'Black hair',
                 'Brown hair',
+
                 'Blue eyes',
                 'Green eyes',
                 'Brown eyes',
                 'Hazel eyes',
+
                 'Long beard',
                 'Freckles',
-                'Scar',
-                'Tattoo',
-                'Piercing',
+
                 'Glasses',
                 'Elegant',
                 'Casual style',
@@ -250,14 +253,6 @@ const CharacterPrompt = () => {
         });
     };
 
-    //textarea 높이 설정 옵션
-    const textarea = useRef();
-    const handleResizeHeight = () => {
-        //textarea 줄바꿈 속성 설정 함수
-        textarea.current.style.height = 'auto'; //height 초기화
-        textarea.current.style.height = textarea.current.scrollHeight + 'px';
-    };
-
     //옵션 선택 버튼 애니메이션 처리
     const CustomButton = ({ text }) => {
         const renderText = () => {
@@ -291,10 +286,24 @@ const CharacterPrompt = () => {
         return shuffled.slice(0, 7);
     };
 
+    //이미지 생성 페이지 넘어가는 함수
+    const navigate = useNavigate();
+    const navigateCharacterImageGeneratePage = () => {
+        navigate('/character/result', { state: promptResult });
+    };
+
+    const finishButtonEvent = () => {
+        promptResult = inputState;
+        console.log(promptResult);
+        navigateCharacterImageGeneratePage();
+        resetInputState(); //입력값 초기화
+    };
     //옵션 버튼 랜덤 추천 이벤트처리
     useEffect(() => {
         setRandomKeyword(selectRandomKeywords());
     }, [step]);
+
+    const textarea = useRef();
 
     return (
         <div className="CharacterPrompt">
@@ -346,15 +355,7 @@ const CharacterPrompt = () => {
 
                 <div className="NextBtnContainer">
                     {step === 4 ? (
-                        <div
-                            className="NextButton"
-                            onClick={() => {
-                                promptResult = inputState;
-                                console.log(promptResult);
-                                alert('이미지 생성 중');
-                                resetInputState();
-                            }}
-                        >
+                        <div className="NextButton" onClick={finishButtonEvent}>
                             <p className="NextBtnText">FINISH</p>
                             <div className="NextBtnTwo">
                                 <p className="NextBtnText2">GO!</p>

@@ -5,8 +5,9 @@ import MainPage from './pages/MainPage';
 import LoginPage from './pages/LoginPage';
 import CharacterPage from './pages/CharacterPage';
 import FairyImageGeneratePage from './pages/FairyImageGeneratePage';
-import MorpheusBuilderPage from "./pages/MorpheusBuilderPage";
-import DataControlPage from "./pages/DataControlPage";
+import MorpheusBuilderPage from './pages/MorpheusBuilderPage';
+import DataControlPage from './pages/DataControlPage';
+import CharacterResultPage from './pages/CharacterResultPage';
 
 function App() {
     return (
@@ -21,7 +22,14 @@ function App() {
                         path="/fairyImageGenerate"
                         element={<FairyImageGeneratePage />}
                     />
-                    <Route path="/morpheus-builder" element={<MorpheusBuilderPage />} />
+                    <Route
+                        path="/morpheus-builder"
+                        element={<MorpheusBuilderPage />}
+                    />
+                    <Route
+                        path="/character/result"
+                        element={<CharacterResultPage />}
+                    />
                 </Routes>
             </div>
         </BrowserRouter>
