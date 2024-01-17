@@ -1,14 +1,20 @@
-import React, { useReducer, useEffect } from 'react';
+import React, { useReducer, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import reducer from '../../api/Reducer';
 import API from '../../api/API';
+import './CharacterResult.css';
 
 const CharacterResult = ({ userCharacterPromptInput }) => {
+    const navigate = useNavigate();
+
     //이미지 응답 로딩 state
-    const [state, dispatch] = useReducer(reducer, {
+    const [serverState, dispatch] = useReducer(reducer, {
         loading: false,
         data: null,
         error: null,
     });
+
+    const [confirmState, setConfirmState] = useState(false);
 
     const fetchCharacterImage = async () => {
         dispatch({ type: 'LOADING' });
@@ -30,17 +36,60 @@ const CharacterResult = ({ userCharacterPromptInput }) => {
         fetchCharacterImage();
     }, []);
 
-    const { loading, data: characterImage, error } = state;
+    const { loading, data: characterImage, error } = serverState;
 
-    if (loading) return <div>loading...</div>;
-    if (error) return <div>server error</div>;
-    if (!characterImage) return null;
+    const imageComponentAfterRequest = () => {
+        if (loading) return <div>loading...</div>;
+        if (error) return <div>please click the Regenerate Button</div>;
+        if (!characterImage) return null;
+        return <img src={characterImage.data[0].url} />;
+    };
+
+    const regenerateImage = () => {
+        fetchCharacterImage();
+    };
+
+    const navigateCharacterPromptPage = () => {
+        navigate('/character');
+    };
+    const navigateMorpheusBuilderPage = () => {
+        navigate('/morpheus-builder');
+    };
     return (
         <div className="CharacterResult">
             <p className="confirmSelectionCharacterTitle">
                 If you're happy with the character, please confirm your choice!
             </p>
-            <img src={characterImage.data[0].url} />
+            {imageComponentAfterRequest()}
+            {confirmState ? null : (
+                <div className="characterResultButtonContainer">
+                    <button onClick={regenerateImage}>Regenerate</button>
+                    <button onClick={navigateCharacterPromptPage}>
+                        Reset Prompt
+                    </button>
+                </div>
+            )}
+
+            {characterImage && !confirmState ? (
+                <div>
+                    <p>Do you Want to Confirm?</p>
+                    <button
+                        onClick={() => {
+                            setConfirmState(!confirmState);
+                        }}
+                    >
+                        Confirm Character
+                    </button>
+                </div>
+            ) : null}
+            {characterImage && confirmState ? (
+                <div className="characterResultButtonContainer">
+                    <button>Character Inventory</button>
+                    <button onClick={navigateMorpheusBuilderPage}>
+                        Build Story Book
+                    </button>
+                </div>
+            ) : null}
         </div>
     );
 };

@@ -1,6 +1,7 @@
 import { useLocation } from 'react-router-dom';
 import CharacterResult from '../components/CharacterResult/CharacterResult';
 import Header from '../components/Header/Header';
+import './CharacterResultPage.css';
 
 const CharacterResultPage = () => {
     const location = useLocation();

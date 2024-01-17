@@ -1,10 +1,10 @@
 import axios from 'axios';
 
 const API = axios.create({
-    baseURL: 'https://api.openai.com/v1/images/generations',
+    baseURL: process.env.REACT_APP_IMAGE_BASE_URL,
     headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer sk-',
+        Authorization: process.env.REACT_APP_OPENAI_API_KEY,
     },
 });
 
