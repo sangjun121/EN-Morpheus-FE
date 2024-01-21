@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faLock, faUser } from "@fortawesome/free-solid-svg-icons";
+import API from "../../api/API";
+import reducer from "../../api/Reducer";
 import "./LoginBox.css";
 
 const LoginBox = () => {
@@ -108,7 +110,7 @@ const LoginBox = () => {
       </div>
 
       <div className="form-box register">
-        <h2>Registration</h2>
+        <h2>Registeration</h2>
         <form onSubmit={handleSubmit}>
           <div className="input-box">
             <span className="icon">
