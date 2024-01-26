@@ -5,6 +5,7 @@
   background-size: cover;
   background-attachment: fixed;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
@@ -15,4 +16,23 @@
   display: flex;
   justify-content: center;
   gap: 20px;
+}
+
+.draft-button {
+  margin-top: 20px;
+  width: 200px;
+  height: 40px;
+  font-family: Poppins-Regular;
+  background-color: #162938;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.draft-button:hover {
+  background-color: #0d1c2a;
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
 }

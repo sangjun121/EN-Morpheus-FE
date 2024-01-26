@@ -43,7 +43,7 @@ const Header = () => {
       className={isFixed ? "header-section fixed-position" : "header-section"}
     >
       <div className="header-logo">
-        <FontAwesomeIcon className="logo" icon={faBookQuran} />
+        <FontAwesomeIcon className="logo-morpheus" icon={faBookQuran} />
         <span>MORPHEUS</span>
       </div>
       <ul className="header-right-component">

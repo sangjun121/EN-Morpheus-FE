@@ -64,3 +64,20 @@
   font-family: Poppins-Bold;
   font-size: 50px;
 }
+
+.character-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.character-header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #ddd;
+  font-family: Poppins-Bold;
+}

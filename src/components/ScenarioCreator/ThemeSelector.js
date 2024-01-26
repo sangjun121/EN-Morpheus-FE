@@ -27,16 +27,11 @@ const predefinedTopics = [
   "Embracing Change: A Butterfly's Transformation and Its Lessons",
 ];
 
-const ThemeSelector = ({ expanded, onClose }) => {
-  //input텍스트창 안에 입력된 주제
-  const [topic, setTopic] = useState("");
+const ThemeSelector = ({ expanded, onClose, topic, setTopic }) => {
   //서버에서 받아온 주제들
   const [aiTopic, setAiTopic] = useState(predefinedTopics);
   //items 에서 랜덤으로 추출한 주제들
   const [randomAiTopic, setRandomAiTopic] = useState([]);
-
-  //사용자가 최종 선택한 주제를 담을 state
-  const [selectedTheme, setSelectedTheme] = useState("");
 
   //서버 로딩, 연결 성공, 에러 판단로직
   const [state, dispatch] = useReducer(reducer, {
@@ -86,14 +81,13 @@ const ThemeSelector = ({ expanded, onClose }) => {
   //close버튼 클릭 이벤트
   const handleButtonClick = (event) => {
     if (event) event.stopPropagation();
-    setSelectedTheme("");
-    onClose();
-  };
-  //theme select 버튼 클릭 이벤트
-  const handleThemeSelectButton = (event) => {
-    if (event) event.stopPropagation();
-    setSelectedTheme(topic);
-    onClose();
+
+    //topic 값이 있으면 onClose(), 없으면 alert창 표시
+    if (topic) {
+      onClose();
+    } else {
+      alert("Please Select Your Theme");
+    }
   };
   //배열에서 랜덤으로 5개를 골라주는 함수
   const pickRandomItems = (/*data*/) => {
@@ -109,9 +103,7 @@ const ThemeSelector = ({ expanded, onClose }) => {
       <div className="scenario-box-wrapper-headline">
         <span className="step">Step 1</span>
         <br></br>
-        {selectedTheme
-          ? 'Your Theme is "' + selectedTheme + '"'
-          : "Select Your Theme"}
+        Select Your Theme
       </div>
       {expanded && (
         <div className="expanded-component">
@@ -142,14 +134,8 @@ const ThemeSelector = ({ expanded, onClose }) => {
             ))}
             <button onClick={pickRandomItems}>new theme</button>
           </div>
-          <button
-            className="theme-select-button"
-            onClick={handleThemeSelectButton}
-          >
-            Select Theme
-          </button>
           <button className="box-close-button" onClick={handleButtonClick}>
-            Close
+            Select Theme
           </button>
         </div>
       )}
