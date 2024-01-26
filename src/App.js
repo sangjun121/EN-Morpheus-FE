@@ -1,3 +1,4 @@
+
 import logo from "./logo.svg";
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -9,6 +10,8 @@ import MorpheusBuilderPage from "./pages/MorpheusBuilderPage";
 import DataControlPage from "./pages/DataControlPage";
 import ScenarioDraftPage from "./pages/ScenarioDraftPage";
 import FairyImageGeneratorPage from "./pages/FairyImageGeneratorPage";
+import CharacterResultPage from './pages/CharacterResultPage';
+import MyPage from './pages/MyPage/MyPage';
 
 function App() {
   return (
@@ -29,6 +32,11 @@ function App() {
             path="/fairy-image-generate-page"
             element={<FairyImageGeneratorPage />}
           />
+                                  <Route
+                        path="/character/result"
+                        element={<CharacterResultPage />}
+                    />
+                    <Route path="/mypage" element={<MyPage />} />
         </Routes>
       </div>
     </BrowserRouter>
