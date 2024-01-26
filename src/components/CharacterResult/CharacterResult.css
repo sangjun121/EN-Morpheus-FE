@@ -1,33 +1,83 @@
+p {
+    white-space: pre-wrap;
+}
+
 .CharacterResult {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
 }
 
-.confirmSelectionCharacterTitle {
-    margin-top: 50px;
+.CharacterResultPageName {
+    margin: 0px;
+    margin-top: 20px;
+    margin-left: 60px;
     text-align: left;
     font-family: Poppins-Medium;
     font-size: 20px;
-    color: #76453b;
+    color: black;
+}
+.CharacterResultGuideText {
+    margin: 0 auto;
+    margin-top: 30px;
+    text-align: left;
+    font-family: Poppins-Medium;
+    font-size: 30px;
+    color: black;
+}
+.CharacterResultContainer {
+    margin: 0 auto;
+    margin-top: 30px;
+    padding: 0px;
+    width: 350px;
+    height: 350px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.CharacterResult img {
-    width: 500px;
-    height: 500px;
-}
+/* ///////////////////////// */
 
 .characterResultButtonContainer {
-    width: 50vw;
+    margin-top: 30px;
+    padding-left: 35vw;
+    padding-right: 35vw;
     display: flex;
     flex-direction: row;
+    align-items: center;
     justify-content: space-around;
 }
+.CharacterResultConfirmTitle {
+    margin-top: 30px;
+    font-family: Poppins-Medium;
+    font-size: 20px;
+    color: black;
+}
 
-.CharacterResult button {
-    margin-top: 20px;
-    margin-bottom: 50px;
-    width: 300px;
-    height: 50px;
+.characterResultButton {
+    width: 140px;
+    height: 45px;
+    font-family: Poppins-Medium;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 500;
+    color: #000;
+    background-color: #fff;
+    border: none;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+}
+
+.characterResultButton:hover {
+    background-color: #cb976d;
+    box-shadow: 0px 15px 20px rgba(203, 151, 109, 0.4);
+    color: #fff;
+    transform: translateY(-7px);
 }

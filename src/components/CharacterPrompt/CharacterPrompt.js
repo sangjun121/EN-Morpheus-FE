@@ -183,25 +183,20 @@ const CharacterPrompt = () => {
             keywords: [
                 'Tall',
                 'Short',
-
                 'Slender',
                 'Muscular',
-
                 'Curly hair',
                 'Straight hair',
                 'Blond hair',
                 'Red hair',
                 'Black hair',
                 'Brown hair',
-
                 'Blue eyes',
                 'Green eyes',
                 'Brown eyes',
                 'Hazel eyes',
-
                 'Long beard',
                 'Freckles',
-
                 'Glasses',
                 'Elegant',
                 'Casual style',
@@ -264,6 +259,12 @@ const CharacterPrompt = () => {
         return (
             <button
                 onClick={() => {
+                    if (
+                        (step === 0 || step === 1) &&
+                        textarea.current.value !== ''
+                    )
+                        return;
+
                     {
                         textarea.current.value === ''
                             ? (textarea.current.value = text)
@@ -298,6 +299,23 @@ const CharacterPrompt = () => {
         navigateCharacterImageGeneratePage();
         resetInputState(); //입력값 초기화
     };
+
+    const nextButtonEvent = () => {
+        if (
+            (step === 0 && inputState.name.includes(',')) ||
+            (step === 1 && inputState.style.includes(','))
+        ) {
+            alert('하나만 입력해 주세요');
+            return;
+        }
+
+        if (0 <= step && step <= 3 && textarea.current.value === '') {
+            alert('필수 입력사항 입니다.');
+            return;
+        }
+        setStep(step + 1);
+    };
+
     //옵션 버튼 랜덤 추천 이벤트처리
     useEffect(() => {
         setRandomKeyword(selectRandomKeywords());
@@ -362,22 +380,7 @@ const CharacterPrompt = () => {
                             </div>
                         </div>
                     ) : (
-                        <div
-                            className="NextButton"
-                            onClick={() => {
-                                if (step > 4) return;
-                                if (
-                                    (step === 0 &&
-                                        inputState.name.includes(',')) ||
-                                    (step === 1 &&
-                                        inputState.style.includes(','))
-                                ) {
-                                    alert('하나만 입력해 주세요');
-                                    return;
-                                }
-                                setStep(step + 1);
-                            }}
-                        >
+                        <div className="NextButton" onClick={nextButtonEvent}>
                             <p className="NextBtnText">NEXT</p>
                             <div className="NextBtnTwo">
                                 <p className="NextBtnText2">GO!</p>
