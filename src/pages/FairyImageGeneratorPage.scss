@@ -115,298 +115,111 @@ body {
 
     // Page specific transitions
 
-    input:nth-of-type(3):checked
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + div
-      + div
-      + div
-      + div
-      + div,
-    input:nth-of-type(3):checked
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + div
-      + div
-      + div
-      + div
-      + div
-      + div {
-      .pagenumber {
-        letter-spacing: 59px;
-        transition: all 0.8s 0.7s cubic-bezier(0.6, 0.045, 0.165, 1);
-        &:after {
-          width: 100px;
-          transition: all 1s 0.7s cubic-bezier(0.6, 0.045, 0.165, 1);
-        }
+    @for $a from 3 through 19 {
+      $input-count: 19 - $a;
+      $div-count-1: 2 * $a - 1;
+      $div-count-2: 2 * $a;
+
+      // 첫 번째 선택자
+      $selector-1: "input:nth-of-type(#{$a}):checked";
+      // 두 번째 선택자
+      $selector-2: $selector-1;
+
+      // +input 추가
+      @for $i from 1 through $input-count {
+        $selector-1: "#{$selector-1} + input";
+        $selector-2: "#{$selector-2} + input";
       }
 
-      .content {
-        &_centerimage {
-          -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
-          clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
-          transition: all 0.8s 0.5s cubic-bezier(0.6, 0.045, 0.165, 1);
-        }
-
-        h4,
-        h6 {
-          transition: all 1.5s 0.4s cubic-bezier(0.6, 0.045, 0.165, 1);
-          transform: translateZ(0);
-        }
-      }
-    }
-
-    input:nth-of-type(3):not(checked)
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + div
-      + div
-      + div
-      + div
-      + div,
-    input:nth-of-type(3):not(:checked)
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + div
-      + div
-      + div
-      + div
-      + div
-      + div {
-      .pagenumber {
-        letter-spacing: 0;
-        transition: all 0.5s 0.2s cubic-bezier(0.6, 0.045, 0.165, 1);
-
-        &:after {
-          width: 0px;
-          transition: all 0.5s 0.2s cubic-bezier(0.6, 0.045, 0.165, 1);
-        }
+      // 첫 번째 선택자에 대한 +div 추가
+      @for $i from 1 through $div-count-1 {
+        $selector-1: "#{$selector-1} + div";
       }
 
-      .content {
-        &_centerimage {
-          -webkit-clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
-          clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
-          transition: all 0.8s 0s cubic-bezier(0.6, 0.045, 0.165, 1);
-        }
-
-        h4,
-        h6 {
-          transition: all 1.5s 0.4s cubic-bezier(0.6, 0.045, 0.165, 1);
-          transform: translateZ(200px);
-        }
-      }
-    }
-
-    input:nth-of-type(4):checked
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + div
-      + div
-      + div
-      + div
-      + div
-      + div
-      + div,
-    input:nth-of-type(4):checked
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + div
-      + div
-      + div
-      + div
-      + div
-      + div
-      + div
-      + div {
-      .pagenumber {
-        letter-spacing: 59px;
-        transition: all 0.8s 0.7s cubic-bezier(0.6, 0.045, 0.165, 1);
-        &:after {
-          width: 100px;
-          transition: all 1s 0.7s cubic-bezier(0.6, 0.045, 0.165, 1);
-        }
+      // 두 번째 선택자에 대한 +div 추가
+      @for $i from 1 through $div-count-2 {
+        $selector-2: "#{$selector-2} + div";
       }
 
-      .content {
-        &_section {
-          transition: all 0.8s 0.7s cubic-bezier(0.6, 0.045, 0.165, 1);
-          filter: blur(0);
-          opacity: 1;
-
-          &:nth-of-type(1) {
-            left: 100px;
-            transition: all 0.8s 0.3s cubic-bezier(0.6, 0.045, 0.165, 1);
+      // 최종 선택자에 스타일 적용
+      @each $selector in $selector-1, $selector-2 {
+        #{$selector} {
+          .pagenumber {
+            letter-spacing: 59px;
+            transition: all 0.8s 0.7s cubic-bezier(0.6, 0.045, 0.165, 1);
+            &:after {
+              width: 100px;
+              transition: all 1s 0.7s cubic-bezier(0.6, 0.045, 0.165, 1);
+            }
           }
 
-          &:nth-of-type(2) {
-            left: 230px;
-            transition: all 0.8s 0.4s cubic-bezier(0.6, 0.045, 0.165, 1);
-          }
+          .content {
+            &_centerimage {
+              -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+              clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+              transition: all 0.8s 0.5s cubic-bezier(0.6, 0.045, 0.165, 1);
+            }
 
-          &:nth-of-type(3) {
-            left: 130px;
-            transition: all 0.8s 0.5s cubic-bezier(0.6, 0.045, 0.165, 1);
+            h4,
+            h6 {
+              transition: all 1.5s 0.4s cubic-bezier(0.6, 0.045, 0.165, 1);
+              transform: translateZ(0);
+            }
           }
         }
       }
     }
 
-    input:nth-of-type(4):not(checked)
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + div
-      + div
-      + div
-      + div
-      + div
-      + div
-      + div,
-    input:nth-of-type(4):not(:checked)
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + div
-      + div
-      + div
-      + div
-      + div
-      + div
-      + div
-      + div {
-      .pagenumber {
-        letter-spacing: 0;
-        transition: all 0.5s 0.2s cubic-bezier(0.6, 0.045, 0.165, 1);
+    @for $a from 3 through 19 {
+      $input-count: 19 - $a;
+      $div-count-1: 2 * $a - 1;
+      $div-count-2: 2 * $a;
 
-        &:after {
-          width: 0px;
-          transition: all 0.5s 0.2s cubic-bezier(0.6, 0.045, 0.165, 1);
-        }
+      // 첫 번째 선택자
+      $selector-1: "input:nth-of-type(#{$a}):not(:checked)";
+      // 두 번째 선택자
+      $selector-2: $selector-1;
+
+      // +input 추가
+      @for $i from 1 through $input-count {
+        $selector-1: "#{$selector-1} + input";
+        $selector-2: "#{$selector-2} + input";
       }
 
-      .content {
-        &_section {
-          filter: blur(20px);
-          transition: all 0.8s 0.5s cubic-bezier(0.6, 0.045, 0.165, 1);
-          opacity: 0;
+      // 첫 번째 선택자에 대한 +div 추가
+      @for $i from 1 through $div-count-1 {
+        $selector-1: "#{$selector-1} + div";
+      }
 
-          &:nth-of-type(1) {
-            left: 0;
+      // 두 번째 선택자에 대한 +div 추가
+      @for $i from 1 through $div-count-2 {
+        $selector-2: "#{$selector-2} + div";
+      }
+
+      // 최종 선택자에 스타일 적용
+      @each $selector in $selector-1, $selector-2 {
+        #{$selector} {
+          .pagenumber {
+            letter-spacing: 0;
+            transition: all 0.5s 0.2s cubic-bezier(0.6, 0.045, 0.165, 1);
+            &:after {
+              width: 0px;
+              transition: all 0.5s 0.2s cubic-bezier(0.6, 0.045, 0.165, 1);
+            }
           }
 
-          &:nth-of-type(2) {
-            left: 0;
-          }
+          .content {
+            &_centerimage {
+              -webkit-clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+              clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+              transition: all 0.8s 0s cubic-bezier(0.6, 0.045, 0.165, 1);
+            }
 
-          &:nth-of-type(3) {
-            left: 0;
+            h4,
+            h6 {
+              transition: all 1.5s 0.4s cubic-bezier(0.6, 0.045, 0.165, 1);
+              transform: translateZ(200px);
+            }
           }
         }
       }
@@ -705,183 +518,73 @@ body {
           }
         }
       }
-      &:nth-of-type(5) {
-        .pages_page__inner {
-          background: #4a5f5c;
+      @for $i from 5 through 36 {
+        &:nth-of-type(#{$i}) {
+          .pages_page__inner {
+            background: #4a5f5c;
+          }
         }
       }
 
-      &:nth-of-type(6) {
-        .pages_page__inner {
-          background: #4a5f5c;
-        }
-      }
-      &:nth-of-type(7) {
-        .pages_page__inner {
-          background: #4a5f5c;
-        }
-      }
+      @for $i from 5 through 36 {
+        &:nth-of-type(#{$i}) {
+          .pages_page__inner {
+            .content {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              flex-direction: column;
+              &_button {
+                margin: 0;
+                width: 140px;
+                height: 40px;
+                background: transparent;
+                border: 2px solid var(--yellow);
+                outline: none;
+                border-radius: 8px;
+                color: var(--yellow);
+                cursor: pointer;
+                text-decoration: none;
+                border-radius: 4px;
+                font-size: 17px;
+                transition: 0.5s;
+              }
 
-      &:nth-of-type(8) {
-        .pages_page__inner {
-          background: #4a5f5c;
-        }
-      }
-      &:nth-of-type(9) {
-        .pages_page__inner {
-          background: #4a5f5c;
-        }
-      }
+              &_button:hover {
+                background: var(--yellow);
+                color: black;
+              }
 
-      &:nth-of-type(10) {
-        .pages_page__inner {
-          background: #4a5f5c;
-        }
-      }
-      &:nth-of-type(11) {
-        .pages_page__inner {
-          background: #4a5f5c;
-        }
-      }
+              &_section {
+                h2 {
+                  margin: 0;
+                  font-size: 30px;
+                }
 
-      &:nth-of-type(12) {
-        .pages_page__inner {
-          background: #4a5f5c;
-        }
-      }
-      &:nth-of-type(13) {
-        .pages_page__inner {
-          background: #4a5f5c;
-        }
-      }
+                h2,
+                p {
+                  margin: 0;
+                  color: var(--yellow);
+                }
 
-      &:nth-of-type(14) {
-        .pages_page__inner {
-          background: #4a5f5c;
-        }
-      }
-      &:nth-of-type(15) {
-        .pages_page__inner {
-          background: #4a5f5c;
-        }
-      }
+                p {
+                  line-height: 18px;
+                  opacity: 0.95;
+                  font-size: 20px;
+                }
 
-      &:nth-of-type(16) {
-        .pages_page__inner {
-          background: #4a5f5c;
-        }
-      }
-      &:nth-of-type(17) {
-        .pages_page__inner {
-          background: #4a5f5c;
-        }
-      }
+                &:nth-of-type(1) {
+                  width: 200px;
+                }
 
-      &:nth-of-type(18) {
-        .pages_page__inner {
-          background: #4a5f5c;
+                &:nth-of-type(2) {
+                  width: 300px;
+                }
+              }
+            }
+          }
         }
       }
-      &:nth-of-type(19) {
-        .pages_page__inner {
-          background: #4a5f5c;
-        }
-      }
-
-      &:nth-of-type(20) {
-        .pages_page__inner {
-          background: #4a5f5c;
-        }
-      }
-      &:nth-of-type(21) {
-        .pages_page__inner {
-          background: #4a5f5c;
-        }
-      }
-
-      &:nth-of-type(22) {
-        .pages_page__inner {
-          background: #4a5f5c;
-        }
-      }
-      &:nth-of-type(23) {
-        .pages_page__inner {
-          background: #4a5f5c;
-        }
-      }
-
-      &:nth-of-type(24) {
-        .pages_page__inner {
-          background: #4a5f5c;
-        }
-      }
-      &:nth-of-type(25) {
-        .pages_page__inner {
-          background: #4a5f5c;
-        }
-      }
-
-      &:nth-of-type(26) {
-        .pages_page__inner {
-          background: #4a5f5c;
-        }
-      }
-      &:nth-of-type(27) {
-        .pages_page__inner {
-          background: #4a5f5c;
-        }
-      }
-
-      &:nth-of-type(28) {
-        .pages_page__inner {
-          background: #4a5f5c;
-        }
-      }
-      &:nth-of-type(29) {
-        .pages_page__inner {
-          background: #4a5f5c;
-        }
-      }
-
-      &:nth-of-type(30) {
-        .pages_page__inner {
-          background: #4a5f5c;
-        }
-      }
-      &:nth-of-type(31) {
-        .pages_page__inner {
-          background: #4a5f5c;
-        }
-      }
-
-      &:nth-of-type(32) {
-        .pages_page__inner {
-          background: #4a5f5c;
-        }
-      }
-      &:nth-of-type(33) {
-        .pages_page__inner {
-          background: #4a5f5c;
-        }
-      }
-
-      &:nth-of-type(34) {
-        .pages_page__inner {
-          background: #4a5f5c;
-        }
-      }
-      &:nth-of-type(35) {
-        .pages_page__inner {
-          background: #4a5f5c;
-        }
-      }
-
-      &:nth-of-type(36) {
-        .pages_page__inner {
-          background: #4a5f5c;
-        }
-      }
-
       &:nth-of-type(37) {
         .pages_page__inner {
           background-image: linear-gradient(
@@ -897,63 +600,6 @@ body {
 
       &:nth-of-type(38) {
         .pages_page__inner {
-          .content {
-            &_section {
-              position: absolute;
-
-              h2 {
-                margin: 0;
-              }
-
-              h2,
-              p {
-                margin: 0;
-                color: var(--yellow);
-              }
-
-              p {
-                line-height: 18px;
-                opacity: 0.95;
-                font-size: 13px;
-              }
-
-              &:nth-of-type(1) {
-                top: 100px;
-                width: 200px;
-              }
-
-              &:nth-of-type(2) {
-                top: 274px;
-                width: 300px;
-              }
-
-              &:nth-of-type(3) {
-                top: 410px;
-                width: 260px;
-              }
-            }
-          }
-        }
-      }
-
-      &:nth-of-type(38) {
-        .pages_page__inner {
-          background-image: linear-gradient(
-              rgba(0, 0, 0, 0.4),
-              rgba(0, 0, 0, 0.4)
-            ),
-            url(../images/last_page_background.png);
-          background-position: 0 0;
-
-          .content {
-            -webkit-clip-path: polygon(50% 0%, 100% 0, 100% 100%, 50% 100%);
-            clip-path: polygon(50% 0%, 100% 0, 100% 100%, 50% 100%);
-            height: 100%;
-            width: 200%;
-            position: absolute;
-            left: -100%;
-          }
-
           .bg {
             -webkit-clip-path: polygon(50% 0%, 100% 0, 100% 100%, 50% 100%);
             clip-path: polygon(50% 0%, 100% 0, 100% 100%, 50% 100%);
@@ -1236,14 +882,14 @@ body {
 
             h2 {
               color: var(--yellow);
-              font-size: 16px;
+              font-size: 20px;
               text-transform: uppercase;
               letter-spacing: 2px;
               margin: 20px 0 8px 0;
             }
 
             p {
-              font-size: 13px;
+              font-size: 20px;
               line-height: 20px;
               color: var(--yellow);
             }

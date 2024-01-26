@@ -39,51 +39,45 @@ const FairyImageGeneratorPage = () => {
 
   return (
     <div className="image-generate-page">
-      <div class="pages">
-        {/* <input id="one" name="trigger" type="radio" />
-        <input id="two" name="trigger" type="radio" />
-        <input id="three" name="trigger" type="radio" />
-        <input id="four" name="trigger" type="radio" />
-        <input id="five" name="trigger" type="radio" /> */}
-
+      <div className="pages">
         {Array.from({ length: inputCount }, (_, i) => (
           <input key={i} id={`input-${i + 1}`} type="radio" name="trigger" />
         ))}
 
-        <div class="pages_page">
-          <div class="pages_page__inner">
-            <div class="logo">Morpheus</div>
-            <div class="pagenumber">1 2</div>
-            <div class="content">
-              <div class="content_center">
+        <div className="pages_page">
+          <div className="pages_page__inner">
+            <div className="logo">Morpheus</div>
+            <div className="pagenumber">1 2</div>
+            <div className="content">
+              <div className="content_center">
                 <h4>Congratulation!! You have finally reached the last step</h4>
               </div>
             </div>
           </div>
         </div>
-        <div class="pages_page">
-          <div class="pages_page__inner">
-            <div class="content">
-              <div class="content_center right">
+        <div className="pages_page">
+          <div className="pages_page__inner">
+            <div className="content">
+              <div className="content_center right">
                 <h4>Congratulation!! You have finally reached the last step</h4>
               </div>
-              <div class="overlay"></div>
+              <div className="overlay"></div>
             </div>
-            <div class="control next">
-              <label for="input-2"></label>
+            <div className="control next">
+              <label htmlFor="input-2"></label>
             </div>
           </div>
         </div>
-        <div class="pages_page">
-          <div class="pages_page__inner">
-            <div class="logo">Morpheus</div>
-            <div class="pagenumber">2 3</div>
-            <div class="control">
-              <label for="input-1"></label>
+        <div className="pages_page">
+          <div className="pages_page__inner">
+            <div className="logo">Morpheus</div>
+            <div className="pagenumber">2 3</div>
+            <div className="control">
+              <label htmlFor="input-1"></label>
             </div>
-            <div class="content">
-              <div class="content_picture"></div>
-              <div class="content_offset">
+            <div className="content">
+              <div className="content_picture"></div>
+              <div className="content_offset">
                 <h2>EXPLANATION</h2>
                 <p>
                   This is the final step in creating your own fairy tale. When
@@ -147,37 +141,37 @@ const FairyImageGeneratorPage = () => {
             </div>
           </div>
         </div>
-        <div class="pages_page">
-          <div class="pages_page__inner">
-            <div class="hamburger">
-              <div class="hamburger_part"></div>
-              <div class="hamburger_part"></div>
-              <div class="hamburger_part"></div>
+        <div className="pages_page">
+          <div className="pages_page__inner">
+            <div className="hamburger">
+              <div className="hamburger_part"></div>
+              <div className="hamburger_part"></div>
+              <div className="hamburger_part"></div>
             </div>
-            <div class="control next">
-              <label for="input-3"></label>
+            <div className="control next">
+              <label htmlFor="input-3"></label>
             </div>
-            <div class="bg"></div>
-            <div class="footer">
-              <i class="fab fa-google-plus-g"></i>
-              <i class="fas fa-retweet"></i>
-              <i class="far fa-heart"></i>
-              <i class="far fa-share-square"></i>
+            <div className="bg"></div>
+            <div className="footer">
+              <i className="fab fa-google-plus-g"></i>
+              <i className="fas fa-retweet"></i>
+              <i className="far fa-heart"></i>
+              <i className="far fa-share-square"></i>
             </div>
-            <div class="content">
-              <div class="content_quote">
+            <div className="content">
+              <div className="content_quote">
                 <h5>
-                  <span class="quo">
+                  <span className="quo">
                     <i>"</i>
                   </span>
                   <span>This is your</span>
                   <span>own fairy tale</span>
-                  <span class="name">Morpheus</span>
-                  <span class="auth">- En# Morpheus</span>
-                  <span class="quo">"</span>
+                  <span className="name">Morpheus</span>
+                  <span className="auth">- En# Morpheus</span>
+                  <span className="quo">"</span>
                 </h5>
               </div>
-              <div class="content_picture"></div>
+              <div className="content_picture"></div>
               <h1>
                 <span>P</span>
                 <span>L</span>
@@ -233,686 +227,687 @@ const FairyImageGeneratorPage = () => {
           </div>
         </div>
 
-        <div class="pages_page">
-          <div class="pages_page__inner">
-            <div class="logo">Morpheus</div>
-            <div class="pagenumber">4 5 </div>
-            <div class="content">
-              <div class="content_scenario">
-                <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit</h4>
-                <h6>Lorem ipsum dolor sit amet</h6>
+        <div className="pages_page">
+          <div className="pages_page__inner">
+            <div className="logo">Morpheus</div>
+            <div className="pagenumber">4 5 </div>
+            <button className="content_button">generate</button>
+            <div className="content">
+              <div className="content_section">
+                <h2>Episode 1</h2>
+                <p>{/*서버에서 정보 받아온 것 기입 */}</p>
               </div>
             </div>
-            <div class="control">
-              <label for="input-2"></label>
+
+            <div className="control">
+              <label htmlFor="input-2"></label>
             </div>
           </div>
         </div>
-        <div class="pages_page">
-          <div class="pages_page__inner">
-            <div class="hamburger">
-              <div class="hamburger_part"></div>
-              <div class="hamburger_part"></div>
-              <div class="hamburger_part"></div>
+        <div className="pages_page">
+          <div className="pages_page__inner">
+            <div className="hamburger">
+              <div className="hamburger_part"></div>
+              <div className="hamburger_part"></div>
+              <div className="hamburger_part"></div>
             </div>
-            <div class="control next">
-              <label for="input-4"></label>
+            <div className="control next">
+              <label htmlFor="input-4"></label>
             </div>
-            <div class="bg"></div>
-            <div class="content_centerimage">
+            <div className="bg"></div>
+            <div className="content_centerimage">
               {/* 로딩중일 때 이미지 생성 */}
             </div>
-            <div class="content">{/* image생성 */}</div>
-            <div class="footer">
-              <i class="fab fa-google-plus-g"></i>
-              <i class="fas fa-retweet"></i>
-              <i class="far fa-heart"></i>
-              <i class="far fa-share-square"></i>
+            <div className="content">{/* image생성 */}</div>
+            <div className="footer">
+              <i className="fab fa-google-plus-g"></i>
+              <i className="fas fa-retweet"></i>
+              <i className="far fa-heart"></i>
+              <i className="far fa-share-square"></i>
             </div>
           </div>
         </div>
 
-        <div class="pages_page">
-          <div class="pages_page__inner">
-            <div class="logo">Morpheus</div>
-            <div class="pagenumber">6 7 </div>
-            <div class="content">
-              <div class="content_scenario">
-                <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit</h4>
-                <h6>Lorem ipsum dolor sit amet</h6>
+        <div className="pages_page">
+          <div className="pages_page__inner">
+            <div className="logo">Morpheus</div>
+            <div className="pagenumber">6 7 </div>
+            <button className="content_button">generate</button>
+            <div className="content">
+              <div className="content_section">
+                <h2>Episode 2</h2>
+                <p>{/*서버에서 정보 받아온 것 기입 */}</p>
               </div>
             </div>
-            <div class="control">
-              <label for="input-3"></label>
+            <div className="control">
+              <label htmlFor="input-3"></label>
             </div>
           </div>
         </div>
-        <div class="pages_page">
-          <div class="pages_page__inner">
-            <div class="hamburger">
-              <div class="hamburger_part"></div>
-              <div class="hamburger_part"></div>
-              <div class="hamburger_part"></div>
+        <div className="pages_page">
+          <div className="pages_page__inner">
+            <div className="hamburger">
+              <div className="hamburger_part"></div>
+              <div className="hamburger_part"></div>
+              <div className="hamburger_part"></div>
             </div>
-            <div class="control next">
-              <label for="input-5"></label>
+            <div className="control next">
+              <label htmlFor="input-5"></label>
             </div>
-            <div class="bg"></div>
-            <div class="content_centerimage">
+            <div className="bg"></div>
+            <div className="content_centerimage">
               {/* 로딩중일 때 이미지 생성 */}
             </div>
-            <div class="content">{/* image생성 */}</div>
-            <div class="footer">
-              <i class="fab fa-google-plus-g"></i>
-              <i class="fas fa-retweet"></i>
-              <i class="far fa-heart"></i>
-              <i class="far fa-share-square"></i>
+            <div className="content">{/* image생성 */}</div>
+            <div className="footer">
+              <i className="fab fa-google-plus-g"></i>
+              <i className="fas fa-retweet"></i>
+              <i className="far fa-heart"></i>
+              <i className="far fa-share-square"></i>
             </div>
           </div>
         </div>
 
-        <div class="pages_page">
-          <div class="pages_page__inner">
-            <div class="logo">Morpheus</div>
-            <div class="pagenumber">8 9 </div>
-            <div class="content">
-              <div class="content_scenario">
-                <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit</h4>
-                <h6>Lorem ipsum dolor sit amet</h6>
+        <div className="pages_page">
+          <div className="pages_page__inner">
+            <div className="logo">Morpheus</div>
+            <div className="pagenumber">8 9 </div>
+            <button className="content_button">generate</button>
+            <div className="content">
+              <div className="content_section">
+                <h2>Episode 3</h2>
+                <p>{/*서버에서 정보 받아온 것 기입 */}</p>
               </div>
             </div>
-            <div class="control">
-              <label for="input-4"></label>
+            <div className="control">
+              <label htmlFor="input-4"></label>
             </div>
           </div>
         </div>
-        <div class="pages_page">
-          <div class="pages_page__inner">
-            <div class="hamburger">
-              <div class="hamburger_part"></div>
-              <div class="hamburger_part"></div>
-              <div class="hamburger_part"></div>
+        <div className="pages_page">
+          <div className="pages_page__inner">
+            <div className="hamburger">
+              <div className="hamburger_part"></div>
+              <div className="hamburger_part"></div>
+              <div className="hamburger_part"></div>
             </div>
-            <div class="control next">
-              <label for="input-6"></label>
+            <div className="control next">
+              <label htmlFor="input-6"></label>
             </div>
-            <div class="bg"></div>
-            <div class="content_centerimage">
+            <div className="bg"></div>
+            <div className="content_centerimage">
               {/* 로딩중일 때 이미지 생성 */}
             </div>
-            <div class="content">{/* image생성 */}</div>
-            <div class="footer">
-              <i class="fab fa-google-plus-g"></i>
-              <i class="fas fa-retweet"></i>
-              <i class="far fa-heart"></i>
-              <i class="far fa-share-square"></i>
+            <div className="content">{/* image생성 */}</div>
+            <div className="footer">
+              <i className="fab fa-google-plus-g"></i>
+              <i className="fas fa-retweet"></i>
+              <i className="far fa-heart"></i>
+              <i className="far fa-share-square"></i>
             </div>
           </div>
         </div>
 
-        <div class="pages_page">
-          <div class="pages_page__inner">
-            <div class="logo">Morpheus</div>
-            <div class="pagenumber">10 11 </div>
-            <div class="content">
-              <div class="content_scenario">
-                <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit</h4>
-                <h6>Lorem ipsum dolor sit amet</h6>
+        <div className="pages_page">
+          <div className="pages_page__inner">
+            <div className="logo">Morpheus</div>
+            <div className="pagenumber">10 11 </div>
+            <button className="content_button">generate</button>
+            <div className="content">
+              <div className="content_section">
+                <h2>Episode 4</h2>
+                <p>{/*서버에서 정보 받아온 것 기입 */}</p>
               </div>
             </div>
-            <div class="control">
-              <label for="input-5"></label>
+            <div className="control">
+              <label htmlFor="input-5"></label>
             </div>
           </div>
         </div>
-        <div class="pages_page">
-          <div class="pages_page__inner">
-            <div class="hamburger">
-              <div class="hamburger_part"></div>
-              <div class="hamburger_part"></div>
-              <div class="hamburger_part"></div>
+        <div className="pages_page">
+          <div className="pages_page__inner">
+            <div className="hamburger">
+              <div className="hamburger_part"></div>
+              <div className="hamburger_part"></div>
+              <div className="hamburger_part"></div>
             </div>
-            <div class="control next">
-              <label for="input-7"></label>
+            <div className="control next">
+              <label htmlFor="input-7"></label>
             </div>
-            <div class="bg"></div>
-            <div class="content_centerimage">
+            <div className="bg"></div>
+            <div className="content_centerimage">
               {/* 로딩중일 때 이미지 생성 */}
             </div>
-            <div class="content">{/* image생성 */}</div>
-            <div class="footer">
-              <i class="fab fa-google-plus-g"></i>
-              <i class="fas fa-retweet"></i>
-              <i class="far fa-heart"></i>
-              <i class="far fa-share-square"></i>
+            <div className="content">{/* image생성 */}</div>
+            <div className="footer">
+              <i className="fab fa-google-plus-g"></i>
+              <i className="fas fa-retweet"></i>
+              <i className="far fa-heart"></i>
+              <i className="far fa-share-square"></i>
             </div>
           </div>
         </div>
 
-        <div class="pages_page">
-          <div class="pages_page__inner">
-            <div class="logo">Morpheus</div>
-            <div class="pagenumber">12 13 </div>
-            <div class="content">
-              <div class="content_scenario">
-                <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit</h4>
-                <h6>Lorem ipsum dolor sit amet</h6>
+        <div className="pages_page">
+          <div className="pages_page__inner">
+            <div className="logo">Morpheus</div>
+            <div className="pagenumber">12 13 </div>
+            <button className="content_button">generate</button>
+            <div className="content">
+              <div className="content_section">
+                <h2>Episode 5</h2>
+                <p>{/*서버에서 정보 받아온 것 기입 */}</p>
               </div>
             </div>
-            <div class="control">
-              <label for="input-6"></label>
+            <div className="control">
+              <label htmlFor="input-6"></label>
             </div>
           </div>
         </div>
-        <div class="pages_page">
-          <div class="pages_page__inner">
-            <div class="hamburger">
-              <div class="hamburger_part"></div>
-              <div class="hamburger_part"></div>
-              <div class="hamburger_part"></div>
+        <div className="pages_page">
+          <div className="pages_page__inner">
+            <div className="hamburger">
+              <div className="hamburger_part"></div>
+              <div className="hamburger_part"></div>
+              <div className="hamburger_part"></div>
             </div>
-            <div class="control next">
-              <label for="input-8"></label>
+            <div className="control next">
+              <label htmlFor="input-8"></label>
             </div>
-            <div class="bg"></div>
-            <div class="content_centerimage">
+            <div className="bg"></div>
+            <div className="content_centerimage">
               {/* 로딩중일 때 이미지 생성 */}
             </div>
-            <div class="content">{/* image생성 */}</div>
-            <div class="footer">
-              <i class="fab fa-google-plus-g"></i>
-              <i class="fas fa-retweet"></i>
-              <i class="far fa-heart"></i>
-              <i class="far fa-share-square"></i>
+            <div className="content">{/* image생성 */}</div>
+            <div className="footer">
+              <i className="fab fa-google-plus-g"></i>
+              <i className="fas fa-retweet"></i>
+              <i className="far fa-heart"></i>
+              <i className="far fa-share-square"></i>
             </div>
           </div>
         </div>
 
-        <div class="pages_page">
-          <div class="pages_page__inner">
-            <div class="logo">Morpheus</div>
-            <div class="pagenumber">14 15 </div>
-            <div class="content">
-              <div class="content_scenario">
-                <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit</h4>
-                <h6>Lorem ipsum dolor sit amet</h6>
+        <div className="pages_page">
+          <div className="pages_page__inner">
+            <div className="logo">Morpheus</div>
+            <div className="pagenumber">14 15 </div>
+            <button className="content_button">generate</button>
+            <div className="content">
+              <div className="content_section">
+                <h2>Episode 6</h2>
+                <p>{/*서버에서 정보 받아온 것 기입 */}</p>
               </div>
             </div>
-            <div class="control">
-              <label for="input-7"></label>
+            <div className="control">
+              <label htmlFor="input-7"></label>
             </div>
           </div>
         </div>
-        <div class="pages_page">
-          <div class="pages_page__inner">
-            <div class="hamburger">
-              <div class="hamburger_part"></div>
-              <div class="hamburger_part"></div>
-              <div class="hamburger_part"></div>
+        <div className="pages_page">
+          <div className="pages_page__inner">
+            <div className="hamburger">
+              <div className="hamburger_part"></div>
+              <div className="hamburger_part"></div>
+              <div className="hamburger_part"></div>
             </div>
-            <div class="control next">
-              <label for="input-9"></label>
+            <div className="control next">
+              <label htmlFor="input-9"></label>
             </div>
-            <div class="bg"></div>
-            <div class="content_centerimage">
+            <div className="bg"></div>
+            <div className="content_centerimage">
               {/* 로딩중일 때 이미지 생성 */}
             </div>
-            <div class="content">{/* image생성 */}</div>
-            <div class="footer">
-              <i class="fab fa-google-plus-g"></i>
-              <i class="fas fa-retweet"></i>
-              <i class="far fa-heart"></i>
-              <i class="far fa-share-square"></i>
+            <div className="content">{/* image생성 */}</div>
+            <div className="footer">
+              <i className="fab fa-google-plus-g"></i>
+              <i className="fas fa-retweet"></i>
+              <i className="far fa-heart"></i>
+              <i className="far fa-share-square"></i>
             </div>
           </div>
         </div>
 
-        <div class="pages_page">
-          <div class="pages_page__inner">
-            <div class="logo">Morpheus</div>
-            <div class="pagenumber">16 17 </div>
-            <div class="content">
-              <div class="content_scenario">
-                <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit</h4>
-                <h6>Lorem ipsum dolor sit amet</h6>
+        <div className="pages_page">
+          <div className="pages_page__inner">
+            <div className="logo">Morpheus</div>
+            <div className="pagenumber">16 17 </div>
+            <button className="content_button">generate</button>
+            <div className="content">
+              <div className="content_section">
+                <h2>Episode 7</h2>
+                <p>{/*서버에서 정보 받아온 것 기입 */}</p>
               </div>
             </div>
-            <div class="control">
-              <label for="input-8"></label>
+            <div className="control">
+              <label htmlFor="input-8"></label>
             </div>
           </div>
         </div>
-        <div class="pages_page">
-          <div class="pages_page__inner">
-            <div class="hamburger">
-              <div class="hamburger_part"></div>
-              <div class="hamburger_part"></div>
-              <div class="hamburger_part"></div>
+        <div className="pages_page">
+          <div className="pages_page__inner">
+            <div className="hamburger">
+              <div className="hamburger_part"></div>
+              <div className="hamburger_part"></div>
+              <div className="hamburger_part"></div>
             </div>
-            <div class="control next">
-              <label for="input-10"></label>
+            <div className="control next">
+              <label htmlFor="input-10"></label>
             </div>
-            <div class="bg"></div>
-            <div class="content_centerimage">
+            <div className="bg"></div>
+            <div className="content_centerimage">
               {/* 로딩중일 때 이미지 생성 */}
             </div>
-            <div class="content">{/* image생성 */}</div>
-            <div class="footer">
-              <i class="fab fa-google-plus-g"></i>
-              <i class="fas fa-retweet"></i>
-              <i class="far fa-heart"></i>
-              <i class="far fa-share-square"></i>
+            <div className="content">{/* image생성 */}</div>
+            <div className="footer">
+              <i className="fab fa-google-plus-g"></i>
+              <i className="fas fa-retweet"></i>
+              <i className="far fa-heart"></i>
+              <i className="far fa-share-square"></i>
             </div>
           </div>
         </div>
 
-        <div class="pages_page">
-          <div class="pages_page__inner">
-            <div class="logo">Morpheus</div>
-            <div class="pagenumber">18 19 </div>
-            <div class="content">
-              <div class="content_scenario">
-                <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit</h4>
-                <h6>Lorem ipsum dolor sit amet</h6>
+        <div className="pages_page">
+          <div className="pages_page__inner">
+            <div className="logo">Morpheus</div>
+            <div className="pagenumber">18 19 </div>
+            <button className="content_button">generate</button>
+            <div className="content">
+              <div className="content_section">
+                <h2>Episode 8</h2>
+                <p>{/*서버에서 정보 받아온 것 기입 */}</p>
               </div>
             </div>
-            <div class="control">
-              <label for="input-9"></label>
+            <div className="control">
+              <label htmlFor="input-9"></label>
             </div>
           </div>
         </div>
-        <div class="pages_page">
-          <div class="pages_page__inner">
-            <div class="hamburger">
-              <div class="hamburger_part"></div>
-              <div class="hamburger_part"></div>
-              <div class="hamburger_part"></div>
+        <div className="pages_page">
+          <div className="pages_page__inner">
+            <div className="hamburger">
+              <div className="hamburger_part"></div>
+              <div className="hamburger_part"></div>
+              <div className="hamburger_part"></div>
             </div>
-            <div class="control next">
-              <label for="input-11"></label>
+            <div className="control next">
+              <label htmlFor="input-11"></label>
             </div>
-            <div class="bg"></div>
-            <div class="content_centerimage">
+            <div className="bg"></div>
+            <div className="content_centerimage">
               {/* 로딩중일 때 이미지 생성 */}
             </div>
-            <div class="content">{/* image생성 */}</div>
-            <div class="footer">
-              <i class="fab fa-google-plus-g"></i>
-              <i class="fas fa-retweet"></i>
-              <i class="far fa-heart"></i>
-              <i class="far fa-share-square"></i>
+            <div className="content">{/* image생성 */}</div>
+            <div className="footer">
+              <i className="fab fa-google-plus-g"></i>
+              <i className="fas fa-retweet"></i>
+              <i className="far fa-heart"></i>
+              <i className="far fa-share-square"></i>
             </div>
           </div>
         </div>
 
-        <div class="pages_page">
-          <div class="pages_page__inner">
-            <div class="logo">Morpheus</div>
-            <div class="pagenumber">20 21 </div>
-            <div class="content">
-              <div class="content_scenario">
-                <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit</h4>
-                <h6>Lorem ipsum dolor sit amet</h6>
+        <div className="pages_page">
+          <div className="pages_page__inner">
+            <div className="logo">Morpheus</div>
+            <div className="pagenumber">20 21 </div>
+            <button className="content_button">generate</button>
+            <div className="content">
+              <div className="content_section">
+                <h2>Episode 9</h2>
+                <p>{/*서버에서 정보 받아온 것 기입 */}</p>
               </div>
             </div>
-            <div class="control">
-              <label for="input-10"></label>
+            <div className="control">
+              <label htmlFor="input-10"></label>
             </div>
           </div>
         </div>
-        <div class="pages_page">
-          <div class="pages_page__inner">
-            <div class="hamburger">
-              <div class="hamburger_part"></div>
-              <div class="hamburger_part"></div>
-              <div class="hamburger_part"></div>
+        <div className="pages_page">
+          <div className="pages_page__inner">
+            <div className="hamburger">
+              <div className="hamburger_part"></div>
+              <div className="hamburger_part"></div>
+              <div className="hamburger_part"></div>
             </div>
-            <div class="control next">
-              <label for="input-12"></label>
+            <div className="control next">
+              <label htmlFor="input-12"></label>
             </div>
-            <div class="bg"></div>
-            <div class="content_centerimage">
+            <div className="bg"></div>
+            <div className="content_centerimage">
               {/* 로딩중일 때 이미지 생성 */}
             </div>
-            <div class="content">{/* image생성 */}</div>
-            <div class="footer">
-              <i class="fab fa-google-plus-g"></i>
-              <i class="fas fa-retweet"></i>
-              <i class="far fa-heart"></i>
-              <i class="far fa-share-square"></i>
+            <div className="content">{/* image생성 */}</div>
+            <div className="footer">
+              <i className="fab fa-google-plus-g"></i>
+              <i className="fas fa-retweet"></i>
+              <i className="far fa-heart"></i>
+              <i className="far fa-share-square"></i>
             </div>
           </div>
         </div>
 
-        <div class="pages_page">
-          <div class="pages_page__inner">
-            <div class="logo">Morpheus</div>
-            <div class="pagenumber">22 23 </div>
-            <div class="content">
-              <div class="content_scenario">
-                <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit</h4>
-                <h6>Lorem ipsum dolor sit amet</h6>
+        <div className="pages_page">
+          <div className="pages_page__inner">
+            <div className="logo">Morpheus</div>
+            <div className="pagenumber">22 23 </div>
+            <button className="content_button">generate</button>
+            <div className="content">
+              <div className="content_section">
+                <h2>Episode 10</h2>
+                <p>{/*서버에서 정보 받아온 것 기입 */}</p>
               </div>
             </div>
-            <div class="control">
-              <label for="input-11"></label>
+            <div className="control">
+              <label htmlFor="input-11"></label>
             </div>
           </div>
         </div>
-        <div class="pages_page">
-          <div class="pages_page__inner">
-            <div class="hamburger">
-              <div class="hamburger_part"></div>
-              <div class="hamburger_part"></div>
-              <div class="hamburger_part"></div>
+        <div className="pages_page">
+          <div className="pages_page__inner">
+            <div className="hamburger">
+              <div className="hamburger_part"></div>
+              <div className="hamburger_part"></div>
+              <div className="hamburger_part"></div>
             </div>
-            <div class="control next">
-              <label for="input-13"></label>
+            <div className="control next">
+              <label htmlFor="input-13"></label>
             </div>
-            <div class="bg"></div>
-            <div class="content_centerimage">
+            <div className="bg"></div>
+            <div className="content_centerimage">
               {/* 로딩중일 때 이미지 생성 */}
             </div>
-            <div class="content">{/* image생성 */}</div>
-            <div class="footer">
-              <i class="fab fa-google-plus-g"></i>
-              <i class="fas fa-retweet"></i>
-              <i class="far fa-heart"></i>
-              <i class="far fa-share-square"></i>
+            <div className="content">{/* image생성 */}</div>
+            <div className="footer">
+              <i className="fab fa-google-plus-g"></i>
+              <i className="fas fa-retweet"></i>
+              <i className="far fa-heart"></i>
+              <i className="far fa-share-square"></i>
             </div>
           </div>
         </div>
 
-        <div class="pages_page">
-          <div class="pages_page__inner">
-            <div class="logo">Morpheus</div>
-            <div class="pagenumber">24 25 </div>
-            <div class="content">
-              <div class="content_scenario">
-                <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit</h4>
-                <h6>Lorem ipsum dolor sit amet</h6>
+        <div className="pages_page">
+          <div className="pages_page__inner">
+            <div className="logo">Morpheus</div>
+            <div className="pagenumber">24 25 </div>
+            <button className="content_button">generate</button>
+            <div className="content">
+              <div className="content_section">
+                <h2>Episode 11</h2>
+                <p>{/*서버에서 정보 받아온 것 기입 */}</p>
               </div>
             </div>
-            <div class="control">
-              <label for="input-12"></label>
+            <div className="control">
+              <label htmlFor="input-12"></label>
             </div>
           </div>
         </div>
-        <div class="pages_page">
-          <div class="pages_page__inner">
-            <div class="hamburger">
-              <div class="hamburger_part"></div>
-              <div class="hamburger_part"></div>
-              <div class="hamburger_part"></div>
+        <div className="pages_page">
+          <div className="pages_page__inner">
+            <div className="hamburger">
+              <div className="hamburger_part"></div>
+              <div className="hamburger_part"></div>
+              <div className="hamburger_part"></div>
             </div>
-            <div class="control next">
-              <label for="input-14"></label>
+            <div className="control next">
+              <label htmlFor="input-14"></label>
             </div>
-            <div class="bg"></div>
-            <div class="content_centerimage">
+            <div className="bg"></div>
+            <div className="content_centerimage">
               {/* 로딩중일 때 이미지 생성 */}
             </div>
-            <div class="content">{/* image생성 */}</div>
-            <div class="footer">
-              <i class="fab fa-google-plus-g"></i>
-              <i class="fas fa-retweet"></i>
-              <i class="far fa-heart"></i>
-              <i class="far fa-share-square"></i>
+            <div className="content">{/* image생성 */}</div>
+            <div className="footer">
+              <i className="fab fa-google-plus-g"></i>
+              <i className="fas fa-retweet"></i>
+              <i className="far fa-heart"></i>
+              <i className="far fa-share-square"></i>
             </div>
           </div>
         </div>
 
-        <div class="pages_page">
-          <div class="pages_page__inner">
-            <div class="logo">Morpheus</div>
-            <div class="pagenumber">26 27 </div>
-            <div class="content">
-              <div class="content_scenario">
-                <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit</h4>
-                <h6>Lorem ipsum dolor sit amet</h6>
+        <div className="pages_page">
+          <div className="pages_page__inner">
+            <div className="logo">Morpheus</div>
+            <div className="pagenumber">26 27 </div>
+            <button className="content_button">generate</button>
+            <div className="content">
+              <div className="content_section">
+                <h2>Episode 12</h2>
+                <p>{/*서버에서 정보 받아온 것 기입 */}</p>
               </div>
             </div>
-            <div class="control">
-              <label for="input-13"></label>
+            <div className="control">
+              <label htmlFor="input-13"></label>
             </div>
           </div>
         </div>
-        <div class="pages_page">
-          <div class="pages_page__inner">
-            <div class="hamburger">
-              <div class="hamburger_part"></div>
-              <div class="hamburger_part"></div>
-              <div class="hamburger_part"></div>
+        <div className="pages_page">
+          <div className="pages_page__inner">
+            <div className="hamburger">
+              <div className="hamburger_part"></div>
+              <div className="hamburger_part"></div>
+              <div className="hamburger_part"></div>
             </div>
-            <div class="control next">
-              <label for="input-15"></label>
+            <div className="control next">
+              <label htmlFor="input-15"></label>
             </div>
-            <div class="bg"></div>
-            <div class="content_centerimage">
+            <div className="bg"></div>
+            <div className="content_centerimage">
               {/* 로딩중일 때 이미지 생성 */}
             </div>
-            <div class="content">{/* image생성 */}</div>
-            <div class="footer">
-              <i class="fab fa-google-plus-g"></i>
-              <i class="fas fa-retweet"></i>
-              <i class="far fa-heart"></i>
-              <i class="far fa-share-square"></i>
+            <div className="content">{/* image생성 */}</div>
+            <div className="footer">
+              <i className="fab fa-google-plus-g"></i>
+              <i className="fas fa-retweet"></i>
+              <i className="far fa-heart"></i>
+              <i className="far fa-share-square"></i>
             </div>
           </div>
         </div>
 
-        <div class="pages_page">
-          <div class="pages_page__inner">
-            <div class="logo">Morpheus</div>
-            <div class="pagenumber">28 29 </div>
-            <div class="content">
-              <div class="content_scenario">
-                <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit</h4>
-                <h6>Lorem ipsum dolor sit amet</h6>
+        <div className="pages_page">
+          <div className="pages_page__inner">
+            <div className="logo">Morpheus</div>
+            <div className="pagenumber">28 29 </div>
+            <button className="content_button">generate</button>
+            <div className="content">
+              <div className="content_section">
+                <h2>Episode 13</h2>
+                <p>{/*서버에서 정보 받아온 것 기입 */}</p>
               </div>
             </div>
-            <div class="control">
-              <label for="input-14"></label>
+            <div className="control">
+              <label htmlFor="input-14"></label>
             </div>
           </div>
         </div>
-        <div class="pages_page">
-          <div class="pages_page__inner">
-            <div class="hamburger">
-              <div class="hamburger_part"></div>
-              <div class="hamburger_part"></div>
-              <div class="hamburger_part"></div>
+        <div className="pages_page">
+          <div className="pages_page__inner">
+            <div className="hamburger">
+              <div className="hamburger_part"></div>
+              <div className="hamburger_part"></div>
+              <div className="hamburger_part"></div>
             </div>
-            <div class="control next">
-              <label for="input-16"></label>
+            <div className="control next">
+              <label htmlFor="input-16"></label>
             </div>
-            <div class="bg"></div>
-            <div class="content_centerimage">
+            <div className="bg"></div>
+            <div className="content_centerimage">
               {/* 로딩중일 때 이미지 생성 */}
             </div>
-            <div class="content">{/* image생성 */}</div>
-            <div class="footer">
-              <i class="fab fa-google-plus-g"></i>
-              <i class="fas fa-retweet"></i>
-              <i class="far fa-heart"></i>
-              <i class="far fa-share-square"></i>
+            <div className="content">{/* image생성 */}</div>
+            <div className="footer">
+              <i className="fab fa-google-plus-g"></i>
+              <i className="fas fa-retweet"></i>
+              <i className="far fa-heart"></i>
+              <i className="far fa-share-square"></i>
             </div>
           </div>
         </div>
 
-        <div class="pages_page">
-          <div class="pages_page__inner">
-            <div class="logo">Morpheus</div>
-            <div class="pagenumber">30 31 </div>
-            <div class="content">
-              <div class="content_scenario">
-                <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit</h4>
-                <h6>Lorem ipsum dolor sit amet</h6>
+        <div className="pages_page">
+          <div className="pages_page__inner">
+            <div className="logo">Morpheus</div>
+            <div className="pagenumber">30 31 </div>
+            <button className="content_button">generate</button>
+            <div className="content">
+              <div className="content_section">
+                <h2>Episode 14</h2>
+                <p>{/*서버에서 정보 받아온 것 기입 */}</p>
               </div>
             </div>
-            <div class="control">
-              <label for="input-15"></label>
+            <div className="control">
+              <label htmlFor="input-15"></label>
             </div>
           </div>
         </div>
-        <div class="pages_page">
-          <div class="pages_page__inner">
-            <div class="hamburger">
-              <div class="hamburger_part"></div>
-              <div class="hamburger_part"></div>
-              <div class="hamburger_part"></div>
+        <div className="pages_page">
+          <div className="pages_page__inner">
+            <div className="hamburger">
+              <div className="hamburger_part"></div>
+              <div className="hamburger_part"></div>
+              <div className="hamburger_part"></div>
             </div>
-            <div class="control next">
-              <label for="input-17"></label>
+            <div className="control next">
+              <label htmlFor="input-17"></label>
             </div>
-            <div class="bg"></div>
-            <div class="content_centerimage">
+            <div className="bg"></div>
+            <div className="content_centerimage">
               {/* 로딩중일 때 이미지 생성 */}
             </div>
-            <div class="content">{/* image생성 */}</div>
-            <div class="footer">
-              <i class="fab fa-google-plus-g"></i>
-              <i class="fas fa-retweet"></i>
-              <i class="far fa-heart"></i>
-              <i class="far fa-share-square"></i>
+            <div className="content">{/* image생성 */}</div>
+            <div className="footer">
+              <i className="fab fa-google-plus-g"></i>
+              <i className="fas fa-retweet"></i>
+              <i className="far fa-heart"></i>
+              <i className="far fa-share-square"></i>
             </div>
           </div>
         </div>
 
-        <div class="pages_page">
-          <div class="pages_page__inner">
-            <div class="logo">Morpheus</div>
-            <div class="pagenumber">32 33 </div>
-            <div class="content">
-              <div class="content_scenario">
-                <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit</h4>
-                <h6>Lorem ipsum dolor sit amet</h6>
+        <div className="pages_page">
+          <div className="pages_page__inner">
+            <div className="logo">Morpheus</div>
+            <div className="pagenumber">32 33 </div>
+            <button className="content_button">generate</button>
+            <div className="content">
+              <div className="content_section">
+                <h2>Episode 15</h2>
+                <p>{/*서버에서 정보 받아온 것 기입 */}</p>
               </div>
             </div>
-            <div class="control">
-              <label for="input-16"></label>
+            <div className="control">
+              <label htmlFor="input-16"></label>
             </div>
           </div>
         </div>
-        <div class="pages_page">
-          <div class="pages_page__inner">
-            <div class="hamburger">
-              <div class="hamburger_part"></div>
-              <div class="hamburger_part"></div>
-              <div class="hamburger_part"></div>
+        <div className="pages_page">
+          <div className="pages_page__inner">
+            <div className="hamburger">
+              <div className="hamburger_part"></div>
+              <div className="hamburger_part"></div>
+              <div className="hamburger_part"></div>
             </div>
-            <div class="control next">
-              <label for="input-18"></label>
+            <div className="control next">
+              <label htmlFor="input-18"></label>
             </div>
-            <div class="bg"></div>
-            <div class="content_centerimage">
+            <div className="bg"></div>
+            <div className="content_centerimage">
               {/* 로딩중일 때 이미지 생성 */}
             </div>
-            <div class="content">{/* image생성 */}</div>
-            <div class="footer">
-              <i class="fab fa-google-plus-g"></i>
-              <i class="fas fa-retweet"></i>
-              <i class="far fa-heart"></i>
-              <i class="far fa-share-square"></i>
+            <div className="content">{/* image생성 */}</div>
+            <div className="footer">
+              <i className="fab fa-google-plus-g"></i>
+              <i className="fas fa-retweet"></i>
+              <i className="far fa-heart"></i>
+              <i className="far fa-share-square"></i>
             </div>
           </div>
         </div>
 
-        <div class="pages_page">
-          <div class="pages_page__inner">
-            <div class="logo">Morpheus</div>
-            <div class="pagenumber">34 35 </div>
-            <div class="content">
-              <div class="content_scenario">
-                <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit</h4>
-                <h6>Lorem ipsum dolor sit amet</h6>
+        <div className="pages_page">
+          <div className="pages_page__inner">
+            <div className="logo">Morpheus</div>
+            <div className="pagenumber">34 35 </div>
+            <button className="content_button">generate</button>
+            <div className="content">
+              <div className="content_section">
+                <h2>Episode 16</h2>
+                <p>{/*서버에서 정보 받아온 것 기입 */}</p>
               </div>
             </div>
-            <div class="control">
-              <label for="input-17"></label>
+            <div className="control">
+              <label htmlFor="input-17"></label>
             </div>
           </div>
         </div>
-        <div class="pages_page">
-          <div class="pages_page__inner">
-            <div class="hamburger">
-              <div class="hamburger_part"></div>
-              <div class="hamburger_part"></div>
-              <div class="hamburger_part"></div>
+        <div className="pages_page">
+          <div className="pages_page__inner">
+            <div className="hamburger">
+              <div className="hamburger_part"></div>
+              <div className="hamburger_part"></div>
+              <div className="hamburger_part"></div>
             </div>
-            <div class="control next">
-              <label for="input-19"></label>
+            <div className="control next">
+              <label htmlFor="input-19"></label>
             </div>
-            <div class="bg"></div>
-            <div class="content_centerimage">
+            <div className="bg"></div>
+            <div className="content_centerimage">
               {/* 로딩중일 때 이미지 생성 */}
             </div>
-            <div class="content">{/* image생성 */}</div>
-            <div class="footer">
-              <i class="fab fa-google-plus-g"></i>
-              <i class="fas fa-retweet"></i>
-              <i class="far fa-heart"></i>
-              <i class="far fa-share-square"></i>
+            <div className="content">{/* image생성 */}</div>
+            <div className="footer">
+              <i className="fab fa-google-plus-g"></i>
+              <i className="fas fa-retweet"></i>
+              <i className="far fa-heart"></i>
+              <i className="far fa-share-square"></i>
             </div>
           </div>
         </div>
 
-        <div class="pages_page">
-          <div class="pages_page__inner">
-            <div class="logo">Morpheus</div>
-            <div class="pagenumber">36 37</div>
-            <div class="content">
-              <div class="content_section">
-                <h2>Super</h2>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                  a imperdiet sapien. Nunc vehicula lorem neque, eu rutrum
-                  sapien posuere ut. Nunc eget ullamcorper turpis. Sed in
-                  vehicula magna, vitae eleifend velit.
-                </p>
-              </div>
-              <div class="content_section">
-                <h2>Awesome</h2>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                  a imperdiet sapien. Nunc vehicula lorem neque, eu rutrum
-                  sapien posuere ut. Nunc eget ullamcorper turpis. Sed in
-                  vehicula magna, vitae eleifend velit.
-                </p>
-              </div>
-              <div class="content_section">
-                <h2>Great</h2>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                  a imperdiet sapien. Nunc vehicula lorem neque, eu rutrum
-                  sapien posuere ut. Nunc eget ullamcorper turpis. Sed in
-                  vehicula magna.
-                </p>
+        <div className="pages_page">
+          <div className="pages_page__inner">
+            <div className="logo">Morpheus</div>
+            <div className="pagenumber">36 37</div>
+            <div className="content">
+              <div className="content_center">
+                <h4>The End Morpheus</h4>
+                <h6>the end</h6>
               </div>
             </div>
-            <div class="control">
-              <label for="input-18"></label>
+            <div className="control">
+              <label htmlFor="input-18"></label>
             </div>
           </div>
         </div>
-        <div class="pages_page">
-          <div class="pages_page__inner">
-            <div class="hamburger">
-              <div class="hamburger_part"></div>
-              <div class="hamburger_part"></div>
-              <div class="hamburger_part"></div>
+        <div className="pages_page">
+          <div className="pages_page__inner">
+            <div className="hamburger">
+              <div className="hamburger_part"></div>
+              <div className="hamburger_part"></div>
+              <div className="hamburger_part"></div>
             </div>
-            <div class="bg"></div>
-            <div class="content"></div>
-            <div class="footer">
-              <i class="fab fa-google-plus-g"></i>
-              <i class="fas fa-retweet"></i>
-              <i class="far fa-heart"></i>
-              <i class="far fa-share-square"></i>
+            <div className="content">
+              <div className="content_center right">
+                <h4>The End Morpheus</h4>
+                <h6>the end</h6>
+              </div>
+            </div>
+            <div className="bg"></div>
+
+            <div className="footer">
+              <i className="fab fa-google-plus-g"></i>
+              <i className="fas fa-retweet"></i>
+              <i className="far fa-heart"></i>
+              <i className="far fa-share-square"></i>
             </div>
           </div>
         </div>
       </div>
+      <button className="final_button">finish</button>
     </div>
   );
 };
