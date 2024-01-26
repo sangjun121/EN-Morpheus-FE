@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './CharacterPrompt.css';
 import refreshButton from '../../images/CharacterPage/refresh.png';
 
@@ -196,9 +197,6 @@ const CharacterPrompt = () => {
                 'Hazel eyes',
                 'Long beard',
                 'Freckles',
-                'Scar',
-                'Tattoo',
-                'Piercing',
                 'Glasses',
                 'Elegant',
                 'Casual style',
@@ -250,14 +248,6 @@ const CharacterPrompt = () => {
         });
     };
 
-    //textarea 높이 설정 옵션
-    const textarea = useRef();
-    const handleResizeHeight = () => {
-        //textarea 줄바꿈 속성 설정 함수
-        textarea.current.style.height = 'auto'; //height 초기화
-        textarea.current.style.height = textarea.current.scrollHeight + 'px';
-    };
-
     //옵션 선택 버튼 애니메이션 처리
     const CustomButton = ({ text }) => {
         const renderText = () => {
@@ -269,6 +259,12 @@ const CharacterPrompt = () => {
         return (
             <button
                 onClick={() => {
+                    if (
+                        (step === 0 || step === 1) &&
+                        textarea.current.value !== ''
+                    )
+                        return;
+
                     {
                         textarea.current.value === ''
                             ? (textarea.current.value = text)
@@ -291,10 +287,41 @@ const CharacterPrompt = () => {
         return shuffled.slice(0, 7);
     };
 
+    //이미지 생성 페이지 넘어가는 함수
+    const navigate = useNavigate();
+    const navigateCharacterImageGeneratePage = () => {
+        navigate('/character/result', { state: promptResult });
+    };
+
+    const finishButtonEvent = () => {
+        promptResult = inputState;
+        console.log(promptResult);
+        navigateCharacterImageGeneratePage();
+        resetInputState(); //입력값 초기화
+    };
+
+    const nextButtonEvent = () => {
+        if (
+            (step === 0 && inputState.name.includes(',')) ||
+            (step === 1 && inputState.style.includes(','))
+        ) {
+            alert('하나만 입력해 주세요');
+            return;
+        }
+
+        if (0 <= step && step <= 3 && textarea.current.value === '') {
+            alert('필수 입력사항 입니다.');
+            return;
+        }
+        setStep(step + 1);
+    };
+
     //옵션 버튼 랜덤 추천 이벤트처리
     useEffect(() => {
         setRandomKeyword(selectRandomKeywords());
     }, [step]);
+
+    const textarea = useRef();
 
     return (
         <div className="CharacterPrompt">
@@ -346,37 +373,14 @@ const CharacterPrompt = () => {
 
                 <div className="NextBtnContainer">
                     {step === 4 ? (
-                        <div
-                            className="NextButton"
-                            onClick={() => {
-                                promptResult = inputState;
-                                console.log(promptResult);
-                                alert('이미지 생성 중');
-                                resetInputState();
-                            }}
-                        >
+                        <div className="NextButton" onClick={finishButtonEvent}>
                             <p className="NextBtnText">FINISH</p>
                             <div className="NextBtnTwo">
                                 <p className="NextBtnText2">GO!</p>
                             </div>
                         </div>
                     ) : (
-                        <div
-                            className="NextButton"
-                            onClick={() => {
-                                if (step > 4) return;
-                                if (
-                                    (step === 0 &&
-                                        inputState.name.includes(',')) ||
-                                    (step === 1 &&
-                                        inputState.style.includes(','))
-                                ) {
-                                    alert('하나만 입력해 주세요');
-                                    return;
-                                }
-                                setStep(step + 1);
-                            }}
-                        >
+                        <div className="NextButton" onClick={nextButtonEvent}>
                             <p className="NextBtnText">NEXT</p>
                             <div className="NextBtnTwo">
                                 <p className="NextBtnText2">GO!</p>
