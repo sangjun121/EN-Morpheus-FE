@@ -5,33 +5,11 @@ import reducer from "../../api/Reducer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRotateRight } from "@fortawesome/free-solid-svg-icons";
 import "./ScenarioCreator.css";
-
-const predefinedTopics = [
-  "The Importance of Sharing: A Story of Siblings Learning to Share Their Toys",
-  "Bravery in Everyday Life: A Tale of a Child Overcoming Fear of the Dark",
-  "The Joy of Learning: Adventures of a Curious Squirrel in School",
-  "Understanding Differences: A Journey of Animals with Unique Abilities",
-  "Friendship Across Cultures: Children from Different Countries Forming Bonds",
-  "Kindness to Animals: A Young Girl's Quest to Help Stray Dogs",
-  "The Value of Patience: A Rabbit's Adventure in Learning to Wait",
-  "Respect for Elders: A Boy's Discovery of Wisdom from Grandparents",
-  "The Magic of Teamwork: Insects Working Together to Build a Home",
-  "Overcoming Jealousy: The Story of Two Friends and a Coveted Toy",
-  "Perseverance Pays Off: A Duckling's Journey to Learn to Fly",
-  "Honesty is the Best Policy: A Tale of a Child's Truthful Adventure",
-  "The Beauty of Nature: A Day in the Life of Forest Creatures",
-  "Learning Responsibility: A Young Farmer Taking Care of Farm Animals",
-  "The Power of Imagination: A Child's Adventure in a Fantasy World",
-  "Coping with Loss: A Gentle Story about a Child and a Lost Toy",
-  "The Strength in Forgiveness: Siblings Learning to Forgive Each Other",
-  "Gratitude for Everyday Things: A Child's Journey of Thankfulness",
-  "Helping Others in Need: A Story of a Child Volunteering in the Community",
-  "Embracing Change: A Butterfly's Transformation and Its Lessons",
-];
+import UserRequestApi from "../../api/UserRequestAPI";
 
 const ThemeSelector = ({ expanded, onClose, topic, setTopic }) => {
   //서버에서 받아온 주제들
-  const [aiTopic, setAiTopic] = useState(predefinedTopics);
+  const [aiTopic, setAiTopic] = useState([]);
   //items 에서 랜덤으로 추출한 주제들
   const [randomAiTopic, setRandomAiTopic] = useState([]);
 
@@ -43,28 +21,32 @@ const ThemeSelector = ({ expanded, onClose, topic, setTopic }) => {
   });
 
   //서버에서 ai가 선정한 주제들을 받아오는 함수
-  // const fetchAiTopic = async () => {
-  //   dispatch({ type: "LOADING" });
-  //   try {
-  //     const response = await API.get("url");
-  //     setAiTopic(response.data);
-  //     pickRandomItems(response.data);
-  //   } catch (error) {
-  //     dispatch({ type: "ERROR", error });
-  //   }
-  // };
+  const fetchAiTopic = async () => {
+    dispatch({ type: "LOADING" });
+    try {
+      const response = await UserRequestApi.get("/fairy/topic-random");
+      const data = response.data.response.code;
+      setAiTopic(data);
+      pickRandomItems(data);
+      dispatch({ type: "SUCCESS", data: data });
+    } catch (error) {
+      dispatch({ type: "ERROR", error });
+    }
+  };
 
   //서버로 사용자가 설정한 주제를 보내 가공시켜주는 함수
-  // const processTheme = async () => {
-  //   dispatch({ type: "LOADING" });
-  //   try {
-  //     const response = await API.post("url", { topic });
-  //     dispatch({ type: "SUCCESS", data: response.data });
-  //     setTopic(response.data);
-  //   } catch (error) {
-  //     dispatch({ type: "ERROR", error });
-  //   }
-  // };
+  const processTheme = async () => {
+    dispatch({ type: "LOADING" });
+    try {
+      const response = await UserRequestApi.get(
+        `/fairy/topic-manufacture?topic=${encodeURIComponent(topic)}`
+      );
+      setTopic(response.data.response.code.topic);
+      dispatch({ type: "SUCCESS", data: response.data });
+    } catch (error) {
+      dispatch({ type: "ERROR", error });
+    }
+  };
 
   //서버에 최종으로 정해진 주제를 보내주며 다음 페이지로 넘어가게 해주는 함수
   // const submitThemeAndNavigate = async () => {
@@ -92,13 +74,13 @@ const ThemeSelector = ({ expanded, onClose, topic, setTopic }) => {
     }
   };
   //배열에서 랜덤으로 5개를 골라주는 함수
-  const pickRandomItems = (/*data*/) => {
-    const shuffled = [...aiTopic].sort(() => 0.5 - Math.random()); //data
+  const pickRandomItems = (data) => {
+    const shuffled = [...data].sort(() => 0.5 - Math.random());
     setRandomAiTopic(shuffled.slice(0, 5));
   };
 
   useEffect(() => {
-    pickRandomItems();
+    fetchAiTopic();
   }, []);
   return (
     <div className={`box-wrapper ${expanded ? "expanded" : ""}`}>
@@ -122,7 +104,7 @@ const ThemeSelector = ({ expanded, onClose, topic, setTopic }) => {
                 <label>Theme</label>
               </div>
             </div>
-            <button className="process-theme" /*onClick={processTheme}*/>
+            <button className="process-theme" onClick={processTheme}>
               Check Theme
             </button>
           </div>
@@ -130,7 +112,10 @@ const ThemeSelector = ({ expanded, onClose, topic, setTopic }) => {
             <div className="theme-example-label">
               Examples of fairy tale themes
             </div>
-            <span className="rotate-button" onClick={pickRandomItems}>
+            <span
+              className="rotate-button"
+              onClick={() => pickRandomItems(aiTopic)}
+            >
               <FontAwesomeIcon icon={faRotateRight} />
             </span>
           </div>
