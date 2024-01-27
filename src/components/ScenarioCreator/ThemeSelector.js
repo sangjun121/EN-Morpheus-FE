@@ -103,7 +103,7 @@ const ThemeSelector = ({ expanded, onClose, topic, setTopic }) => {
   return (
     <div className={`box-wrapper ${expanded ? "expanded" : ""}`}>
       <div className="scenario-box-wrapper-headline">
-        <span className="step">Step 1</span>
+        <span className="step">Step 2</span>
         <br></br>
         Select Your Theme
       </div>

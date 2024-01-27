@@ -87,6 +87,11 @@
   font-family: Poppins-Bold;
 }
 
+.character-name {
+  padding-right: 40px;
+  padding-left: 40px;
+}
+
 .topic-setup-headline {
   color: #162938;
   font-family: Poppins-Medium;

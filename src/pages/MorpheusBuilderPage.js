@@ -37,6 +37,14 @@ const MorpheusBuilderPage = () => {
     <div className="scenario-making-page">
       {loading && <MorpheusLoading onFinished={handleLoadingFinished} />}
       <div className="scenario-making-panel">
+        {!isThemeBoxExpanded && (
+          <div className="character-panel" onClick={handleCharacterBoxClick}>
+            <CharactorSelector
+              expanded={isCharacterBoxExpanded}
+              onClose={handleCloseButtonClick}
+            ></CharactorSelector>
+          </div>
+        )}
         {!isCharacterBoxExpanded && (
           <div className="theme-panel" onClick={handleThemeBoxClick}>
             <ThemeSelector
@@ -47,20 +55,12 @@ const MorpheusBuilderPage = () => {
             ></ThemeSelector>
           </div>
         )}
-        {!isThemeBoxExpanded && (
-          <div className="character-panel" onClick={handleCharacterBoxClick}>
-            <CharactorSelector
-              expanded={isCharacterBoxExpanded}
-              onClose={handleCloseButtonClick}
-            ></CharactorSelector>
-          </div>
-        )}
       </div>
       {!(isThemeBoxExpanded || isCharacterBoxExpanded) && (
         <div>
           <button
             className="draft-button"
-            onClick={() => navigate("/scenario-draft")}
+            onClick={() => navigate("./scenario-draft")}
           >
             AI Scenario Draft
           </button>

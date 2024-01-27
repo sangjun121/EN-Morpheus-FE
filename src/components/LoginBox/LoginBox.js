@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 import "./LoginBox.css";
-import LoginAPI from "../../api/LoginApi";
+import UserRequestAPI from "../../api/UserRequestAPI";
 import { useNavigate } from "react-router-dom";
 
 const LoginBox = () => {
@@ -59,7 +59,10 @@ const LoginBox = () => {
     };
 
     try {
-      const response = await LoginAPI.post("/members/login", loginDataForm);
+      const response = await UserRequestAPI.post(
+        "/members/login",
+        loginDataForm
+      );
       addTokenToLocalStorage(response.data.response.code.accessToken);
       navigate("/");
     } catch (error) {

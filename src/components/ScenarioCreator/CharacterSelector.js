@@ -38,7 +38,7 @@ const CharacterSelector = ({ expanded, onClose }) => {
   return (
     <div className={`box-wrapper ${expanded ? "expanded" : ""}`}>
       <div className="scenario-box-wrapper-headline">
-        <span className="step">Step 2</span>
+        <span className="step">Step 1</span>
         <br></br>Select Your Character
       </div>
       {expanded && (
@@ -46,7 +46,7 @@ const CharacterSelector = ({ expanded, onClose }) => {
           <div className="character-list">
             <div className="character-header">
               <div>Character Image</div>
-              <div>Character Name</div>
+              <div className="character-name">Character Name</div>
               <div>Character Creation Time</div>
             </div>
             {/* {userCharacter.map(character=>(

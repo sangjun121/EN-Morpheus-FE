@@ -29,7 +29,10 @@ function App() {
             path="/data-control/morpheus-builder"
             element={<MorpheusBuilderPage />}
           />
-          <Route path="/scenario-draft" element={<ScenarioDraftPage />} />
+          <Route
+            path="/data-control/morpheus-builder/scenario-draft"
+            element={<ScenarioDraftPage />}
+          />
           <Route
             path="/fairy-image-generate-page"
             element={<FairyImageGeneratorPage />}
