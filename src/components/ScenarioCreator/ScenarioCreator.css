@@ -96,6 +96,12 @@
   margin-bottom: 10px;
   border-bottom: 2px solid #ddd;
   font-family: Poppins-Bold;
+  cursor: pointer;
+}
+
+.character-info.selected {
+  background-color: #162938;
+  color: white;
 }
 
 .character-name {

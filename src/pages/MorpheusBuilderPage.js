@@ -33,6 +33,11 @@ const MorpheusBuilderPage = () => {
     setIsCharacterBoxExpanded(false);
   };
 
+  //캐릭터 ID 하위 컴포넌트에서 받아오는 함수
+  const onCharacterSelected = (characterId) => {
+    console.log("Selected character Id:", characterId);
+  };
+
   return (
     <div className="scenario-making-page">
       {loading && <MorpheusLoading onFinished={handleLoadingFinished} />}
@@ -42,6 +47,7 @@ const MorpheusBuilderPage = () => {
             <CharactorSelector
               expanded={isCharacterBoxExpanded}
               onClose={handleCloseButtonClick}
+              onCharacterSelect={onCharacterSelected}
             ></CharactorSelector>
           </div>
         )}

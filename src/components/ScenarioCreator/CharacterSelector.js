@@ -5,19 +5,29 @@ import reducer from "../../api/Reducer";
 import "./ScenarioCreator.css";
 import UserRequestApi from "../../api/UserRequestAPI";
 
-const CharacterSelector = ({ expanded, onClose }) => {
+const CharacterSelector = ({ expanded, onClose, onCharacterSelect }) => {
   const navigate = useNavigate();
   const handleButtonClick = (event) => {
     event.stopPropagation();
     onClose();
   };
   const [characterInfo, setCharacterInfo] = useState([]);
+  const [selectedCharacterIndex, setSelectedCharacterIndex] = useState(null);
   const [state, dispatch] = useReducer(reducer, {
     loading: false,
     data: null,
     error: null,
   });
 
+  //캐릭터 정보 상위 컴포넌트로 넘기기
+  const handleCharacterSelect = () => {
+    if (selectedCharacterIndex != null) {
+      const selectedCharacterId = characterInfo[selectedCharacterIndex].id;
+      onCharacterSelect(selectedCharacterId);
+    }
+  };
+
+  //캐릭터 정보 리스트 서버에서 요청하기
   const fetchCharacterInformation = async () => {
     console.log("api호출");
     dispatch({ type: "LOADING" });
@@ -28,6 +38,11 @@ const CharacterSelector = ({ expanded, onClose }) => {
     } catch (error) {
       dispatch({ type: "ERROR", error });
     }
+  };
+
+  //캐릭터 선택 이벤트
+  const onCharacterClick = (index) => {
+    setSelectedCharacterIndex(index);
   };
 
   useEffect(() => {
@@ -49,8 +64,14 @@ const CharacterSelector = ({ expanded, onClose }) => {
               <div>Character Image</div>
             </div>
             {characterInfo.map((character, index) => (
-              <div className="character-info" key={index}>
-                <div className="character-index">{index + 1}</div>
+              <div
+                className={`character-info ${
+                  index === selectedCharacterIndex ? "selected" : ""
+                }`}
+                key={index}
+                onClick={() => onCharacterClick(index)}
+              >
+                <div>{index + 1}</div>
                 <div className="charcter-name">{character.name}</div>
                 <div className="character-image">
                   <img src={character.image} alt={character.name}></img>
@@ -64,7 +85,13 @@ const CharacterSelector = ({ expanded, onClose }) => {
           >
             Create new character
           </button>
-          <button className="box-close-button" onClick={handleButtonClick}>
+          <button
+            className="box-close-button"
+            onClick={(event) => {
+              handleCharacterSelect();
+              handleButtonClick(event);
+            }}
+          >
             Select Character
           </button>
         </div>
