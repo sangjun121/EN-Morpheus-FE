@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRotateRight } from "@fortawesome/free-solid-svg-icons";
 import "./ScenarioCreator.css";
 import UserRequestApi from "../../api/UserRequestAPI";
+import ThemeSelectorLoading from "./ThemeSelectorLoading";
 
 const ThemeSelector = ({ expanded, onClose, topic, setTopic }) => {
   //서버에서 받아온 주제들
@@ -85,6 +86,7 @@ const ThemeSelector = ({ expanded, onClose, topic, setTopic }) => {
   return (
     <div className={`box-wrapper ${expanded ? "expanded" : ""}`}>
       <div className="scenario-box-wrapper-headline">
+        {state.loading && <ThemeSelectorLoading />}
         <span className="step">Step 2</span>
         <br></br>
         Select Your Theme

@@ -22,7 +22,7 @@
 
 .box-wrapper.expanded {
   width: 870px !important;
-  height: 1000px !important;
+  height: 80vh !important;
 }
 
 .expanded-component {
@@ -216,4 +216,19 @@
 .random-theme-select:hover {
   background: #162938;
   color: white;
+}
+
+.loaiding-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* 어두운 배경 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 30px;
+  font-family: Poppins-Bold;
 }
