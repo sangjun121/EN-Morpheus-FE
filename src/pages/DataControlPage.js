@@ -7,6 +7,7 @@ import StoryCreateBox from "../components/StoryDataBox/StoryCreateBox";
 import "./DataControlPage.css";
 
 const DataControlPage = () => {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [isStoryLoadBoxExpanded, setIsStoryLoadBoxExpanded] = useState(false);
 
@@ -26,9 +27,7 @@ const DataControlPage = () => {
   };
 
   const handleStoryCreateBoxClick = () => {
-    setIsStoryLoadBoxExpanded(false);
-    setIsStoryCompletedBoxExpanded(false);
-    setIsStoryLoadCreateExpanded(true);
+    navigate("./morpheus-builder");
   };
 
   const handleStoryCompletedBoxClick = () => {
@@ -60,10 +59,7 @@ const DataControlPage = () => {
             className="panel story-create"
             onClick={handleStoryCreateBoxClick}
           >
-            <StoryCreateBox
-              expanded={isStoryCreateBoxExpanded}
-              onClose={handleCloseButtonClick}
-            />
+            <StoryCreateBox />
           </div>
         )}
         {!isStoryLoadBoxExpanded && !isStoryCreateBoxExpanded && (

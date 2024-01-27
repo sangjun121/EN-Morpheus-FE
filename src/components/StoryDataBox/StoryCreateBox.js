@@ -15,7 +15,10 @@ const StoryCreateBox = ({ expanded, onClose }) => {
       <div className="box-wrapper-headline">Create Story</div>
       {expanded && (
         <div>
-          <button onClick={() => navigate("/morpheus-builder")}>
+          <button
+            className="box-create-button"
+            onClick={() => navigate("./morpheus-builder")}
+          >
             create story
           </button>
           <button className="box-close-button" onClick={handleButtonClick}>
