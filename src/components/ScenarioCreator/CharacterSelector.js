@@ -30,6 +30,10 @@ const CharacterSelector = ({ expanded, onClose }) => {
     }
   };
 
+  useEffect(() => {
+    fetchCharacterInformation();
+  }, []);
+
   return (
     <div className={`box-wrapper ${expanded ? "expanded" : ""}`}>
       <div className="scenario-box-wrapper-headline">
@@ -44,6 +48,15 @@ const CharacterSelector = ({ expanded, onClose }) => {
               <div className="character-name">Character Name</div>
               <div>Character Image</div>
             </div>
+            {characterInfo.map((character, index) => (
+              <div className="character-info" key={index}>
+                <div className="character-index">{index + 1}</div>
+                <div className="charcter-name">{character.name}</div>
+                <div className="character-image">
+                  <img src={character.image} alt={character.name}></img>
+                </div>
+              </div>
+            ))}
           </div>
           <button
             className="character-selector-create-button"
