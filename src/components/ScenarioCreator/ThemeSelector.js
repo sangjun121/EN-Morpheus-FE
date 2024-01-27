@@ -2,6 +2,8 @@ import React, { useState, useEffect, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../../api/API";
 import reducer from "../../api/Reducer";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRotateRight } from "@fortawesome/free-solid-svg-icons";
 import "./ScenarioCreator.css";
 
 const predefinedTopics = [
@@ -107,21 +109,31 @@ const ThemeSelector = ({ expanded, onClose, topic, setTopic }) => {
       </div>
       {expanded && (
         <div className="expanded-component">
-          <div className="topic-setup-headline">
-            Please write a fairy tale theme
-          </div>
-          <div>
-            <input
-              type="text"
-              value={topic}
-              onChange={handleInputChange}
-              required
-            ></input>
+          <div className="topic-setup-headline"></div>
+          <div className="theme-select-box">
+            <div className="theme-input-box">
+              <div>
+                <input
+                  type="text"
+                  value={topic}
+                  onChange={handleInputChange}
+                  required
+                ></input>
+                <label>Theme</label>
+              </div>
+            </div>
             <button className="process-theme" /*onClick={processTheme}*/>
-              processTheme
+              Check Theme
             </button>
           </div>
-          <div>for example</div>
+          <div className="theme-example">
+            <div className="theme-example-label">
+              Examples of fairy tale themes
+            </div>
+            <span className="rotate-button" onClick={pickRandomItems}>
+              <FontAwesomeIcon icon={faRotateRight} />
+            </span>
+          </div>
           <div className="random-theme">
             {randomAiTopic.map((item, index) => (
               <button
@@ -132,7 +144,6 @@ const ThemeSelector = ({ expanded, onClose, topic, setTopic }) => {
                 {item}
               </button>
             ))}
-            <button onClick={pickRandomItems}>new theme</button>
           </div>
           <button className="box-close-button" onClick={handleButtonClick}>
             Select Theme
