@@ -23,6 +23,7 @@ const ThemeSelector = ({ expanded, onClose, topic, setTopic }) => {
 
   //서버에서 ai가 선정한 주제들을 받아오는 함수
   const fetchAiTopic = async () => {
+    console.log("api호출");
     dispatch({ type: "LOADING" });
     try {
       const response = await UserRequestApi.get("/fairy/topic-random");
@@ -37,6 +38,7 @@ const ThemeSelector = ({ expanded, onClose, topic, setTopic }) => {
 
   //서버로 사용자가 설정한 주제를 보내 가공시켜주는 함수
   const processTheme = async () => {
+    console.log("api호출");
     dispatch({ type: "LOADING" });
     try {
       const response = await UserRequestApi.get(
