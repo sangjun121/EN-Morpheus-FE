@@ -233,3 +233,17 @@
   font-size: 30px;
   font-family: Poppins-Bold;
 }
+
+.character-selector-create-button {
+  padding: 10px 20px;
+  background-color: #162938;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.character-selector-create-button:hover {
+  background-color: #0d1c2a;
+}

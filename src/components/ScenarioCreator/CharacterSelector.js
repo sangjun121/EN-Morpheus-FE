@@ -45,7 +45,10 @@ const CharacterSelector = ({ expanded, onClose }) => {
               <div>Character Image</div>
             </div>
           </div>
-          <button onClick={() => navigate("/character")}>
+          <button
+            className="character-selector-create-button"
+            onClick={() => navigate("/character")}
+          >
             Create new character
           </button>
           <button className="box-close-button" onClick={handleButtonClick}>
