@@ -52,7 +52,7 @@ const MorpheusBuilderPage = () => {
       alert("Please select a character before proceeding.");
       return;
     }
-    navigate("./scenario-draft");
+    navigate("./scenario-draft", { state: { topic, characterId } });
   };
 
   return (

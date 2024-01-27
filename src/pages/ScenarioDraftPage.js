@@ -1,40 +1,51 @@
 import React, { useEffect, useState, useReducer } from "react";
-import { useNavigate } from "react-router-dom";
-import API from "../api/API";
+import { useNavigate, useLocation } from "react-router-dom";
 import reducer from "../api/Reducer";
 import "./ScenarioDraftPage.css";
+import UserRequestApi from "../api/UserRequestAPI";
 
 const ScenarioDraftPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const [title, setTitle] = useState("");
+  const [story, setStory] = useState("");
   const [state, dispatch] = useReducer(reducer, {
     loading: false,
     data: null,
     error: null,
   });
 
-  //   const fetchScenarioDraft = async () => {
-  //     dispatch({ type: "LOADING" });
-  //     try {
-  //       const response = await API.get("url");
-  //       dispatch({ type: "SUCCESS", data: response.data });
-  //     } catch (e) {
-  //       dispatch({ type: "ERROR", error: e });
-  //     }
-  //   };
+  // 서버에서 시나리오 초안 내용 불러오는 함수
+  const fetchScenarioDraft = async (topic, characterId) => {
+    console.log("시나리오 초안 api호출");
+    dispatch({ type: "LOADING" });
+    try {
+      const response = await UserRequestApi.post("/fairy/prompt", {
+        topic: topic,
+        characterId: characterId,
+      });
+      const data = response.data.response.code;
+      setTitle(data.title);
+      setStory(data.story);
+      dispatch({ type: "SUCCESS", data: response.data });
+      console.log(response);
+    } catch (e) {
+      dispatch({ type: "ERROR", error: e });
+    }
+  };
 
-  //   useEffect(() => {
-  //     fetchScenarioDraft();
-  //   }, []);
+  useEffect(() => {
+    const topic = location.state?.topic;
+    const characterId = location.state?.characterId;
+    console.log(topic);
+    console.log(characterId);
 
-  //   const changeScenarioDraft = () => {
-  //     fetchScenarioDraft();
-  //   };
-
-  //   const { loading, data: scenarioDraft, error } = state;
-
-  //   if (loading) return <div>loading...</div>;
-  //   if (error) return <div>server error</div>;
-  //   if (!scenarioDraft) return null;
+    if (topic && characterId) {
+      fetchScenarioDraft(topic, characterId);
+    } else {
+      console.log("topic, characterId정보 안담김");
+    }
+  }, [location.state]);
 
   return (
     <div className="scenario-draft-page">
@@ -46,7 +57,7 @@ const ScenarioDraftPage = () => {
       >
         retry
       </button>
-      <div className="scenario-draft-main-text">{/*scenarioDraft.text*/}</div>
+      <div className="scenario-draft-main-text">{story}</div>
       <button
         className="decide-scenario-draft"
         onClick={() => navigate("/fairy-image-generate-page")}

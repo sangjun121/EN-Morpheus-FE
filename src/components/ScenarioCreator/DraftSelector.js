@@ -1,5 +1,5 @@
 import React, { useState, useReducer } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import API from "../../api/API";
 import reducer from "../../api/Reducer";
 import "./ScenarioCreator.css";
@@ -15,10 +15,12 @@ const DraftSelector = ({ expanded, onClose }) => {
     event.stopPropagation();
     onClose();
   };
+
+  // 서버에서 시나리오 초안 내용 불러오는 함수
   // const fetchScenarioDraft = async () => {
   //   dispatch({ type: "LOADING" });
   //   try {
-  //     const response = await API.get("url");
+  //     const response = await .post("url");
   //     dispatch({ type: "SUCCESS", data: response.data });
   //   } catch (e) {
   //     dispatch({ type: "ERROR", error: e });
@@ -29,15 +31,6 @@ const DraftSelector = ({ expanded, onClose }) => {
   //   fetchScenarioDraft();
   // }, []);
 
-  // const changeScenarioDraft = () => {
-  //   fetchScenarioDraft();
-  // };
-
-  // const { loading, data: scenarioDraft, error } = state;
-
-  // if (loading) return <div>loading...</div>;
-  // if (error) return <div>server error</div>;
-  // if (!scenarioDraft) return null;
   return (
     <div className={`box-wrapper ${expanded ? "expanded" : ""}`}>
       <div className="scenario-box-wrapper-headline">

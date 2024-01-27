@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
-import API from "../../api/API";
 import reducer from "../../api/Reducer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRotateRight } from "@fortawesome/free-solid-svg-icons";
