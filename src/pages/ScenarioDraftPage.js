@@ -42,6 +42,20 @@ const ScenarioDraftPage = () => {
     }
   };
 
+  //동화책 이미지 생성 페이지로 정보 보내는 함수
+  const navigateToImageGenerator = () => {
+    navigate("/fairy-image-generate-page", {
+      state: {
+        title,
+        story,
+        subjectMatter,
+        plot,
+        characters,
+        linguisticExpression,
+      },
+    });
+  };
+
   useEffect(() => {
     const topic = location.state?.topic;
     const characterId = location.state?.characterId;
@@ -70,7 +84,7 @@ const ScenarioDraftPage = () => {
       </div>
       <button
         className="decide-scenario-draft"
-        onClick={() => navigate("/fairy-image-generate-page")}
+        onClick={navigateToImageGenerator}
       >
         Make Your FairyTale
       </button>

@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useReducer } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import API from "../api/API";
 import reducer from "../api/Reducer";
 import "./FairyImageGeneratorPage.scss";
 
 const FairyImageGeneratorPage = () => {
   const inputCount = 19;
+  const location = useLocation();
   const navigate = useNavigate();
   const [state, dispatch] = useReducer(reducer, {
     loading: false,
@@ -13,6 +14,7 @@ const FairyImageGeneratorPage = () => {
     error: null,
   });
 
+  // 서버에서 상세 에피소드 받아오는 함수
   //   const fetchScenarioDraft = async () => {
   //     dispatch({ type: "LOADING" });
   //     try {
@@ -22,20 +24,6 @@ const FairyImageGeneratorPage = () => {
   //       dispatch({ type: "ERROR", error: e });
   //     }
   //   };
-
-  //   useEffect(() => {
-  //     fetchScenarioDraft();
-  //   }, []);
-
-  //   const changeScenarioDraft = () => {
-  //     fetchScenarioDraft();
-  //   };
-
-  //   const { loading, data: scenarioDraft, error } = state;
-
-  //   if (loading) return <div>loading...</div>;
-  //   if (error) return <div>server error</div>;
-  //   if (!scenarioDraft) return null;
 
   return (
     <div className="image-generate-page">
