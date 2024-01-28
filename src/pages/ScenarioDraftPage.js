@@ -9,6 +9,10 @@ const ScenarioDraftPage = () => {
   const location = useLocation();
   const [title, setTitle] = useState("");
   const [story, setStory] = useState("");
+  const [subjectMatter, setSubjectMatter] = useState("");
+  const [plot, setPlot] = useState("");
+  const [characters, setCharacters] = useState("");
+  const [linguisticExpression, setLinguisticExpression] = useState("");
   const [state, dispatch] = useReducer(reducer, {
     loading: false,
     data: null,
@@ -27,6 +31,10 @@ const ScenarioDraftPage = () => {
       const data = response.data.response.code;
       setTitle(data.title);
       setStory(data.story);
+      setSubjectMatter(data.subjectMatter);
+      setPlot(data.plot);
+      setCharacters(data.characters);
+      setLinguisticExpression(data.linguisticExpression);
       dispatch({ type: "SUCCESS", data: response.data });
       console.log(response);
     } catch (e) {
@@ -49,15 +57,17 @@ const ScenarioDraftPage = () => {
 
   return (
     <div className="scenario-draft-page">
-      <div className="scenario-draft-headline">
-        How do you like this <br></br>fairy tale content?
+      <div className="scenario-draft-wrapper">
+        <div className="scenario-draft-headline">
+          How do you like this <br></br>fairy tale content?
+        </div>
+        <div className="scenario-draft-main-text">{story}</div>
+        <button
+          className="change-scenario-draft-button" /*onClick={changeScenarioDraft}*/
+        >
+          retry
+        </button>
       </div>
-      <button
-        className="change-scenario-draft" /*onClick={changeScenarioDraft}*/
-      >
-        retry
-      </button>
-      <div className="scenario-draft-main-text">{story}</div>
       <button
         className="decide-scenario-draft"
         onClick={() => navigate("/fairy-image-generate-page")}

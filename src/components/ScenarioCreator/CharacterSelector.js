@@ -35,6 +35,7 @@ const CharacterSelector = ({ expanded, onClose, onCharacterSelect }) => {
       const response = await UserRequestApi.get("/character/list");
       setCharacterInfo(response.data.response.code);
       dispatch({ type: "SUCCESS", data: response.data });
+      console.log(response.data.response.code);
     } catch (error) {
       dispatch({ type: "ERROR", error });
     }
