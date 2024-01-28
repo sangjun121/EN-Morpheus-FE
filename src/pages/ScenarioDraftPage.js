@@ -2,6 +2,7 @@ import React, { useEffect, useState, useReducer } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import reducer from "../api/Reducer";
 import "./ScenarioDraftPage.css";
+import StringFormatter from "../controller/StringFormatter.js";
 import UserRequestApi from "../api/UserRequestAPI";
 
 const ScenarioDraftPage = () => {
@@ -44,20 +45,27 @@ const ScenarioDraftPage = () => {
 
   //동화책 이미지 생성 페이지로 정보 보내는 함수
   const navigateToImageGenerator = () => {
+    const formattingTitle = StringFormatter(title);
+    const formattingStory = StringFormatter(story);
+    const formattingSubjectMatter = StringFormatter(subjectMatter);
+    const formattingPlot = StringFormatter(plot);
+    const formattingCharacters = StringFormatter(characters);
+    const formattingLinguisticExpression =
+      StringFormatter(linguisticExpression);
     navigate("/fairy-image-generate-page", {
       state: {
-        title,
-        story,
-        subjectMatter,
-        plot,
-        characters,
-        linguisticExpression,
+        formattingTitle,
+        formattingStory,
+        formattingSubjectMatter,
+        formattingPlot,
+        formattingCharacters,
+        formattingLinguisticExpression,
       },
     });
   };
 
   useEffect(() => {
-    const topic = location.state?.topic;
+    const topic = location.state?.formattingTopic;
     const characterId = location.state?.characterId;
     console.log(topic);
     console.log(characterId);

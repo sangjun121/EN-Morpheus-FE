@@ -3,8 +3,7 @@ import MorpheusLoading from "../animation/MorpheusLoading";
 import "./MorpheusBuilderPage.css";
 import ThemeSelector from "../components/ScenarioCreator/ThemeSelector";
 import CharactorSelector from "../components/ScenarioCreator/CharacterSelector";
-import DraftSelector from "../components/ScenarioCreator/DraftSelector";
-import ImageSelector from "../components/ScenarioCreator/ImageSelector";
+import StringFormatter from "../controller/StringFormatter.js";
 import { useNavigate } from "react-router-dom";
 
 const MorpheusBuilderPage = () => {
@@ -52,7 +51,8 @@ const MorpheusBuilderPage = () => {
       alert("Please select a character before proceeding.");
       return;
     }
-    navigate("./scenario-draft", { state: { topic, characterId } });
+    const formattingTopic = StringFormatter(topic);
+    navigate("./scenario-draft", { state: { formattingTopic, characterId } });
   };
 
   return (
