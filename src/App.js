@@ -11,6 +11,7 @@ import ScenarioDraftPage from "./pages/ScenarioDraftPage";
 import FairyImageGeneratorPage from "./pages/FairyImageGeneratorPage";
 import CharacterResultPage from "./pages/CharacterResultPage";
 import MyPage from "./pages/MyPage/MyPage";
+import Fairytale from "./components/fairytale/CompletedFairytale";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
           />
           <Route path="/character/result" element={<CharacterResultPage />} />
           <Route path="/mypage" element={<MyPage />} />
+          <Route path="/completed-fairytale" element={<Fairytale />} />
         </Routes>
       </div>
     </BrowserRouter>

@@ -4,6 +4,8 @@ import reducer from "../api/Reducer";
 import "./ScenarioDraftPage.css";
 import StringFormatter from "../controller/StringFormatter.js";
 import UserRequestApi from "../api/UserRequestAPI";
+import Loading from "../components/CharacterResult/imageGenerationProcess/Loading.js";
+import Error from "../components/CharacterResult/imageGenerationProcess/Error.js";
 
 const ScenarioDraftPage = () => {
   const navigate = useNavigate();
@@ -54,14 +56,28 @@ const ScenarioDraftPage = () => {
       StringFormatter(linguisticExpression);
     navigate("/fairy-image-generate-page", {
       state: {
-        formattingTitle,
-        formattingStory,
-        formattingSubjectMatter,
-        formattingPlot,
-        formattingCharacters,
-        formattingLinguisticExpression,
+        title,
+        story,
+        subjectMatter,
+        plot,
+        characters,
+        linguisticExpression,
       },
     });
+  };
+
+  const regenerateDraft = () => {
+    const topic = location.state?.formattingTopic;
+    const characterId = location.state?.characterId;
+    fetchScenarioDraft(topic, characterId);
+  };
+
+  const { loading, data: responseStory, error } = state;
+  const draftComponentAfterRequest = () => {
+    if (loading) return <Loading />;
+    if (error) return <Error regenerateImage={regenerateDraft} />;
+    if (!responseStory) return null;
+    return <div>{story}</div>;
   };
 
   useEffect(() => {
@@ -83,7 +99,9 @@ const ScenarioDraftPage = () => {
         <div className="scenario-draft-headline">
           How do you like this <br></br>fairy tale content?
         </div>
-        <div className="scenario-draft-main-text">{story}</div>
+        <div className="scenario-draft-main-text">
+          {draftComponentAfterRequest()}
+        </div>
         <button
           className="change-scenario-draft-button" /*onClick={changeScenarioDraft}*/
         >

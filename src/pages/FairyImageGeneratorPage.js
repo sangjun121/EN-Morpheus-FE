@@ -3,11 +3,13 @@ import { useNavigate, useLocation } from "react-router-dom";
 import API from "../api/API";
 import reducer from "../api/Reducer";
 import "./FairyImageGeneratorPage.scss";
+import UserRequestApi from "../api/UserRequestAPI";
 
 const FairyImageGeneratorPage = () => {
   const inputCount = 19;
   const location = useLocation();
   const navigate = useNavigate();
+  const [episode, setEpisode] = useState([]);
   const [state, dispatch] = useReducer(reducer, {
     loading: false,
     data: null,
@@ -15,15 +17,71 @@ const FairyImageGeneratorPage = () => {
   });
 
   // 서버에서 상세 에피소드 받아오는 함수
-  //   const fetchScenarioDraft = async () => {
-  //     dispatch({ type: "LOADING" });
-  //     try {
-  //       const response = await API.get("url");
-  //       dispatch({ type: "SUCCESS", data: response.data });
-  //     } catch (e) {
-  //       dispatch({ type: "ERROR", error: e });
-  //     }
-  //   };
+  const fetchMainScenario = async (
+    title,
+    story,
+    subjectMatter,
+    plot,
+    characters,
+    linguisticExpression
+  ) => {
+    console.log("main scenario api호출");
+    dispatch({ type: "LOADING" });
+    try {
+      const response = await UserRequestApi.post("/fairy/actualization", {
+        title: title,
+        story: story,
+        subjectMatter: subjectMatter,
+        plot: plot,
+        characters: characters,
+        linguisticExpression: linguisticExpression,
+      });
+      dispatch({ type: "SUCCESS", data: response.data });
+      console.log(response.data);
+    } catch (e) {
+      dispatch({ type: "ERROR", error: e });
+    }
+  };
+
+  useEffect(() => {
+    const title = location.state?.title;
+    const story = location.state?.story;
+    const subjectMatter = location.state?.subjectMatter;
+    const plot = location.state?.plot;
+    const characters = location.state?.characters;
+    const linguisticExpression = location.state?.linguisticExpression;
+    if (
+      title &&
+      story &&
+      subjectMatter &&
+      plot &&
+      characters &&
+      linguisticExpression
+    ) {
+      fetchMainScenario(
+        title,
+        story,
+        subjectMatter,
+        plot,
+        characters,
+        linguisticExpression
+      );
+      // console.log(
+      //   "title:" +
+      //     title +
+      //     "   story:" +
+      //     story +
+      //     "   subjectMatter:" +
+      //     subjectMatter +
+      //     "   plot:" +
+      //     plot +
+      //     "   characters" +
+      //     characters +
+      //     "    ling:" +
+      //     linguisticExpression
+      // );
+    }
+  }, [location.state]);
 
   return (
     <div className="image-generate-page">
