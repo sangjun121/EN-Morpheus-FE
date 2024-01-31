@@ -1,14 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import refreshButton from '../../images/CharacterPage/refresh.png';
 import './TextInputPrompt.css';
 
-const TextInputPrompt = ({
-    step,
-    setStep,
-    steps,
-    characterState,
-    setCharacterState,
-}) => {
+const TextInputPrompt = ({ step, setStep, steps }) => {
     let promptResult = {
         introduction: '',
         name: '',
@@ -19,6 +14,13 @@ const TextInputPrompt = ({
         clothes: '',
         eyes: '',
     };
+
+    //이미지 생성 페이지 넘어가는 함수
+    const navigate = useNavigate();
+    const navigateCharacterImageGeneratePage = () => {
+        navigate('/character/result', { state: promptResult });
+    };
+
     const textarea = useRef();
     const nameStep = 0;
     const introductionStep = steps.length - 1;
@@ -40,10 +42,6 @@ const TextInputPrompt = ({
             ...inputState,
             [e.target.name]: e.target.value,
         });
-        setCharacterState({
-            ...characterState,
-            [e.target.name]: e.target.value,
-        });
     };
 
     const resetInputState = () => {
@@ -52,7 +50,14 @@ const TextInputPrompt = ({
             style: '',
             personality: '',
             introduction: '',
+            furDescription: '',
+            clothes: '',
+            eyes: '',
         });
+        setSpecies('');
+        setGenderState(null);
+        setRaceState(null);
+        setAnimalSpeciesState(null);
     };
 
     const finishButtonEvent = () => {
@@ -79,16 +84,15 @@ const TextInputPrompt = ({
         }
 
         console.log(promptResult);
-        // promptResult = inputState;
-        // console.log(promptResult);
-        // navigateCharacterImageGeneratePage();
-        // resetInputState(); //입력값 초기화
+        navigateCharacterImageGeneratePage();
+        resetInputState(); //입력값 초기화
     };
 
     const nextButtonEvent = () => {
         if (
             (step === 0 && inputState.name.includes(',')) ||
-            (step === 1 && inputState.style.includes(','))
+            (step === 1 && inputState.style.includes(',')) ||
+            (step === 6 && inputState.eyes.includes(','))
         ) {
             alert('Please enter in one word');
             return;
@@ -160,10 +164,6 @@ const TextInputPrompt = ({
                     }
                     setInputState({
                         ...inputState,
-                        [steps[step].textareaName]: textarea.current.value,
-                    });
-                    setCharacterState({
-                        ...characterState,
                         [steps[step].textareaName]: textarea.current.value,
                     });
                 }}

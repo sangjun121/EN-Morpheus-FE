@@ -1,23 +1,9 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import './CharacterPrompt.css';
 import TextSection from './TextSection';
 import TextInputPrompt from './TextInputPrompt';
-import AppearancePrompt from './AppearancePrompt';
 
 const CharacterPrompt = () => {
-    let promptResult;
-    const appearanceStep = 3;
-
-    const [characterState, setCharacterState] = useState({
-        name: '',
-        style: '',
-        personality: '',
-        introduction: '',
-        gender: '',
-        race: '',
-    });
-
     const [step, setStep] = useState(0);
     const steps = [
         {
@@ -278,32 +264,11 @@ const CharacterPrompt = () => {
         },
     ];
 
-    //이미지 생성 페이지 넘어가는 함수
-    const navigate = useNavigate();
-    const navigateCharacterImageGeneratePage = () => {
-        navigate('/character/result', { state: promptResult });
-    };
-
     return (
         <div className="CharacterPrompt">
             <TextSection step={step} steps={steps} />
             <div className="DescritionSection">
-                <TextInputPrompt
-                    step={step}
-                    setStep={setStep}
-                    steps={steps}
-                    characterState={characterState}
-                    setCharacterState={setCharacterState}
-                />
-                {/* {step === appearanceStep ? (
-                    <AppearancePrompt
-                        step={step}
-                        setStep={setStep}
-                        characterState={characterState}
-                        setCharacterState={setCharacterState}
-                    />
-                ) : (
-                )} */}
+                <TextInputPrompt step={step} setStep={setStep} steps={steps} />
             </div>
         </div>
     );

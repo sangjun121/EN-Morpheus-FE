@@ -22,20 +22,14 @@ const CharacterResult = ({ userCharacterPromptInput }) => {
     const [confirmState, setConfirmState] = useState(false);
 
     const fetchCharacterImage = async () => {
-        console.log('api 호출!');
+        console.log('캐릭터 생성 api 호출!');
         dispatch({ type: 'LOADING' });
-
+        const requestBody = userCharacterPromptInput;
         try {
-            const response = await UserRequestApi.post('/character/create', {
-                introduction: '점, 주근깨, 안경',
-                name: 'Lilly',
-                personality: 'kind',
-                animationStyle: 'DISNEY',
-                species: 'girl, white',
-                furDescription: 'red hair, curly hair',
-                clothes: 'Spacesuit',
-                eyes: 'green eyes',
-            });
+            const response = await UserRequestApi.post(
+                '/character/create',
+                requestBody
+            );
 
             dispatch({
                 type: 'SUCCESS',
@@ -53,18 +47,9 @@ const CharacterResult = ({ userCharacterPromptInput }) => {
 
     /****************************************************** */
     const saveCharacterImage = async () => {
-        console.log('api 호출!');
+        console.log('캐릭터 저장 api 호출!');
         const requestBody = {
-            characterCreationForm: {
-                introduction: '점, 주근깨, 안경',
-                name: 'Lilly',
-                personality: 'kind',
-                animationStyle: 'DISNEY',
-                species: 'girl, white',
-                furDescription: 'red hair, curly hair',
-                clothes: 'Spacesuit',
-                eyes: 'green eyes',
-            },
+            characterCreationForm: userCharacterPromptInput,
             imageUrl: loadedImgUrl,
             revisedPrompt: loadedImgRevisedPrompt,
         };

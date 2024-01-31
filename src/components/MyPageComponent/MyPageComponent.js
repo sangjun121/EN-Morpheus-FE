@@ -60,7 +60,7 @@ const MyPageComponent = () => {
 
     //2. 초기 마운트 될때 사용자 정보 불러오기
     useEffect(() => {
-        // loadUserData();
+        loadUserData();
     }, []);
 
     //Components

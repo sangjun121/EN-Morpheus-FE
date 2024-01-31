@@ -197,6 +197,11 @@ button {
 }
 
 /* 종 성별 */
+.SpeciesPromptButtonContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
 .speciesButtonOption {
     display: flex;
     flex-direction: row;
