@@ -8,6 +8,7 @@ import Tab from '@mui/material/Tab';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import './MyPageComponent.css';
 import UserRequestApi from '../../api/UserRequestApi';
+import ImageDetail from './ImageDetail';
 
 const MyPageComponent = () => {
     const navigate = useNavigate();
@@ -21,24 +22,21 @@ const MyPageComponent = () => {
         ],
         userStoryBook: [],
     });
+    const [modalIsOpen, setModalIsOpen] = useState(false);
 
     const characterSortValue = 0;
     const bookSortValue = 1;
 
     //함수
     //1. API요청 (사용자 캐릭터)
-    const loadUserData = async () => {
-        console.log('api 호출!');
+    const loadUserCharacterData = async () => {
+        console.log('캐릭터 불러오기 api 호출!');
         try {
             const response = await UserRequestApi.get('/character/list');
-            console.log(response.data.response.code[0].image);
-
-            const characterName = response.data.response.code[0].name;
-            const characterImgUrl = response.data.response.code[0].image;
-
+            const userCharacterResponse = response.data.response.code;
             setUserData({
                 ...userData,
-                userCharacter: [{ url: characterImgUrl, name: characterName }],
+                userCharacter: userCharacterResponse,
             });
         } catch (e) {
             console.log(e);
@@ -51,6 +49,11 @@ const MyPageComponent = () => {
         else navigate('/morpheus-builder');
     };
 
+    //3. 모달창 구현 (이미지 확대)
+    const viewImageMagnification = () => {
+        setModalIsOpen(true);
+    };
+
     //useEffect
     // 1. 탭 위치에 따라 쿼리스트링 지정
     useEffect(() => {
@@ -60,7 +63,7 @@ const MyPageComponent = () => {
 
     //2. 초기 마운트 될때 사용자 정보 불러오기
     useEffect(() => {
-        loadUserData();
+        loadUserCharacterData();
     }, []);
 
     //Components
@@ -121,8 +124,13 @@ const MyPageComponent = () => {
         const Item = ({ data }) => {
             return (
                 <div className="MyPageComponentEachItem">
-                    <img src={data.url} />
+                    <img src={data.url} onClick={viewImageMagnification} />
                     <p>{data.name}</p>
+                    <ImageDetail
+                        modalIsOpen={modalIsOpen}
+                        setModalIsOpen={setModalIsOpen}
+                        imgUrl={data.url}
+                    />
                 </div>
             );
         };
@@ -171,6 +179,7 @@ const MyPageComponent = () => {
             },
         },
     });
+
     return (
         <div className="MyPageComponent">
             <UserInformation />
