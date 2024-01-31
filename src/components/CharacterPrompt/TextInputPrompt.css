@@ -1,0 +1,355 @@
+p {
+    white-space: pre-wrap;
+}
+
+.RecommendContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+}
+
+.RecommendedKeywords {
+    font-family: Poppins-Medium;
+    font-size: 30px;
+    color: black;
+    margin: 0;
+    margin-top: 50px;
+    margin-bottom: 10px;
+}
+.RecommendedKeywordsInType {
+    font-family: Poppins-Medium;
+    font-size: 30px;
+    color: black;
+    margin: 0;
+    padding-top: 50px;
+}
+
+.refreshButton {
+    margin-top: 47px;
+    margin-left: 16px;
+    background: none; /* 배경 제거 */
+    border: none; /* 테두리 제거 */
+    cursor: pointer; /* 마우스 커서 스타일 */
+    padding: 0; /* 패딩 제거 */
+}
+
+.refreshButton:hover {
+    transform: rotate(60deg);
+    transition: transform 0.5s;
+}
+
+.refreshButton img {
+    width: 30px; /* 원하는 크기로 조정 */
+    height: 30px; /* 높이 자동 조절 */
+}
+
+.buttonOptions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.buttonOptions button {
+    --background: #283618;
+    --text: #fff;
+    --font-size: 16px;
+    --duration: 0.44s;
+    --move-hover: -4px;
+    --shadow: 0 2px 8px -1px rgba(40, 54, 24, 0.32);
+    --shadow-hover: 0 4px 20px -2px rgba(40, 54, 24, 0.5);
+    --font-shadow: var(--font-size);
+    padding: 16px 32px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-family: 'Roboto';
+    font-weight: 500;
+    line-height: var(--font-size);
+    border-radius: 24px;
+    display: block;
+    outline: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: none;
+    text-decoration: none;
+    font-size: var(--font-size);
+    letter-spacing: 0.5px;
+    background: var(--background);
+    color: var(--text);
+    box-shadow: var(--shadow);
+    transform: translateY(var(--y)) translateZ(0);
+    transition: transform var(--duration) ease, box-shadow var(--duration) ease;
+}
+
+.buttonOptions button:hover {
+    --y: var(--move-hover);
+    --shadow: var(--shadow-hover);
+}
+
+.buttonOptions button div {
+    display: flex;
+    overflow: hidden;
+    text-shadow: 0 var(--font-shadow) 0 var(--text);
+}
+.buttonOptions button div span {
+    display: block;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    font-style: normal;
+    transition: transform var(--duration) ease;
+    transform: translateY(var(--m)) translateZ(0);
+}
+.buttonOptions button div span:nth-child(1) {
+    transition-delay: 0.05s;
+}
+.buttonOptions button div span:nth-child(2) {
+    transition-delay: 0.1s;
+}
+.buttonOptions button div span:nth-child(3) {
+    transition-delay: 0.15s;
+}
+.buttonOptions button div span:nth-child(4) {
+    transition-delay: 0.2s;
+}
+.buttonOptions button div span:nth-child(5) {
+    transition-delay: 0.25s;
+}
+.buttonOptions button div span:nth-child(6) {
+    transition-delay: 0.3s;
+}
+.buttonOptions button div span:nth-child(7) {
+    transition-delay: 0.35s;
+}
+.buttonOptions button div span:nth-child(8) {
+    transition-delay: 0.4s;
+}
+.buttonOptions button div span:nth-child(9) {
+    transition-delay: 0.45s;
+}
+.buttonOptions button div span:nth-child(10) {
+    transition-delay: 0.5s;
+}
+.buttonOptions button div span:nth-child(11) {
+    transition-delay: 0.55s;
+}
+
+.buttonOptions button:hover span {
+    --m: calc(var(--font-size) * -1);
+}
+
+/* step이동 버튼 */
+.NextBtnContainer {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    padding-left: 200px;
+}
+
+.NextButton {
+    background: #3d4c53;
+    border-radius: 20px;
+    margin: 0px;
+    width: 200px;
+    height: 50px;
+    overflow: hidden;
+    text-align: center;
+    transition: 0.2s;
+    cursor: pointer;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+    margin-bottom: 100px;
+}
+.NextBtnTwo {
+    position: relative;
+    width: 200px;
+    height: 100px;
+    margin-top: -100px;
+    padding-top: 2px;
+    background: #26a69a;
+    left: -250px;
+    transition: 0.3s;
+}
+.NextBtnText {
+    color: white;
+    transition: 0.3s;
+}
+.NextBtnText2 {
+    margin-top: 63px;
+    margin-right: -130px;
+    color: #fff;
+}
+.NextButton:hover .NextBtnTwo {
+    /*When hovering over .button change .btnTwo*/
+    left: -130px;
+}
+.NextButton:hover .NextBtnText {
+    /*When hovering over .button change .btnText*/
+    margin-left: 65px;
+}
+.NextButton:active {
+    /*Clicked and held*/
+    box-shadow: 0px 5px 6px rgba(0, 0, 0, 0.3);
+}
+
+button {
+    cursor: pointer;
+}
+
+/* 종 성별 */
+.speciesButtonOption {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    flex-wrap: wrap;
+}
+
+.speciesButtonOption button {
+    --background: white;
+    --text: black;
+    --font-size: 16px;
+    --duration: 0.44s;
+    --move-hover: -4px;
+    --shadow: 0 2px 8px -1px rgba(40, 54, 24, 0.32);
+    --shadow-hover: 0 4px 20px -2px rgba(40, 54, 24, 0.5);
+    --font-shadow: var(--font-size);
+    padding: 16px 32px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    font-family: 'Roboto';
+    font-weight: 500;
+    line-height: var(--font-size);
+    border-radius: 24px;
+    display: block;
+    outline: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: none;
+    text-decoration: none;
+    font-size: var(--font-size);
+    letter-spacing: 0.5px;
+    background: var(--background);
+    color: var(--text);
+    box-shadow: var(--shadow);
+    transform: translateY(var(--y)) translateZ(0);
+    transition: transform var(--duration) ease, box-shadow var(--duration) ease;
+}
+
+.speciesButtonOption button:hover {
+    --y: var(--move-hover);
+    --shadow: var(--shadow-hover);
+}
+
+.speciesButtonOption button div {
+    display: flex;
+    overflow: hidden;
+    text-shadow: 0 var(--font-shadow) 0 var(--text);
+}
+.speciesButtonOption button div span {
+    display: block;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    font-style: normal;
+    transition: transform var(--duration) ease;
+    transform: translateY(var(--m)) translateZ(0);
+}
+.speciesButtonOption button div span:nth-child(1) {
+    transition-delay: 0.05s;
+}
+.speciesButtonOption button div span:nth-child(2) {
+    transition-delay: 0.1s;
+}
+.speciesButtonOption button div span:nth-child(3) {
+    transition-delay: 0.15s;
+}
+.speciesButtonOption button div span:nth-child(4) {
+    transition-delay: 0.2s;
+}
+.speciesButtonOption button div span:nth-child(5) {
+    transition-delay: 0.25s;
+}
+.speciesButtonOption button div span:nth-child(6) {
+    transition-delay: 0.3s;
+}
+.speciesButtonOption button div span:nth-child(7) {
+    transition-delay: 0.35s;
+}
+.speciesButtonOption button div span:nth-child(8) {
+    transition-delay: 0.4s;
+}
+.speciesButtonOption button div span:nth-child(9) {
+    transition-delay: 0.45s;
+}
+.speciesButtonOption button div span:nth-child(10) {
+    transition-delay: 0.5s;
+}
+.speciesButtonOption button div span:nth-child(11) {
+    transition-delay: 0.55s;
+}
+
+.speciesButtonOption button:hover span {
+    --m: calc(var(--font-size) * -1);
+}
+
+.speciesButtonOption button.selected {
+    background-color: #283618; /* 초록색 */
+    color: #fff; /* 선택된 버튼의 텍스트 색상 변경 */
+}
+
+.animalSpeciesTextarea {
+    width: 350px;
+    height: 45px;
+}
+
+.race {
+    margin-top: 50px;
+}
+
+/* ///////////////////////////////////// */
+.saveButton {
+    width: 100px;
+    font-family: inherit;
+    font-size: 15px;
+    background: white;
+    color: #212121;
+    fill: rgb(155, 153, 153);
+    padding: 0.7em 1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+    border-radius: 15px;
+    font-weight: 1000;
+    box-shadow: 0 2px 8px -1px rgba(40, 54, 24, 0.32);
+}
+.saveButtonSelected {
+    width: 100px;
+    background: #212121;
+    color: white;
+    font-family: inherit;
+    font-size: 15px;
+    fill: rgb(155, 153, 153);
+    padding: 0.7em 1em;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    border: none;
+    border-radius: 15px;
+    font-weight: 1000;
+    box-shadow: 0 2px 8px -1px rgba(40, 54, 24, 0.32);
+}
+.saveButton span {
+    color: #212121;
+    display: block;
+    margin-left: 0.3em;
+    transition: all 0.3s ease-in-out;
+}
+
+.confirmButtonContainer {
+    margin-top: 50px;
+    display: flex;
+    justify-content: end;
+}

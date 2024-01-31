@@ -7,12 +7,12 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import './MyPageComponent.css';
+import UserRequestApi from '../../api/UserRequestApi';
 
 const MyPageComponent = () => {
     const navigate = useNavigate();
     const [tabValue, setTabValue] = useState(0);
     const [userData, setUserData] = useState({
-        userName: 'USER',
         userCharacter: [
             // { url: '#', name: 'test' },
             // { url: '#', name: 'test' },
@@ -27,8 +27,22 @@ const MyPageComponent = () => {
 
     //함수
     //1. API요청 (사용자 캐릭터)
-    const loadUserData = () => {
-        //API 연결후 요청 코드 - 응답값을 userData에 넣기
+    const loadUserData = async () => {
+        console.log('api 호출!');
+        try {
+            const response = await UserRequestApi.get('/character/list');
+            console.log(response.data.response.code[0].image);
+
+            const characterName = response.data.response.code[0].name;
+            const characterImgUrl = response.data.response.code[0].image;
+
+            setUserData({
+                ...userData,
+                userCharacter: [{ url: characterImgUrl, name: characterName }],
+            });
+        } catch (e) {
+            console.log(e);
+        }
     };
 
     //2. 캐릭터 및 동화책 추가 페이지로 이동
@@ -46,7 +60,7 @@ const MyPageComponent = () => {
 
     //2. 초기 마운트 될때 사용자 정보 불러오기
     useEffect(() => {
-        loadUserData();
+        // loadUserData();
     }, []);
 
     //Components

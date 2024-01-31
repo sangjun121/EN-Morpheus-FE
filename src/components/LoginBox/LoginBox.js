@@ -1,11 +1,13 @@
-
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faLock, faUser } from '@fortawesome/free-solid-svg-icons';
 import './LoginBox.css';
-import LoginAPI from '../../api/LoginApi';
+import UserRequestApi from '../../api/UserRequestApi';
+import { useNavigate } from 'react-router-dom';
 
 const LoginBox = () => {
+    const navigate = useNavigate();
+
     const [loginEmail, setLoginEmail] = useState('');
     const [loginPassword, setLoginPassword] = useState('');
     const [registerUsername, setRegisterUsername] = useState('');
@@ -40,9 +42,14 @@ const LoginBox = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         //로그인 로직 추가할 공간
-        console.log('로그인');
         onSubmit();
         // console.log('Email:', loginEmail, 'Password:', loginPassword);
+    };
+
+    //로그인토큰 저장 함수
+    const addTokenToLocalStorage = (token) => {
+        localStorage.clear();
+        localStorage.setItem('token', token);
     };
 
     const onSubmit = async () => {
@@ -52,13 +59,12 @@ const LoginBox = () => {
         };
 
         try {
-            const response = await LoginAPI.post(
+            const response = await UserRequestApi.post(
                 '/members/login',
                 loginDataForm
             );
-
-            console.log('성공:', response.data);
-            // 성공 로직 처리, 예: 사용자 대시보드로 리디렉션
+            addTokenToLocalStorage(response.data.response.code.accessToken);
+            navigate('/');
         } catch (error) {
             if (error.response) {
                 // 서버가 2xx 이외의 상태 코드로 응답한 경우

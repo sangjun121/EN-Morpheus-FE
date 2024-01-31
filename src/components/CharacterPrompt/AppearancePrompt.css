@@ -1,0 +1,80 @@
+/* step이동 버튼 */
+.NextBtnContainer {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    padding-left: 200px;
+}
+
+.NextButton {
+    background: #3d4c53;
+    border-radius: 20px;
+    margin: 0px;
+    width: 200px;
+    height: 50px;
+    overflow: hidden;
+    text-align: center;
+    transition: 0.2s;
+    cursor: pointer;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+    margin-bottom: 100px;
+}
+.NextBtnTwo {
+    position: relative;
+    width: 200px;
+    height: 100px;
+    margin-top: -100px;
+    padding-top: 2px;
+    background: #26a69a;
+    left: -250px;
+    transition: 0.3s;
+}
+.NextBtnText {
+    color: white;
+    transition: 0.3s;
+}
+.NextBtnText2 {
+    margin-top: 63px;
+    margin-right: -130px;
+    color: #fff;
+}
+.NextButton:hover .NextBtnTwo {
+    /*When hovering over .button change .btnTwo*/
+    left: -130px;
+}
+.NextButton:hover .NextBtnText {
+    /*When hovering over .button change .btnText*/
+    margin-left: 65px;
+}
+.NextButton:active {
+    /*Clicked and held*/
+    box-shadow: 0px 5px 6px rgba(0, 0, 0, 0.3);
+}
+
+button {
+    cursor: pointer;
+}
+
+/* ///////////////////////////////////////////////////// */
+.SpeciesPrompt {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+/* .speciesTextarea {
+    height: 50px;
+} */
+
+.SpeciesPromptButtonContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-bottom: 30px;
+}
+
+/* 랜덤키워드 버튼 옵션 */
