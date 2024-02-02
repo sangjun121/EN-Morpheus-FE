@@ -39,11 +39,22 @@ const LoginBox = () => {
         setRegisterPasswordCheck(event.target.value);
     };
 
-    const handleSubmit = (event) => {
+    const handleLoginSubmit = (event) => {
         event.preventDefault();
         //로그인 로직 추가할 공간
-        onSubmit();
+        onLoginSubmit();
         // console.log('Email:', loginEmail, 'Password:', loginPassword);
+    };
+
+    const handleRegisterSubmit = (event) => {
+        event.preventDefault();
+
+        if (registerPassword !== registerPasswordCheck) {
+            alert('Check Your Password');
+            return;
+        }
+        //회원가입 로직 추가할 공간
+        onRegisterSubmit();
     };
 
     //로그인토큰 저장 함수
@@ -52,18 +63,51 @@ const LoginBox = () => {
         localStorage.setItem('token', token);
     };
 
-    const onSubmit = async () => {
+    const onLoginSubmit = async () => {
         const loginDataForm = {
             id: loginEmail,
             password: loginPassword,
         };
 
         try {
+            console.log('로그인 API 요청');
             const response = await UserRequestApi.post(
                 '/members/login',
                 loginDataForm
             );
             addTokenToLocalStorage(response.data.response.code.accessToken);
+            navigate('/');
+        } catch (error) {
+            if (error.response) {
+                // 서버가 2xx 이외의 상태 코드로 응답한 경우
+                console.log('오류:', error.response.data);
+                // 오류 처리, 예: 사용자에게 오류 메시지 표시
+            } else if (error.request) {
+                // 요청이 이루어졌으나 응답을 받지 못한 경우
+                console.log('서버 응답 없음');
+            } else {
+                // 요청 설정 시 오류 발생
+                console.error('요청 실패:', error.message);
+            }
+            // 네트워크 오류 처리
+        }
+    };
+
+    const onRegisterSubmit = async () => {
+        const registerDataForm = {
+            id: loginEmail,
+            password: loginPassword,
+            email: loginEmail,
+            name: registerUsername,
+        };
+
+        try {
+            console.log('회원가입 API 요청');
+            const response = await UserRequestApi.post(
+                '/members/join',
+                registerDataForm
+            );
+            console.log('회원가입 성공');
             navigate('/');
         } catch (error) {
             if (error.response) {
@@ -101,7 +145,7 @@ const LoginBox = () => {
         <div className="wrapper">
             <div className="form-box login">
                 <h2>Login</h2>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleLoginSubmit}>
                     <div className="input-box">
                         <span className="icon">
                             <FontAwesomeIcon icon={faEnvelope} />
@@ -153,7 +197,7 @@ const LoginBox = () => {
 
             <div className="form-box register">
                 <h2>Registration</h2>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleRegisterSubmit}>
                     <div className="input-box">
                         <span className="icon">
                             <FontAwesomeIcon icon={faUser} />
