@@ -18,6 +18,7 @@ const MyPageComponent = () => {
         userStoryBook: [],
     });
     const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [modalImage, setModalImage] = useState('');
 
     const characterSortValue = 0;
     const bookSortValue = 1;
@@ -50,8 +51,9 @@ const MyPageComponent = () => {
     };
 
     //3. 모달창 구현 (이미지 확대)
-    const viewImageMagnification = () => {
+    const viewImageMagnification = (data) => {
         setModalIsOpen(true);
+        setModalImage(data.image);
     };
 
     //useEffect
@@ -122,19 +124,20 @@ const MyPageComponent = () => {
 
         console.log(itemData);
 
+        //리액트 클로저
         const Item = ({ index, data }) => {
             return (
                 <div className="MyPageComponentEachItem">
                     <img
                         key={index}
                         src={data.image}
-                        onClick={viewImageMagnification}
+                        onClick={() => viewImageMagnification(data)}
                     />
                     <p>{data.name}</p>
                     <ImageDetail
                         modalIsOpen={modalIsOpen}
                         setModalIsOpen={setModalIsOpen}
-                        imgUrl={data.image}
+                        imgUrl={modalImage}
                     />
                 </div>
             );
