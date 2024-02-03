@@ -80,7 +80,7 @@ const LoginBox = () => {
         } catch (error) {
             if (error.response) {
                 // 서버가 2xx 이외의 상태 코드로 응답한 경우
-                console.log('오류:', error.response.data);
+                console.log('오류:', error.response);
                 // 오류 처리, 예: 사용자에게 오류 메시지 표시
             } else if (error.request) {
                 // 요청이 이루어졌으나 응답을 받지 못한 경우
@@ -95,9 +95,9 @@ const LoginBox = () => {
 
     const onRegisterSubmit = async () => {
         const registerDataForm = {
-            id: loginEmail,
-            password: loginPassword,
-            email: loginEmail,
+            id: registerEmail,
+            password: registerPassword,
+            email: registerEmail,
             name: registerUsername,
         };
 

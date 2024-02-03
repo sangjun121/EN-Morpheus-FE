@@ -83,7 +83,6 @@ const TextInputPrompt = ({ step, setStep, steps }) => {
             //옵션 선택 안함
         }
 
-        console.log(promptResult);
         navigateCharacterImageGeneratePage();
         resetInputState(); //입력값 초기화
     };

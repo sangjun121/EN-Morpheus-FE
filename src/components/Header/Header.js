@@ -46,6 +46,7 @@ const Header = () => {
             const response = await UserRequestApi.delete('/members/logout');
             localStorage.removeItem('token');
             console.log('로그아웃 성공');
+            alert('Logged out successfully.');
             navigate('/');
         } catch (error) {
             if (error.response) {

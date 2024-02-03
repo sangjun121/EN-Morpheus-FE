@@ -14,12 +14,7 @@ const MyPageComponent = () => {
     const navigate = useNavigate();
     const [tabValue, setTabValue] = useState(0);
     const [userData, setUserData] = useState({
-        userCharacter: [
-            // { url: '#', name: 'test' },
-            // { url: '#', name: 'test' },
-            // { url: '#', name: 'test' },
-            // { url: '#', name: 'test' },
-        ],
+        userCharacter: [],
         userStoryBook: [],
     });
     const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -33,11 +28,16 @@ const MyPageComponent = () => {
         console.log('캐릭터 불러오기 api 호출!');
         try {
             const response = await UserRequestApi.get('/character/list');
+
+            //조회가능한 캐릭터가 없을때
+            if (response.data.response.result === 'FAIL') return;
+
             const userCharacterResponse = response.data.response.code;
             setUserData({
                 ...userData,
                 userCharacter: userCharacterResponse,
             });
+            console.log(userData);
         } catch (e) {
             console.log(e);
         }
@@ -103,7 +103,6 @@ const MyPageComponent = () => {
         return (
             <div className="MyPageComponentAddBox">
                 <p>Add your {CategoryName}</p>
-                {/* <img src={addIcon} /> */}
                 <a
                     class="effect effect-5"
                     href="javascript:void(0);"
@@ -121,15 +120,21 @@ const MyPageComponent = () => {
         if (tabValue === characterSortValue) itemData = userData.userCharacter;
         else itemData = userData.userStoryBook;
 
-        const Item = ({ data }) => {
+        console.log(itemData);
+
+        const Item = ({ index, data }) => {
             return (
                 <div className="MyPageComponentEachItem">
-                    <img src={data.url} onClick={viewImageMagnification} />
+                    <img
+                        key={index}
+                        src={data.image}
+                        onClick={viewImageMagnification}
+                    />
                     <p>{data.name}</p>
                     <ImageDetail
                         modalIsOpen={modalIsOpen}
                         setModalIsOpen={setModalIsOpen}
-                        imgUrl={data.url}
+                        imgUrl={data.image}
                     />
                 </div>
             );
@@ -138,7 +143,7 @@ const MyPageComponent = () => {
         return (
             <div className="MyPageComponentItemListContainer">
                 {itemData.map((data, index) => (
-                    <Item key={index} data={data} />
+                    <Item index={index} data={data} />
                 ))}
             </div>
         );
