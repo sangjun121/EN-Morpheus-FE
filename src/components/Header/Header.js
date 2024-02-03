@@ -11,6 +11,7 @@ const Header = () => {
     let navigate = useNavigate();
     const [menuOpen, setMenuOpen] = useState(false);
     const [isFixed, setIsFixed] = useState(false);
+    const token = localStorage.getItem('token');
 
     const toggleMenu = () => {
         if (menuOpen) {
@@ -66,8 +67,6 @@ const Header = () => {
 
     //로그인 로그아웃 버튼 리턴 컨포넌트
     const LoginOrLogout = () => {
-        const token = localStorage.getItem('token');
-
         //로그인
         if (!token) {
             return (
@@ -87,13 +86,14 @@ const Header = () => {
             </span>
         );
     };
+
     return (
         <div
             className={
                 isFixed ? 'header-section fixed-position' : 'header-section'
             }
         >
-            <div className="header-logo">
+            <div className="header-logo" onClick={() => navigate('/')}>
                 <FontAwesomeIcon className="logo-morpheus" icon={faBookQuran} />
                 <span>MORPHEUS</span>
             </div>
@@ -106,7 +106,7 @@ const Header = () => {
                 <li>
                     <span
                         className="header-about"
-                        onClick={() => navigate('/about')}
+                        // onClick={() => navigate('/about')}
                     >
                         About
                     </span>
@@ -114,6 +114,17 @@ const Header = () => {
                 <li>
                     <LoginOrLogout />
                 </li>
+                {token ? (
+                    <li>
+                        <span
+                            className="header-mypage"
+                            onClick={() => navigate('/mypage')}
+                        >
+                            My Page
+                        </span>
+                    </li>
+                ) : null}
+
                 <button
                     className="header-try-morpheus"
                     onClick={() => navigate('/data-control')}
@@ -154,14 +165,18 @@ const MenuAnimation = ({ menuOpen, toggleMenu }) => {
                     <div className="menu-item" onClick={handleCloseButton}>
                         Home
                     </div>
-                    <div className="menu-item">Login</div>
                     <div
                         className="menu-item"
                         onClick={() => navigate('/character')}
                     >
                         Character
                     </div>
-                    <div className="menu-item">Try Morpheus</div>
+                    <div
+                        className="menu-item"
+                        onClick={() => navigate('/morpheus-builder')}
+                    >
+                        Try Morpheus
+                    </div>
                 </div>
             )}
         </div>
