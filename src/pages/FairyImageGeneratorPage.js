@@ -1,40 +1,147 @@
 import React, { useEffect, useState, useReducer } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import API from '../api/API';
 import reducer from '../api/Reducer';
+import imageReducer from '../api/ImageReducer';
 import './FairyImageGeneratorPage.scss';
+import UserRequestApi from '../api/UserRequestApi';
+import Loading from '../components/CharacterResult/imageGenerationProcess/Loading';
+import Error from '../components/CharacterResult/imageGenerationProcess/Error';
+import LoadingBook from '../components/loadingState/LoadingBook';
 
 const FairyImageGeneratorPage = () => {
     const inputCount = 19;
+    const location = useLocation();
     const navigate = useNavigate();
+    const initialState = {
+        images: Array(16).fill({ loading: false, error: null, url: null }),
+    };
+    const [backgroundImageUrls, setBackgroundImageUrls] = useState(
+        Array(16).fill(null)
+    );
+    const [narrativeText, setNarrativeText] = useState([]);
+    const [chapterBackground, setChapterBackground] = useState([]);
+    const [chapterStory, setChapterStory] = useState([]);
+    const [characterPosture, setCharacterPosture] = useState([]);
+    const [characterId, setCharacterId] = useState(null);
+
+    //이미지 생성 리듀서
+    const [imageState, imageDispatch] = useReducer(imageReducer, initialState);
+
+    //페이지 들어올 때 리듀서
     const [state, dispatch] = useReducer(reducer, {
         loading: false,
         data: null,
         error: null,
     });
 
-    //   const fetchScenarioDraft = async () => {
-    //     dispatch({ type: "LOADING" });
-    //     try {
-    //       const response = await API.get("url");
-    //       dispatch({ type: "SUCCESS", data: response.data });
-    //     } catch (e) {
-    //       dispatch({ type: "ERROR", error: e });
-    //     }
-    //   };
+    //서버에서 상세 에피소드 받아오는 함수
+    const fetchMainScenario = async (
+        title,
+        story,
+        subjectMatter,
+        plot,
+        characters,
+        linguisticExpression
+    ) => {
+        console.log('main scenario api호출');
+        dispatch({ type: 'LOADING' });
+        try {
+            const response = await UserRequestApi.post('/fairy/actualization', {
+                title: title,
+                story: story,
+                subjectMatter: subjectMatter,
+                plot: plot,
+                characters: characters,
+                linguisticExpression: linguisticExpression,
+            });
+            const data = response.data.response.code.chapters;
+            setNarrativeText(data.map((chapter) => chapter.narrativeText));
+            setChapterBackground(data.map((chapter) => chapter.background));
+            setCharacterPosture(
+                data.map((chapter) => chapter.characterPosture)
+            );
+            setChapterStory(data.map((chapter) => chapter.story));
+            dispatch({ type: 'SUCCESS', data: response.data });
+            console.log(response.data);
+        } catch (e) {
+            dispatch({ type: 'ERROR', error: e });
+        }
+    };
 
-    //   useEffect(() => {
-    //     fetchScenarioDraft();
-    //   }, []);
+    //이미지 생성 버튼 눌렀을 때 서버에서 이미지 받아오는 함수
+    const fetchScenarioImage = async (
+        background,
+        story,
+        posture,
+        id,
+        index
+    ) => {
+        console.log('이미지 api호출');
+        imageDispatch({ type: 'LOADING', index });
+        try {
+            const response = await UserRequestApi.post('/fairy/chapter-image', {
+                chapterBackground: background,
+                chapterStory: story,
+                characterPosture: posture,
+                characterId: id,
+            });
+            const imageUrl = response.data.response.code.data[0].url;
+            console.log(imageUrl);
+            setBackgroundImageUrls((urls) =>
+                urls.map((url, i) => (i === index ? imageUrl : url))
+            );
+            imageDispatch({ type: 'SUCCESS', index, imageUrl });
+        } catch (e) {
+            imageDispatch({ type: 'ERROR', index, error: e });
+        }
+    };
 
-    //   const changeScenarioDraft = () => {
-    //     fetchScenarioDraft();
-    //   };
+    //이미지 generate버튼 클릭 이벤트
+    const imageButtonClickEvent = (index) => {
+        fetchScenarioImage(
+            chapterBackground[index],
+            chapterStory[index],
+            characterPosture[index],
+            characterId,
+            index
+        );
+    };
 
-    //   const { loading, data: scenarioDraft, error } = state;
+    useEffect(() => {
+        const title = location.state?.title;
+        const story = location.state?.story;
+        const subjectMatter = location.state?.subjectMatter;
+        const plot = location.state?.plot;
+        const characters = location.state?.characters;
+        const linguisticExpression = location.state?.linguisticExpression;
+        setCharacterId(location.state?.characterId);
+        if (
+            title &&
+            story &&
+            subjectMatter &&
+            plot &&
+            characters &&
+            linguisticExpression
+        ) {
+            fetchMainScenario(
+                title,
+                story,
+                subjectMatter,
+                plot,
+                characters,
+                linguisticExpression
+            );
+        }
+    }, [location.state]);
 
-    //   if (loading) return <div>loading...</div>;
-    //   if (error) return <div>server error</div>;
-    //   if (!scenarioDraft) return null;
+    if (state.loading) {
+        return (
+            <div className="loading-page">
+                <LoadingBook />;
+            </div>
+        );
+    }
 
     return (
         <div className="image-generate-page">
@@ -71,8 +178,8 @@ const FairyImageGeneratorPage = () => {
                                     the last step
                                 </h4>
                             </div>
-                            <div className="overlay"></div>
                         </div>
+                        <div className="bg"></div>
                         <div className="control next">
                             <label htmlFor="input-2"></label>
                         </div>
@@ -243,11 +350,16 @@ const FairyImageGeneratorPage = () => {
                     <div className="pages_page__inner">
                         <div className="logo">Morpheus</div>
                         <div className="pagenumber">4 5 </div>
-                        <button className="content_button">generate</button>
+                        <button
+                            className="content_button"
+                            onClick={() => imageButtonClickEvent(0)}
+                        >
+                            generate
+                        </button>
                         <div className="content">
                             <div className="content_section">
                                 <h2>Episode 1</h2>
-                                <p>{/*서버에서 정보 받아온 것 기입 */}</p>
+                                <p>{narrativeText[0]}</p>
                             </div>
                         </div>
 
@@ -257,7 +369,12 @@ const FairyImageGeneratorPage = () => {
                     </div>
                 </div>
                 <div className="pages_page">
-                    <div className="pages_page__inner">
+                    <div
+                        className="pages_page__inner"
+                        style={{
+                            backgroundImage: `url(${backgroundImageUrls[0]})`,
+                        }}
+                    >
                         <div className="hamburger">
                             <div className="hamburger_part"></div>
                             <div className="hamburger_part"></div>
@@ -267,10 +384,25 @@ const FairyImageGeneratorPage = () => {
                             <label htmlFor="input-4"></label>
                         </div>
                         <div className="bg"></div>
-                        <div className="content_centerimage">
-                            {/* 로딩중일 때 이미지 생성 */}
+                        <div className="content_centerimage"></div>
+                        <div className="content">
+                            {imageState.images[0].loading ? (
+                                <Loading />
+                            ) : imageState.images[0].error ? (
+                                <Error
+                                    regenerateImage={() =>
+                                        fetchScenarioImage(
+                                            chapterBackground[0],
+                                            chapterStory[0],
+                                            characterPosture[0],
+                                            characterId,
+                                            0
+                                        )
+                                    }
+                                />
+                            ) : null}
                         </div>
-                        <div className="content">{/* image생성 */}</div>
+                        ;
                         <div className="footer">
                             <i className="fab fa-google-plus-g"></i>
                             <i className="fas fa-retweet"></i>
@@ -284,11 +416,16 @@ const FairyImageGeneratorPage = () => {
                     <div className="pages_page__inner">
                         <div className="logo">Morpheus</div>
                         <div className="pagenumber">6 7 </div>
-                        <button className="content_button">generate</button>
+                        <button
+                            className="content_button"
+                            onClick={() => imageButtonClickEvent(1)}
+                        >
+                            generate
+                        </button>
                         <div className="content">
                             <div className="content_section">
                                 <h2>Episode 2</h2>
-                                <p>{/*서버에서 정보 받아온 것 기입 */}</p>
+                                <p>{narrativeText[1]}</p>
                             </div>
                         </div>
                         <div className="control">
@@ -297,7 +434,12 @@ const FairyImageGeneratorPage = () => {
                     </div>
                 </div>
                 <div className="pages_page">
-                    <div className="pages_page__inner">
+                    <div
+                        className="pages_page__inner"
+                        style={{
+                            backgroundImage: `url(${backgroundImageUrls[1]})`,
+                        }}
+                    >
                         <div className="hamburger">
                             <div className="hamburger_part"></div>
                             <div className="hamburger_part"></div>
@@ -310,7 +452,24 @@ const FairyImageGeneratorPage = () => {
                         <div className="content_centerimage">
                             {/* 로딩중일 때 이미지 생성 */}
                         </div>
-                        <div className="content">{/* image생성 */}</div>
+                        <div className="content">
+                            {imageState.images[1].loading ? (
+                                <Loading />
+                            ) : imageState.images[1].error ? (
+                                <Error
+                                    regenerateImage={() =>
+                                        fetchScenarioImage(
+                                            chapterBackground[1],
+                                            chapterStory[1],
+                                            characterPosture[1],
+                                            characterId,
+                                            1
+                                        )
+                                    }
+                                />
+                            ) : null}
+                        </div>
+                        ;
                         <div className="footer">
                             <i className="fab fa-google-plus-g"></i>
                             <i className="fas fa-retweet"></i>
@@ -324,11 +483,16 @@ const FairyImageGeneratorPage = () => {
                     <div className="pages_page__inner">
                         <div className="logo">Morpheus</div>
                         <div className="pagenumber">8 9 </div>
-                        <button className="content_button">generate</button>
+                        <button
+                            className="content_button"
+                            onClick={() => imageButtonClickEvent(2)}
+                        >
+                            generate
+                        </button>
                         <div className="content">
                             <div className="content_section">
                                 <h2>Episode 3</h2>
-                                <p>{/*서버에서 정보 받아온 것 기입 */}</p>
+                                <p>{narrativeText[2]}</p>
                             </div>
                         </div>
                         <div className="control">
@@ -337,7 +501,12 @@ const FairyImageGeneratorPage = () => {
                     </div>
                 </div>
                 <div className="pages_page">
-                    <div className="pages_page__inner">
+                    <div
+                        className="pages_page__inner"
+                        style={{
+                            backgroundImage: `url(${backgroundImageUrls[2]})`,
+                        }}
+                    >
                         <div className="hamburger">
                             <div className="hamburger_part"></div>
                             <div className="hamburger_part"></div>
@@ -350,7 +519,23 @@ const FairyImageGeneratorPage = () => {
                         <div className="content_centerimage">
                             {/* 로딩중일 때 이미지 생성 */}
                         </div>
-                        <div className="content">{/* image생성 */}</div>
+                        <div className="content">
+                            {imageState.images[2].loading ? (
+                                <Loading />
+                            ) : imageState.images[2].error ? (
+                                <Error
+                                    regenerateImage={() =>
+                                        fetchScenarioImage(
+                                            chapterBackground[2],
+                                            chapterStory[2],
+                                            characterPosture[2],
+                                            characterId,
+                                            1
+                                        )
+                                    }
+                                />
+                            ) : null}
+                        </div>
                         <div className="footer">
                             <i className="fab fa-google-plus-g"></i>
                             <i className="fas fa-retweet"></i>
@@ -364,11 +549,16 @@ const FairyImageGeneratorPage = () => {
                     <div className="pages_page__inner">
                         <div className="logo">Morpheus</div>
                         <div className="pagenumber">10 11 </div>
-                        <button className="content_button">generate</button>
+                        <button
+                            className="content_button"
+                            onClick={() => imageButtonClickEvent(3)}
+                        >
+                            generate
+                        </button>
                         <div className="content">
                             <div className="content_section">
                                 <h2>Episode 4</h2>
-                                <p>{/*서버에서 정보 받아온 것 기입 */}</p>
+                                <p>{narrativeText[3]}</p>
                             </div>
                         </div>
                         <div className="control">
@@ -377,7 +567,12 @@ const FairyImageGeneratorPage = () => {
                     </div>
                 </div>
                 <div className="pages_page">
-                    <div className="pages_page__inner">
+                    <div
+                        className="pages_page__inner"
+                        style={{
+                            backgroundImage: `url(${backgroundImageUrls[3]})`,
+                        }}
+                    >
                         <div className="hamburger">
                             <div className="hamburger_part"></div>
                             <div className="hamburger_part"></div>
@@ -390,7 +585,23 @@ const FairyImageGeneratorPage = () => {
                         <div className="content_centerimage">
                             {/* 로딩중일 때 이미지 생성 */}
                         </div>
-                        <div className="content">{/* image생성 */}</div>
+                        <div className="content">
+                            {imageState.images[3].loading ? (
+                                <Loading />
+                            ) : imageState.images[3].error ? (
+                                <Error
+                                    regenerateImage={() =>
+                                        fetchScenarioImage(
+                                            chapterBackground[3],
+                                            chapterStory[3],
+                                            characterPosture[3],
+                                            characterId,
+                                            1
+                                        )
+                                    }
+                                />
+                            ) : null}
+                        </div>
                         <div className="footer">
                             <i className="fab fa-google-plus-g"></i>
                             <i className="fas fa-retweet"></i>
@@ -404,11 +615,16 @@ const FairyImageGeneratorPage = () => {
                     <div className="pages_page__inner">
                         <div className="logo">Morpheus</div>
                         <div className="pagenumber">12 13 </div>
-                        <button className="content_button">generate</button>
+                        <button
+                            className="content_button"
+                            onClick={() => imageButtonClickEvent(4)}
+                        >
+                            generate
+                        </button>
                         <div className="content">
                             <div className="content_section">
                                 <h2>Episode 5</h2>
-                                <p>{/*서버에서 정보 받아온 것 기입 */}</p>
+                                <p>{narrativeText[4]}</p>
                             </div>
                         </div>
                         <div className="control">
@@ -417,7 +633,12 @@ const FairyImageGeneratorPage = () => {
                     </div>
                 </div>
                 <div className="pages_page">
-                    <div className="pages_page__inner">
+                    <div
+                        className="pages_page__inner"
+                        style={{
+                            backgroundImage: `url(${backgroundImageUrls[4]})`,
+                        }}
+                    >
                         <div className="hamburger">
                             <div className="hamburger_part"></div>
                             <div className="hamburger_part"></div>
@@ -430,7 +651,23 @@ const FairyImageGeneratorPage = () => {
                         <div className="content_centerimage">
                             {/* 로딩중일 때 이미지 생성 */}
                         </div>
-                        <div className="content">{/* image생성 */}</div>
+                        <div className="content">
+                            {imageState.images[4].loading ? (
+                                <Loading />
+                            ) : imageState.images[4].error ? (
+                                <Error
+                                    regenerateImage={() =>
+                                        fetchScenarioImage(
+                                            chapterBackground[4],
+                                            chapterStory[4],
+                                            characterPosture[4],
+                                            characterId,
+                                            1
+                                        )
+                                    }
+                                />
+                            ) : null}
+                        </div>
                         <div className="footer">
                             <i className="fab fa-google-plus-g"></i>
                             <i className="fas fa-retweet"></i>
@@ -444,11 +681,16 @@ const FairyImageGeneratorPage = () => {
                     <div className="pages_page__inner">
                         <div className="logo">Morpheus</div>
                         <div className="pagenumber">14 15 </div>
-                        <button className="content_button">generate</button>
+                        <button
+                            className="content_button"
+                            onClick={() => imageButtonClickEvent(5)}
+                        >
+                            generate
+                        </button>
                         <div className="content">
                             <div className="content_section">
                                 <h2>Episode 6</h2>
-                                <p>{/*서버에서 정보 받아온 것 기입 */}</p>
+                                <p>{narrativeText[5]}</p>
                             </div>
                         </div>
                         <div className="control">
@@ -457,7 +699,12 @@ const FairyImageGeneratorPage = () => {
                     </div>
                 </div>
                 <div className="pages_page">
-                    <div className="pages_page__inner">
+                    <div
+                        className="pages_page__inner"
+                        style={{
+                            backgroundImage: `url(${backgroundImageUrls[5]})`,
+                        }}
+                    >
                         <div className="hamburger">
                             <div className="hamburger_part"></div>
                             <div className="hamburger_part"></div>
@@ -470,7 +717,23 @@ const FairyImageGeneratorPage = () => {
                         <div className="content_centerimage">
                             {/* 로딩중일 때 이미지 생성 */}
                         </div>
-                        <div className="content">{/* image생성 */}</div>
+                        <div className="content">
+                            {imageState.images[5].loading ? (
+                                <Loading />
+                            ) : imageState.images[5].error ? (
+                                <Error
+                                    regenerateImage={() =>
+                                        fetchScenarioImage(
+                                            chapterBackground[5],
+                                            chapterStory[5],
+                                            characterPosture[5],
+                                            characterId,
+                                            1
+                                        )
+                                    }
+                                />
+                            ) : null}
+                        </div>
                         <div className="footer">
                             <i className="fab fa-google-plus-g"></i>
                             <i className="fas fa-retweet"></i>
@@ -484,11 +747,16 @@ const FairyImageGeneratorPage = () => {
                     <div className="pages_page__inner">
                         <div className="logo">Morpheus</div>
                         <div className="pagenumber">16 17 </div>
-                        <button className="content_button">generate</button>
+                        <button
+                            className="content_button"
+                            onClick={() => imageButtonClickEvent(6)}
+                        >
+                            generate
+                        </button>
                         <div className="content">
                             <div className="content_section">
                                 <h2>Episode 7</h2>
-                                <p>{/*서버에서 정보 받아온 것 기입 */}</p>
+                                <p>{narrativeText[6]}</p>
                             </div>
                         </div>
                         <div className="control">
@@ -497,7 +765,12 @@ const FairyImageGeneratorPage = () => {
                     </div>
                 </div>
                 <div className="pages_page">
-                    <div className="pages_page__inner">
+                    <div
+                        className="pages_page__inner"
+                        style={{
+                            backgroundImage: `url(${backgroundImageUrls[6]})`,
+                        }}
+                    >
                         <div className="hamburger">
                             <div className="hamburger_part"></div>
                             <div className="hamburger_part"></div>
@@ -510,7 +783,23 @@ const FairyImageGeneratorPage = () => {
                         <div className="content_centerimage">
                             {/* 로딩중일 때 이미지 생성 */}
                         </div>
-                        <div className="content">{/* image생성 */}</div>
+                        <div className="content">
+                            {imageState.images[6].loading ? (
+                                <Loading />
+                            ) : imageState.images[6].error ? (
+                                <Error
+                                    regenerateImage={() =>
+                                        fetchScenarioImage(
+                                            chapterBackground[6],
+                                            chapterStory[6],
+                                            characterPosture[6],
+                                            characterId,
+                                            1
+                                        )
+                                    }
+                                />
+                            ) : null}
+                        </div>
                         <div className="footer">
                             <i className="fab fa-google-plus-g"></i>
                             <i className="fas fa-retweet"></i>
@@ -524,11 +813,16 @@ const FairyImageGeneratorPage = () => {
                     <div className="pages_page__inner">
                         <div className="logo">Morpheus</div>
                         <div className="pagenumber">18 19 </div>
-                        <button className="content_button">generate</button>
+                        <button
+                            className="content_button"
+                            onClick={() => imageButtonClickEvent(7)}
+                        >
+                            generate
+                        </button>
                         <div className="content">
                             <div className="content_section">
                                 <h2>Episode 8</h2>
-                                <p>{/*서버에서 정보 받아온 것 기입 */}</p>
+                                <p>{narrativeText[7]}</p>
                             </div>
                         </div>
                         <div className="control">
@@ -537,7 +831,12 @@ const FairyImageGeneratorPage = () => {
                     </div>
                 </div>
                 <div className="pages_page">
-                    <div className="pages_page__inner">
+                    <div
+                        className="pages_page__inner"
+                        style={{
+                            backgroundImage: `url(${backgroundImageUrls[7]})`,
+                        }}
+                    >
                         <div className="hamburger">
                             <div className="hamburger_part"></div>
                             <div className="hamburger_part"></div>
@@ -550,7 +849,23 @@ const FairyImageGeneratorPage = () => {
                         <div className="content_centerimage">
                             {/* 로딩중일 때 이미지 생성 */}
                         </div>
-                        <div className="content">{/* image생성 */}</div>
+                        <div className="content">
+                            {imageState.images[7].loading ? (
+                                <Loading />
+                            ) : imageState.images[7].error ? (
+                                <Error
+                                    regenerateImage={() =>
+                                        fetchScenarioImage(
+                                            chapterBackground[7],
+                                            chapterStory[7],
+                                            characterPosture[7],
+                                            characterId,
+                                            1
+                                        )
+                                    }
+                                />
+                            ) : null}
+                        </div>
                         <div className="footer">
                             <i className="fab fa-google-plus-g"></i>
                             <i className="fas fa-retweet"></i>
@@ -564,11 +879,16 @@ const FairyImageGeneratorPage = () => {
                     <div className="pages_page__inner">
                         <div className="logo">Morpheus</div>
                         <div className="pagenumber">20 21 </div>
-                        <button className="content_button">generate</button>
+                        <button
+                            className="content_button"
+                            onClick={() => imageButtonClickEvent(8)}
+                        >
+                            generate
+                        </button>
                         <div className="content">
                             <div className="content_section">
                                 <h2>Episode 9</h2>
-                                <p>{/*서버에서 정보 받아온 것 기입 */}</p>
+                                <p>{narrativeText[8]}</p>
                             </div>
                         </div>
                         <div className="control">
@@ -577,7 +897,12 @@ const FairyImageGeneratorPage = () => {
                     </div>
                 </div>
                 <div className="pages_page">
-                    <div className="pages_page__inner">
+                    <div
+                        className="pages_page__inner"
+                        style={{
+                            backgroundImage: `url(${backgroundImageUrls[8]})`,
+                        }}
+                    >
                         <div className="hamburger">
                             <div className="hamburger_part"></div>
                             <div className="hamburger_part"></div>
@@ -590,7 +915,23 @@ const FairyImageGeneratorPage = () => {
                         <div className="content_centerimage">
                             {/* 로딩중일 때 이미지 생성 */}
                         </div>
-                        <div className="content">{/* image생성 */}</div>
+                        <div className="content">
+                            {imageState.images[8].loading ? (
+                                <Loading />
+                            ) : imageState.images[8].error ? (
+                                <Error
+                                    regenerateImage={() =>
+                                        fetchScenarioImage(
+                                            chapterBackground[8],
+                                            chapterStory[8],
+                                            characterPosture[8],
+                                            characterId,
+                                            1
+                                        )
+                                    }
+                                />
+                            ) : null}
+                        </div>
                         <div className="footer">
                             <i className="fab fa-google-plus-g"></i>
                             <i className="fas fa-retweet"></i>
@@ -604,11 +945,16 @@ const FairyImageGeneratorPage = () => {
                     <div className="pages_page__inner">
                         <div className="logo">Morpheus</div>
                         <div className="pagenumber">22 23 </div>
-                        <button className="content_button">generate</button>
+                        <button
+                            className="content_button"
+                            onClick={() => imageButtonClickEvent(9)}
+                        >
+                            generate
+                        </button>
                         <div className="content">
                             <div className="content_section">
                                 <h2>Episode 10</h2>
-                                <p>{/*서버에서 정보 받아온 것 기입 */}</p>
+                                <p>{narrativeText[9]}</p>
                             </div>
                         </div>
                         <div className="control">
@@ -617,7 +963,12 @@ const FairyImageGeneratorPage = () => {
                     </div>
                 </div>
                 <div className="pages_page">
-                    <div className="pages_page__inner">
+                    <div
+                        className="pages_page__inner"
+                        style={{
+                            backgroundImage: `url(${backgroundImageUrls[9]})`,
+                        }}
+                    >
                         <div className="hamburger">
                             <div className="hamburger_part"></div>
                             <div className="hamburger_part"></div>
@@ -630,7 +981,23 @@ const FairyImageGeneratorPage = () => {
                         <div className="content_centerimage">
                             {/* 로딩중일 때 이미지 생성 */}
                         </div>
-                        <div className="content">{/* image생성 */}</div>
+                        <div className="content">
+                            {imageState.images[9].loading ? (
+                                <Loading />
+                            ) : imageState.images[9].error ? (
+                                <Error
+                                    regenerateImage={() =>
+                                        fetchScenarioImage(
+                                            chapterBackground[9],
+                                            chapterStory[9],
+                                            characterPosture[9],
+                                            characterId,
+                                            1
+                                        )
+                                    }
+                                />
+                            ) : null}
+                        </div>
                         <div className="footer">
                             <i className="fab fa-google-plus-g"></i>
                             <i className="fas fa-retweet"></i>
@@ -644,11 +1011,16 @@ const FairyImageGeneratorPage = () => {
                     <div className="pages_page__inner">
                         <div className="logo">Morpheus</div>
                         <div className="pagenumber">24 25 </div>
-                        <button className="content_button">generate</button>
+                        <button
+                            className="content_button"
+                            onClick={() => imageButtonClickEvent(10)}
+                        >
+                            generate
+                        </button>
                         <div className="content">
                             <div className="content_section">
                                 <h2>Episode 11</h2>
-                                <p>{/*서버에서 정보 받아온 것 기입 */}</p>
+                                <p>{narrativeText[10]}</p>
                             </div>
                         </div>
                         <div className="control">
@@ -657,7 +1029,12 @@ const FairyImageGeneratorPage = () => {
                     </div>
                 </div>
                 <div className="pages_page">
-                    <div className="pages_page__inner">
+                    <div
+                        className="pages_page__inner"
+                        style={{
+                            backgroundImage: `url(${backgroundImageUrls[10]})`,
+                        }}
+                    >
                         <div className="hamburger">
                             <div className="hamburger_part"></div>
                             <div className="hamburger_part"></div>
@@ -670,7 +1047,23 @@ const FairyImageGeneratorPage = () => {
                         <div className="content_centerimage">
                             {/* 로딩중일 때 이미지 생성 */}
                         </div>
-                        <div className="content">{/* image생성 */}</div>
+                        <div className="content">
+                            {imageState.images[10].loading ? (
+                                <Loading />
+                            ) : imageState.images[10].error ? (
+                                <Error
+                                    regenerateImage={() =>
+                                        fetchScenarioImage(
+                                            chapterBackground[10],
+                                            chapterStory[10],
+                                            characterPosture[10],
+                                            characterId,
+                                            1
+                                        )
+                                    }
+                                />
+                            ) : null}
+                        </div>
                         <div className="footer">
                             <i className="fab fa-google-plus-g"></i>
                             <i className="fas fa-retweet"></i>
@@ -684,11 +1077,16 @@ const FairyImageGeneratorPage = () => {
                     <div className="pages_page__inner">
                         <div className="logo">Morpheus</div>
                         <div className="pagenumber">26 27 </div>
-                        <button className="content_button">generate</button>
+                        <button
+                            className="content_button"
+                            onClick={() => imageButtonClickEvent(11)}
+                        >
+                            generate
+                        </button>
                         <div className="content">
                             <div className="content_section">
                                 <h2>Episode 12</h2>
-                                <p>{/*서버에서 정보 받아온 것 기입 */}</p>
+                                <p>{narrativeText[11]}</p>
                             </div>
                         </div>
                         <div className="control">
@@ -697,7 +1095,12 @@ const FairyImageGeneratorPage = () => {
                     </div>
                 </div>
                 <div className="pages_page">
-                    <div className="pages_page__inner">
+                    <div
+                        className="pages_page__inner"
+                        style={{
+                            backgroundImage: `url(${backgroundImageUrls[11]})`,
+                        }}
+                    >
                         <div className="hamburger">
                             <div className="hamburger_part"></div>
                             <div className="hamburger_part"></div>
@@ -710,7 +1113,23 @@ const FairyImageGeneratorPage = () => {
                         <div className="content_centerimage">
                             {/* 로딩중일 때 이미지 생성 */}
                         </div>
-                        <div className="content">{/* image생성 */}</div>
+                        <div className="content">
+                            {imageState.images[11].loading ? (
+                                <Loading />
+                            ) : imageState.images[11].error ? (
+                                <Error
+                                    regenerateImage={() =>
+                                        fetchScenarioImage(
+                                            chapterBackground[11],
+                                            chapterStory[11],
+                                            characterPosture[11],
+                                            characterId,
+                                            1
+                                        )
+                                    }
+                                />
+                            ) : null}
+                        </div>
                         <div className="footer">
                             <i className="fab fa-google-plus-g"></i>
                             <i className="fas fa-retweet"></i>
@@ -724,11 +1143,16 @@ const FairyImageGeneratorPage = () => {
                     <div className="pages_page__inner">
                         <div className="logo">Morpheus</div>
                         <div className="pagenumber">28 29 </div>
-                        <button className="content_button">generate</button>
+                        <button
+                            className="content_button"
+                            onClick={() => imageButtonClickEvent(12)}
+                        >
+                            generate
+                        </button>
                         <div className="content">
                             <div className="content_section">
                                 <h2>Episode 13</h2>
-                                <p>{/*서버에서 정보 받아온 것 기입 */}</p>
+                                <p>{narrativeText[12]}</p>
                             </div>
                         </div>
                         <div className="control">
@@ -737,7 +1161,12 @@ const FairyImageGeneratorPage = () => {
                     </div>
                 </div>
                 <div className="pages_page">
-                    <div className="pages_page__inner">
+                    <div
+                        className="pages_page__inner"
+                        style={{
+                            backgroundImage: `url(${backgroundImageUrls[12]})`,
+                        }}
+                    >
                         <div className="hamburger">
                             <div className="hamburger_part"></div>
                             <div className="hamburger_part"></div>
@@ -750,7 +1179,23 @@ const FairyImageGeneratorPage = () => {
                         <div className="content_centerimage">
                             {/* 로딩중일 때 이미지 생성 */}
                         </div>
-                        <div className="content">{/* image생성 */}</div>
+                        <div className="content">
+                            {imageState.images[12].loading ? (
+                                <Loading />
+                            ) : imageState.images[12].error ? (
+                                <Error
+                                    regenerateImage={() =>
+                                        fetchScenarioImage(
+                                            chapterBackground[12],
+                                            chapterStory[12],
+                                            characterPosture[12],
+                                            characterId,
+                                            1
+                                        )
+                                    }
+                                />
+                            ) : null}
+                        </div>
                         <div className="footer">
                             <i className="fab fa-google-plus-g"></i>
                             <i className="fas fa-retweet"></i>
@@ -764,11 +1209,16 @@ const FairyImageGeneratorPage = () => {
                     <div className="pages_page__inner">
                         <div className="logo">Morpheus</div>
                         <div className="pagenumber">30 31 </div>
-                        <button className="content_button">generate</button>
+                        <button
+                            className="content_button"
+                            onClick={() => imageButtonClickEvent(13)}
+                        >
+                            generate
+                        </button>
                         <div className="content">
                             <div className="content_section">
                                 <h2>Episode 14</h2>
-                                <p>{/*서버에서 정보 받아온 것 기입 */}</p>
+                                <p>{narrativeText[13]}</p>
                             </div>
                         </div>
                         <div className="control">
@@ -777,7 +1227,12 @@ const FairyImageGeneratorPage = () => {
                     </div>
                 </div>
                 <div className="pages_page">
-                    <div className="pages_page__inner">
+                    <div
+                        className="pages_page__inner"
+                        style={{
+                            backgroundImage: `url(${backgroundImageUrls[13]})`,
+                        }}
+                    >
                         <div className="hamburger">
                             <div className="hamburger_part"></div>
                             <div className="hamburger_part"></div>
@@ -790,7 +1245,23 @@ const FairyImageGeneratorPage = () => {
                         <div className="content_centerimage">
                             {/* 로딩중일 때 이미지 생성 */}
                         </div>
-                        <div className="content">{/* image생성 */}</div>
+                        <div className="content">
+                            {imageState.images[13].loading ? (
+                                <Loading />
+                            ) : imageState.images[13].error ? (
+                                <Error
+                                    regenerateImage={() =>
+                                        fetchScenarioImage(
+                                            chapterBackground[13],
+                                            chapterStory[13],
+                                            characterPosture[13],
+                                            characterId,
+                                            1
+                                        )
+                                    }
+                                />
+                            ) : null}
+                        </div>
                         <div className="footer">
                             <i className="fab fa-google-plus-g"></i>
                             <i className="fas fa-retweet"></i>
@@ -804,11 +1275,16 @@ const FairyImageGeneratorPage = () => {
                     <div className="pages_page__inner">
                         <div className="logo">Morpheus</div>
                         <div className="pagenumber">32 33 </div>
-                        <button className="content_button">generate</button>
+                        <button
+                            className="content_button"
+                            onClick={() => imageButtonClickEvent(14)}
+                        >
+                            generate
+                        </button>
                         <div className="content">
                             <div className="content_section">
                                 <h2>Episode 15</h2>
-                                <p>{/*서버에서 정보 받아온 것 기입 */}</p>
+                                <p>{narrativeText[14]}</p>
                             </div>
                         </div>
                         <div className="control">
@@ -817,7 +1293,12 @@ const FairyImageGeneratorPage = () => {
                     </div>
                 </div>
                 <div className="pages_page">
-                    <div className="pages_page__inner">
+                    <div
+                        className="pages_page__inner"
+                        style={{
+                            backgroundImage: `url(${backgroundImageUrls[14]})`,
+                        }}
+                    >
                         <div className="hamburger">
                             <div className="hamburger_part"></div>
                             <div className="hamburger_part"></div>
@@ -830,7 +1311,23 @@ const FairyImageGeneratorPage = () => {
                         <div className="content_centerimage">
                             {/* 로딩중일 때 이미지 생성 */}
                         </div>
-                        <div className="content">{/* image생성 */}</div>
+                        <div className="content">
+                            {imageState.images[14].loading ? (
+                                <Loading />
+                            ) : imageState.images[14].error ? (
+                                <Error
+                                    regenerateImage={() =>
+                                        fetchScenarioImage(
+                                            chapterBackground[14],
+                                            chapterStory[14],
+                                            characterPosture[14],
+                                            characterId,
+                                            1
+                                        )
+                                    }
+                                />
+                            ) : null}
+                        </div>
                         <div className="footer">
                             <i className="fab fa-google-plus-g"></i>
                             <i className="fas fa-retweet"></i>
@@ -844,11 +1341,16 @@ const FairyImageGeneratorPage = () => {
                     <div className="pages_page__inner">
                         <div className="logo">Morpheus</div>
                         <div className="pagenumber">34 35 </div>
-                        <button className="content_button">generate</button>
+                        <button
+                            className="content_button"
+                            onClick={() => imageButtonClickEvent(15)}
+                        >
+                            generate
+                        </button>
                         <div className="content">
                             <div className="content_section">
                                 <h2>Episode 16</h2>
-                                <p>{/*서버에서 정보 받아온 것 기입 */}</p>
+                                <p>{narrativeText[15]}</p>
                             </div>
                         </div>
                         <div className="control">
@@ -857,7 +1359,12 @@ const FairyImageGeneratorPage = () => {
                     </div>
                 </div>
                 <div className="pages_page">
-                    <div className="pages_page__inner">
+                    <div
+                        className="pages_page__inner"
+                        style={{
+                            backgroundImage: `url(${backgroundImageUrls[15]})`,
+                        }}
+                    >
                         <div className="hamburger">
                             <div className="hamburger_part"></div>
                             <div className="hamburger_part"></div>
@@ -870,7 +1377,23 @@ const FairyImageGeneratorPage = () => {
                         <div className="content_centerimage">
                             {/* 로딩중일 때 이미지 생성 */}
                         </div>
-                        <div className="content">{/* image생성 */}</div>
+                        <div className="content">
+                            {imageState.images[15].loading ? (
+                                <Loading />
+                            ) : imageState.images[15].error ? (
+                                <Error
+                                    regenerateImage={() =>
+                                        fetchScenarioImage(
+                                            chapterBackground[15],
+                                            chapterStory[15],
+                                            characterPosture[15],
+                                            characterId,
+                                            1
+                                        )
+                                    }
+                                />
+                            ) : null}
+                        </div>
                         <div className="footer">
                             <i className="fab fa-google-plus-g"></i>
                             <i className="fas fa-retweet"></i>
