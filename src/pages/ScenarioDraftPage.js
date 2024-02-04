@@ -2,7 +2,6 @@ import React, { useEffect, useState, useReducer } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import reducer from "../api/Reducer";
 import "./ScenarioDraftPage.css";
-import StringFormatter from "../controller/StringFormatter.js";
 import UserRequestApi from "../api/UserRequestApi.js";
 import Loading from "../components/CharacterResult/imageGenerationProcess/Loading.js";
 import Error from "../components/CharacterResult/imageGenerationProcess/Error.js";
