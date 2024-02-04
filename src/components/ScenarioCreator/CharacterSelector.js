@@ -1,67 +1,105 @@
 import React, { useState, useReducer, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import API from '../../api/API';
 import reducer from '../../api/Reducer';
 import './ScenarioCreator.css';
+import UserRequestApi from '../../api/UserRequestApi';
 
-const CharacterSelector = ({ expanded, onClose }) => {
+const CharacterSelector = ({ expanded, onClose, onCharacterSelect }) => {
     const navigate = useNavigate();
     const handleButtonClick = (event) => {
         event.stopPropagation();
         onClose();
     };
+    const [characterInfo, setCharacterInfo] = useState([]);
+    const [selectedCharacterIndex, setSelectedCharacterIndex] = useState(null);
     const [state, dispatch] = useReducer(reducer, {
         loading: false,
         data: null,
         error: null,
     });
-    // const fetchCharacterList = async () => {
-    //   dispatch({ type: "LOADING" });
-    //   try {
-    //     const response = await API.get("url");
-    //     dispatch({ type: "SUCCESS", data: response.data });
-    //   } catch (e) {
-    //     dispatch({ type: "ERROR", error: e });
-    //   }
-    // };
 
-    // useEffect(() => {
-    //   fetchCharacterList();
-    // }, []);
+    //캐릭터 정보 상위 컴포넌트로 넘기기
+    const handleCharacterSelect = () => {
+        if (selectedCharacterIndex != null) {
+            const selectedCharacterId =
+                characterInfo[selectedCharacterIndex].id;
+            onCharacterSelect(selectedCharacterId);
+        }
+    };
 
-    // const { loading, data: userCharacter, error } = state;
+    //캐릭터 정보 리스트 서버에서 요청하기
+    const fetchCharacterInformation = async () => {
+        console.log('api호출');
+        dispatch({ type: 'LOADING' });
+        try {
+            const response = await UserRequestApi.get('/character/list');
+            setCharacterInfo(response.data.response.code);
+            dispatch({ type: 'SUCCESS', data: response.data });
+            console.log(response.data.response.code);
+        } catch (error) {
+            dispatch({ type: 'ERROR', error });
+        }
+    };
 
-    // if (loading) return <div>loading...</div>;
-    // if (error) return <div>server error</div>;
-    // if (!userCharacter) return null;
+    //캐릭터 선택 이벤트
+    const onCharacterClick = (index) => {
+        setSelectedCharacterIndex(index);
+    };
+
+    useEffect(() => {
+        fetchCharacterInformation();
+    }, []);
 
     return (
         <div className={`box-wrapper ${expanded ? 'expanded' : ''}`}>
             <div className="scenario-box-wrapper-headline">
-                <span className="step">Step 2</span>
+                <span className="step">Step 1</span>
                 <br></br>Select Your Character
             </div>
             {expanded && (
-                <div>
+                <div className="character-list-parent">
                     <div className="character-list">
                         <div className="character-header">
+                            <div>Number</div>
+                            <div className="character-name">Character Name</div>
                             <div>Character Image</div>
-                            <div>Character Name</div>
-                            <div>Character Creation Time</div>
                         </div>
-                        {/* {userCharacter.map(character=>(
-            <div key={character.id} className="character-item">
-              <img src={character.imageUrl} alt={character.name}/>
-              <span>{character.name}</span>
-              <span>{character.creationTime}</span>
-            </div>
-          ))} */}
+                        {characterInfo.map((character, index) => (
+                            <div
+                                className={`character-info ${
+                                    index === selectedCharacterIndex
+                                        ? 'selected'
+                                        : ''
+                                }`}
+                                key={index}
+                                onClick={() => onCharacterClick(index)}
+                            >
+                                <div>{index + 1}</div>
+                                <div className="charcter-name">
+                                    {character.name}
+                                </div>
+                                <div className="character-image">
+                                    <img
+                                        src={character.image}
+                                        alt={character.name}
+                                    ></img>
+                                </div>
+                            </div>
+                        ))}
                     </div>
-                    <button onClick={() => navigate('/character')}>
+                    <button
+                        className="character-selector-create-button"
+                        onClick={() => navigate('/character')}
+                    >
                         Create new character
                     </button>
                     <button
                         className="box-close-button"
-                        onClick={handleButtonClick}
+                        onClick={(event) => {
+                            handleCharacterSelect();
+                            handleButtonClick(event);
+                        }}
                     >
                         Select Character
                     </button>
