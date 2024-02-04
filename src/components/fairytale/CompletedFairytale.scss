@@ -1,8 +1,8 @@
 @import url("https://fonts.googleapis.com/css?family=Sree+Krushnadevaraya&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Catamaran&display=swap");
-$totalPages: 38;
+$totalPages: 36;
 
-.image-generate-page {
+.final_image-generate-page {
   --margin: 110px;
   --background: #e2e2f5;
   --perspective: 1800px;
@@ -25,7 +25,7 @@ $totalPages: 38;
   transform-origin: 0 50%;
 }
 
-.final_button {
+.final_final_button {
   margin-top: 10px;
   padding: 10px 20px;
   background-color: #162938;
@@ -40,19 +40,19 @@ $totalPages: 38;
   box-shadow: 0 20px 30px -20px #0a3150;
 }
 
-.final_button:hover {
+.final_final_button:hover {
   background-color: #0d1c2a;
 }
 
 body {
-  .logo {
+  .final_logo {
     font-size: 20px;
     padding: 33px 30px 30px 30px;
     line-height: 0;
     color: var(--yellow);
   }
 
-  .pagenumber {
+  .final_pagenumber {
     position: absolute;
     bottom: 20px;
     left: 34px;
@@ -72,7 +72,7 @@ body {
     }
   }
 
-  & .hamburger {
+  & .final_hamburger {
     position: absolute;
     top: 38px;
     height: 20px;
@@ -101,7 +101,7 @@ body {
     }
   }
 
-  & .pages {
+  & .final_pages {
     width: calc(100% - var(--margin));
     height: calc(100% - var(--margin));
     position: absolute;
@@ -121,8 +121,8 @@ body {
 
     // Page specific transitions
 
-    @for $a from 3 through 19 {
-      $input-count: 19 - $a;
+    @for $a from 2 through 18 {
+      $input-count: 18 - $a;
       $div-count-1: 2 * $a - 1;
       $div-count-2: 2 * $a;
 
@@ -150,7 +150,7 @@ body {
       // 최종 선택자에 스타일 적용
       @each $selector in $selector-1, $selector-2 {
         #{$selector} {
-          .pagenumber {
+          .final_pagenumber {
             letter-spacing: 59px;
             transition: all 0.8s 0.7s cubic-bezier(0.6, 0.045, 0.165, 1);
             &:after {
@@ -159,7 +159,7 @@ body {
             }
           }
 
-          .content {
+          .final_content {
             &_centerimage {
               -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
               clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
@@ -176,8 +176,8 @@ body {
       }
     }
 
-    @for $a from 3 through 19 {
-      $input-count: 19 - $a;
+    @for $a from 2 through 18 {
+      $input-count: 18 - $a;
       $div-count-1: 2 * $a - 1;
       $div-count-2: 2 * $a;
 
@@ -205,7 +205,7 @@ body {
       // 최종 선택자에 스타일 적용
       @each $selector in $selector-1, $selector-2 {
         #{$selector} {
-          .pagenumber {
+          .final_pagenumber {
             letter-spacing: 0;
             transition: all 0.5s 0.2s cubic-bezier(0.6, 0.045, 0.165, 1);
             &:after {
@@ -214,7 +214,7 @@ body {
             }
           }
 
-          .content {
+          .final_content {
             &_centerimage {
               -webkit-clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
               clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
@@ -225,184 +225,6 @@ body {
             h6 {
               transition: all 1.5s 0.4s cubic-bezier(0.6, 0.045, 0.165, 1);
               transform: translateZ(200px);
-            }
-          }
-        }
-      }
-    }
-
-    input:nth-of-type(2):checked
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + div
-      + div
-      + div,
-    input:nth-of-type(2):checked
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + div
-      + div
-      + div
-      + div {
-      h5 {
-        span {
-          transition: all 1.5s 0.4s cubic-bezier(0.6, 0.045, 0.165, 1);
-          @for $i from 1 through 6 {
-            &:nth-of-type(#{$i}) {
-              transform: translateZ(0);
-            }
-          }
-        }
-      }
-
-      .pagenumber {
-        letter-spacing: 59px;
-        transition: all 0.8s 0.7s cubic-bezier(0.6, 0.045, 0.165, 1);
-
-        &:after {
-          width: 100px;
-          transition: all 1s 0.7s cubic-bezier(0.6, 0.045, 0.165, 1);
-        }
-      }
-
-      .content {
-        filter: blur(0px);
-        opacity: 1;
-        transition: all 1s 0.5s;
-        perspective: var(--perspective);
-
-        &_picture {
-          -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
-          clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
-          transition: all 1s 0.8s cubic-bezier(0.6, 0.045, 0.165, 1);
-        }
-
-        h1 {
-          span {
-            transition: all 1.5s 0.4s cubic-bezier(0.6, 0.045, 0.165, 1);
-            @for $i from 1 through 48 {
-              &:nth-of-type(#{$i}) {
-                transform: translateZ(0);
-              }
-            }
-          }
-        }
-      }
-    }
-
-    input:nth-of-type(2):not(:checked)
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + div
-      + div
-      + div,
-    input:nth-of-type(2):not(:checked)
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + div
-      + div
-      + div
-      + div {
-      h5 {
-        span {
-          transition: all 1.5s 0.4s cubic-bezier(0.6, 0.045, 0.165, 1);
-          @for $i from 1 through 6 {
-            &:nth-of-type(#{$i}) {
-              transform: translateZ(random(600) + 0px);
-            }
-          }
-        }
-      }
-
-      .pagenumber {
-        letter-spacing: 0;
-        transition: all 0.5s 0.2s cubic-bezier(0.6, 0.045, 0.165, 1);
-        &:after {
-          width: 0px;
-          transition: all 0.5s 0.2s cubic-bezier(0.6, 0.045, 0.165, 1);
-        }
-      }
-
-      .content {
-        filter: blur(10px);
-        opacity: 0;
-        transform: translateZ(50px);
-        transition: all 1s 0.2s;
-
-        &_picture {
-          transition: all 0.4s 0s cubic-bezier(0.6, 0.045, 0.165, 1);
-          -webkit-clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
-          clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
-        }
-
-        h1 {
-          span {
-            transition: all 1.5s 0s cubic-bezier(0.6, 0.045, 0.165, 1);
-
-            @for $i from 1 through 48 {
-              &:nth-of-type(#{$i}) {
-                transform: translateZ(random(600) + 170px);
-              }
             }
           }
         }
@@ -430,7 +252,7 @@ body {
         transform: rotateY(0deg) !important;
         pointer-events: none;
 
-        & .pages_page__inner {
+        & .final_pages_page__inner {
           transform: rotateY(0deg) !important;
         }
       }
@@ -440,18 +262,18 @@ body {
       }
 
       &:nth-of-type(odd) {
-        & .pages_page__inner {
+        & .final_pages_page__inner {
           transform: rotateY(180deg);
         }
       }
 
       &:nth-of-type(1) {
-        .pages_page__inner {
+        .final_pages_page__inner {
           background-image: linear-gradient(
               rgba(0, 0, 0, 0.4),
               rgba(0, 0, 0, 0.4)
             ),
-            url(../images/main_background4.png);
+            url(../../images/last_page_background.png);
 
           background-position: 0 0;
           background-size: 1400px !important;
@@ -459,11 +281,11 @@ body {
       }
 
       &:nth-of-type(2) {
-        .pages_page__inner {
+        .final_pages_page__inner {
           h4 {
             z-index: 3;
           }
-          .bg {
+          .final_bg {
             -webkit-clip-path: polygon(50% 0%, 100% 0, 100% 100%, 50% 100%);
             clip-path: polygon(50% 0%, 100% 0, 100% 100%, 50% 100%);
             height: 100%;
@@ -473,62 +295,16 @@ body {
                 rgba(0, 0, 0, 0.4),
                 rgba(0, 0, 0, 0.4)
               ),
-              url(../images/main_background4.png);
+              url(../../images/last_page_background.png);
             background-size: 1400px !important;
             left: -100%;
           }
         }
       }
 
-      &:nth-of-type(3) {
-        .pages_page__inner {
-          background-image: linear-gradient(
-              rgba(0, 0, 0, 0.4),
-              rgba(0, 0, 0, 0.4)
-            ),
-            url(../images/image_check_background.png);
-          background-position: 0 0;
-
-          .content {
-            -webkit-clip-path: polygon(0% 0%, 50% 0, 50% 100%, 0% 100%);
-            clip-path: polygon(0% 0%, 50% 0, 50% 100%, 0% 100%);
-            height: 100%;
-            transform-style: preserve-3d;
-            width: 200%;
-            position: absolute;
-          }
-        }
-      }
-      &:nth-of-type(4) {
-        .pages_page__inner {
-          .content {
-            -webkit-clip-path: polygon(50% 0%, 100% 0, 100% 100%, 50% 100%);
-            clip-path: polygon(50% 0%, 100% 0, 100% 100%, 50% 100%);
-            height: 100%;
-            width: 200%;
-            position: absolute;
-            left: -100%;
-          }
-
-          .bg {
-            -webkit-clip-path: polygon(50% 0%, 100% 0, 100% 100%, 50% 100%);
-            clip-path: polygon(50% 0%, 100% 0, 100% 100%, 50% 100%);
-            height: 100%;
-            width: 200%;
-            position: relative;
-            background-image: linear-gradient(
-                rgba(0, 0, 0, 0.4),
-                rgba(0, 0, 0, 0.4)
-              ),
-              url(../images/image_check_background.png);
-            background-size: 1400px !important;
-            left: -100%;
-          }
-        }
-      }
-      @for $i from 5 through 36 {
+      @for $i from 3 through 34 {
         &:nth-of-type(#{$i}) {
-          .pages_page__inner {
+          .final_pages_page__inner {
             background: #4a5f5c;
             background-size: 650px !important;
             background-position: center !important;
@@ -539,10 +315,10 @@ body {
         }
       }
 
-      @for $i from 5 through 36 {
+      @for $i from 3 through 34 {
         &:nth-of-type(#{$i}) {
-          .pages_page__inner {
-            .content {
+          .final_pages_page__inner {
+            .final_content {
               display: flex;
               justify-content: center;
               align-items: center;
@@ -598,22 +374,22 @@ body {
           }
         }
       }
-      &:nth-of-type(37) {
-        .pages_page__inner {
+      &:nth-of-type(35) {
+        .final_pages_page__inner {
           background-image: linear-gradient(
               rgba(0, 0, 0, 0.4),
               rgba(0, 0, 0, 0.4)
             ),
-            url(../images/last_page_background.png);
+            url(../../images/last_page_background.png);
 
           background-position: 0 0;
           background-size: 1400px !important;
         }
       }
 
-      &:nth-of-type(38) {
-        .pages_page__inner {
-          .bg {
+      &:nth-of-type(36) {
+        .final_pages_page__inner {
+          .final_bg {
             -webkit-clip-path: polygon(50% 0%, 100% 0, 100% 100%, 50% 100%);
             clip-path: polygon(50% 0%, 100% 0, 100% 100%, 50% 100%);
             height: 100%;
@@ -623,7 +399,7 @@ body {
                 rgba(0, 0, 0, 0.4),
                 rgba(0, 0, 0, 0.4)
               ),
-              url(../images/last_page_background.png);
+              url(../../images/last_page_background.png);
             background-size: 1400px !important;
             left: -100%;
           }
@@ -636,7 +412,7 @@ body {
         height: 100%;
         transform-style: preserve-3d;
 
-        & .control {
+        & .final_control {
           position: absolute;
           z-index: 1;
           width: 31px;
@@ -721,7 +497,7 @@ body {
           }
         }
 
-        & .footer {
+        & .final_footer {
           position: absolute;
           bottom: 26px;
           z-index: 2;
@@ -734,7 +510,7 @@ body {
           }
         }
 
-        & .content {
+        & .final_content {
           transform-style: preserve-3d;
           position: absolute;
           z-index: 1;
@@ -774,7 +550,7 @@ body {
             img {
               width: 300px;
             }
-            .logo {
+            .final_logo {
               font-size: 30px;
             }
 
@@ -828,54 +604,6 @@ body {
               // border: 6px solid white;
               margin: 0;
               display: inline-block;
-            }
-          }
-
-          &_quote {
-            position: absolute;
-            left: calc(50% + 250px);
-            bottom: 100px;
-            width: 200px;
-
-            h5 {
-              span {
-                display: block;
-                color: var(--yellow);
-                font-size: 34px;
-                font-weight: normal;
-                line-height: 24px;
-
-                &.name,
-                &.auth {
-                  font-size: 13px;
-                  opacity: 0.7;
-                  margin: 22px 0 0 0;
-                  position: Relative;
-                  left: 140px;
-                }
-
-                &.auth {
-                  margin: -7px 0;
-                }
-
-                &.quo {
-                  font-family: "Catamaran", sans-serif;
-                  font-size: 80px;
-                  position: absolute;
-                  left: 195px;
-                  top: 90px;
-                  &:nth-of-type(1) {
-                    i {
-                      transform: rotate(180deg);
-                      left: -226px;
-                      top: -100px;
-                      display: block;
-                      font-style: normal;
-                      position: relative;
-                    }
-                  }
-                }
-              }
             }
           }
 
@@ -965,7 +693,7 @@ body {
                 z-index: 10;
                 transition: var(--transition);
 
-                .control {
+                .final_control {
                   box-shadow: 0 0 0 200px rgba(0, 0, 0, 0);
                 }
               }
