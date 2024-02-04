@@ -10,6 +10,8 @@ import Error from "../components/CharacterResult/imageGenerationProcess/Error.js
 const ScenarioDraftPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [topic, setTopic] = useState("");
+  const [characterId, setCharacterId] = useState(null);
   const [title, setTitle] = useState("");
   const [story, setStory] = useState("");
   const [subjectMatter, setSubjectMatter] = useState("");
@@ -47,13 +49,6 @@ const ScenarioDraftPage = () => {
 
   //동화책 이미지 생성 페이지로 정보 보내는 함수
   const navigateToImageGenerator = () => {
-    const formattingTitle = StringFormatter(title);
-    const formattingStory = StringFormatter(story);
-    const formattingSubjectMatter = StringFormatter(subjectMatter);
-    const formattingPlot = StringFormatter(plot);
-    const formattingCharacters = StringFormatter(characters);
-    const formattingLinguisticExpression =
-      StringFormatter(linguisticExpression);
     navigate("/fairy-image-generate-page", {
       state: {
         title,
@@ -62,13 +57,12 @@ const ScenarioDraftPage = () => {
         plot,
         characters,
         linguisticExpression,
+        characterId,
       },
     });
   };
 
   const regenerateDraft = () => {
-    const topic = location.state?.formattingTopic;
-    const characterId = location.state?.characterId;
     fetchScenarioDraft(topic, characterId);
   };
 
@@ -85,6 +79,8 @@ const ScenarioDraftPage = () => {
     const characterId = location.state?.characterId;
     console.log(topic);
     console.log(characterId);
+    setTopic(topic);
+    setCharacterId(characterId);
 
     if (topic && characterId) {
       fetchScenarioDraft(topic, characterId);

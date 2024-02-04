@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import reducer from "../../api/Reducer";
 import "./CompletedFairytale.scss";
 import UserRequestApi from "../../api/UserRequestAPI";
+import Images from "../../images/ex_image1.png";
 
 const Fairytale = () => {
   const inputCount = 18;
@@ -50,12 +51,17 @@ const Fairytale = () => {
         <div className="final_pages_page">
           <div className="final_pages_page__inner">
             <div className="final_logo">Morpheus</div>
-            <div className="final_pagenumber">4 5 </div>
-            <button className="final_content_button">generate</button>
+            <div className="final_pagenumber">3 4 </div>
+
             <div className="final_content">
               <div className="final_content_section">
                 <h2>Episode 1</h2>
-                <p>{/*서버에서 정보 받아온 것 기입 */}</p>
+                <p>
+                  {/*서버에서 정보 받아온 것 기입 */}On a sunny day, curious
+                  Lily discovers something shiny while exploring the forest.
+                  'Wow, what's this?' Lily marvels at the spaceship with curious
+                  eyes.
+                </p>
               </div>
             </div>
 
@@ -65,7 +71,16 @@ const Fairytale = () => {
           </div>
         </div>
         <div className="final_pages_page">
-          <div className="final_pages_page__inner">
+          <div
+            className="final_pages_page__inner"
+            style={{
+              backgroundImage: `url(${Images})`,
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "center",
+              backgroundAttachment: "fixed",
+              backgroundSize: "1100px !important",
+            }}
+          >
             <div className="final_hamburger">
               <div className="final_hamburger_part"></div>
               <div className="final_hamburger_part"></div>
@@ -91,12 +106,16 @@ const Fairytale = () => {
         <div className="final_pages_page">
           <div className="final_pages_page__inner">
             <div className="final_logo">Morpheus</div>
-            <div className="final_pagenumber">6 7 </div>
-            <button className="final_content_button">generate</button>
+            <div className="final_pagenumber">5 6 </div>
+
             <div className="final_content">
               <div className="final_content_section">
                 <h2>Episode 2</h2>
-                <p>{/*서버에서 정보 받아온 것 기입 */}</p>
+                <p>
+                  {/*서버에서 정보 받아온 것 기입 */}'This is a real spaceship!'
+                  Lily explores inside the spaceship. Suddenly, the spaceship
+                  begins to move slightly.
+                </p>
               </div>
             </div>
             <div className="final_control">
@@ -131,12 +150,16 @@ const Fairytale = () => {
         <div className="final_pages_page">
           <div className="final_pages_page__inner">
             <div className="final_logo">Morpheus</div>
-            <div className="final_pagenumber">8 9 </div>
-            <button className="final_content_button">generate</button>
+            <div className="final_pagenumber">7 8 </div>
+
             <div className="final_content">
               <div className="final_content_section">
                 <h2>Episode 3</h2>
-                <p>{/*서버에서 정보 받아온 것 기입 */}</p>
+                <p>
+                  {/*서버에서 정보 받아온 것 기입 */}As the spaceship soars into
+                  the sky, Lily laughs excitedly. 'We're going to space!' Lily
+                  exclaims.
+                </p>
               </div>
             </div>
             <div className="final_control">
@@ -171,8 +194,8 @@ const Fairytale = () => {
         <div className="final_pages_page">
           <div className="final_pages_page__inner">
             <div className="final_logo">Morpheus</div>
-            <div className="final_pagenumber">10 11 </div>
-            <button className="final_content_button">generate</button>
+            <div className="final_pagenumber">9 10 </div>
+
             <div className="final_content">
               <div className="final_content_section">
                 <h2>Episode 4</h2>
@@ -211,8 +234,8 @@ const Fairytale = () => {
         <div className="final_pages_page">
           <div className="final_pages_page__inner">
             <div className="final_logo">Morpheus</div>
-            <div className="final_pagenumber">12 13 </div>
-            <button className="final_content_button">generate</button>
+            <div className="final_pagenumber">11 12 </div>
+
             <div className="final_content">
               <div className="final_content_section">
                 <h2>Episode 5</h2>
@@ -251,8 +274,8 @@ const Fairytale = () => {
         <div className="final_pages_page">
           <div className="final_pages_page__inner">
             <div className="final_logo">Morpheus</div>
-            <div className="final_pagenumber">14 15 </div>
-            <button className="final_content_button">generate</button>
+            <div className="final_pagenumber">13 14 </div>
+
             <div className="final_content">
               <div className="final_content_section">
                 <h2>Episode 6</h2>
@@ -291,8 +314,8 @@ const Fairytale = () => {
         <div className="final_pages_page">
           <div className="final_pages_page__inner">
             <div className="final_logo">Morpheus</div>
-            <div className="final_pagenumber">16 17 </div>
-            <button className="final_content_button">generate</button>
+            <div className="final_pagenumber">15 16 </div>
+
             <div className="final_content">
               <div className="final_content_section">
                 <h2>Episode 7</h2>
@@ -331,8 +354,8 @@ const Fairytale = () => {
         <div className="final_pages_page">
           <div className="final_pages_page__inner">
             <div className="final_logo">Morpheus</div>
-            <div className="final_pagenumber">18 19 </div>
-            <button className="final_content_button">generate</button>
+            <div className="final_pagenumber">17 18 </div>
+
             <div className="final_content">
               <div className="final_content_section">
                 <h2>Episode 8</h2>
@@ -371,8 +394,8 @@ const Fairytale = () => {
         <div className="final_pages_page">
           <div className="final_pages_page__inner">
             <div className="final_logo">Morpheus</div>
-            <div className="final_pagenumber">20 21 </div>
-            <button className="final_content_button">generate</button>
+            <div className="final_pagenumber">19 20 </div>
+
             <div className="final_content">
               <div className="final_content_section">
                 <h2>Episode 9</h2>
@@ -411,8 +434,8 @@ const Fairytale = () => {
         <div className="final_pages_page">
           <div className="final_pages_page__inner">
             <div className="final_logo">Morpheus</div>
-            <div className="final_pagenumber">22 23 </div>
-            <button className="final_content_button">generate</button>
+            <div className="final_pagenumber">21 22 </div>
+
             <div className="final_content">
               <div className="final_content_section">
                 <h2>Episode 10</h2>
@@ -451,8 +474,8 @@ const Fairytale = () => {
         <div className="final_pages_page">
           <div className="final_pages_page__inner">
             <div className="final_logo">Morpheus</div>
-            <div className="final_pagenumber">24 25 </div>
-            <button className="final_content_button">generate</button>
+            <div className="final_pagenumber">23 24 </div>
+
             <div className="final_content">
               <div className="final_content_section">
                 <h2>Episode 11</h2>
@@ -491,8 +514,8 @@ const Fairytale = () => {
         <div className="final_pages_page">
           <div className="final_pages_page__inner">
             <div className="final_logo">Morpheus</div>
-            <div className="final_pagenumber">26 27 </div>
-            <button className="final_content_button">generate</button>
+            <div className="final_pagenumber">25 26 </div>
+
             <div className="final_content">
               <div className="final_content_section">
                 <h2>Episode 12</h2>
@@ -531,8 +554,8 @@ const Fairytale = () => {
         <div className="final_pages_page">
           <div className="final_pages_page__inner">
             <div className="final_logo">Morpheus</div>
-            <div className="final_pagenumber">28 29 </div>
-            <button className="final_content_button">generate</button>
+            <div className="final_pagenumber">27 28 </div>
+
             <div className="final_content">
               <div className="final_content_section">
                 <h2>Episode 13</h2>
@@ -571,8 +594,8 @@ const Fairytale = () => {
         <div className="final_pages_page">
           <div className="final_pages_page__inner">
             <div className="final_logo">Morpheus</div>
-            <div className="final_pagenumber">30 31 </div>
-            <button className="final_content_button">generate</button>
+            <div className="final_pagenumber">29 30 </div>
+
             <div className="final_content">
               <div className="final_content_section">
                 <h2>Episode 14</h2>
@@ -611,8 +634,8 @@ const Fairytale = () => {
         <div className="final_pages_page">
           <div className="final_pages_page__inner">
             <div className="final_logo">Morpheus</div>
-            <div className="final_pagenumber">32 33 </div>
-            <button className="final_content_button">generate</button>
+            <div className="final_pagenumber">31 32 </div>
+
             <div className="final_content">
               <div className="final_content_section">
                 <h2>Episode 15</h2>
@@ -651,8 +674,8 @@ const Fairytale = () => {
         <div className="final_pages_page">
           <div className="final_pages_page__inner">
             <div className="final_logo">Morpheus</div>
-            <div className="final_pagenumber">34 35 </div>
-            <button className="final_content_button">generate</button>
+            <div className="final_pagenumber">33 34 </div>
+
             <div className="final_content">
               <div className="final_content_section">
                 <h2>Episode 16</h2>
@@ -691,7 +714,7 @@ const Fairytale = () => {
         <div className="final_pages_page">
           <div className="final_pages_page__inner">
             <div className="final_logo">Morpheus</div>
-            <div className="final_pagenumber">36 37</div>
+            <div className="final_pagenumber">35 36</div>
             <div className="final_content">
               <div className="final_content_center">
                 <h4>The End Morpheus</h4>

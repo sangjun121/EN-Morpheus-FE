@@ -57,7 +57,7 @@ const CharacterSelector = ({ expanded, onClose, onCharacterSelect }) => {
         <br></br>Select Your Character
       </div>
       {expanded && (
-        <div>
+        <div className="character-list-parent">
           <div className="character-list">
             <div className="character-header">
               <div>Number</div>
