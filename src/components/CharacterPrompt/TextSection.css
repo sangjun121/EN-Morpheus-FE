@@ -1,0 +1,123 @@
+.TextSection {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    width: 45%;
+    height: 1000px;
+    padding: 10px;
+}
+
+.simpleMessage {
+    margin: 0px;
+    text-align: left;
+    font-family: Poppins-Medium;
+    font-size: 20px;
+    color: #76453b;
+}
+
+.Title {
+    margin: 0px;
+    text-align: left;
+    font-family: Poppins-Medium;
+    font-size: 40px;
+}
+
+.PromptTitle {
+    font-family: Poppins-Medium;
+    font-size: 40px;
+    color: #b19470;
+}
+
+.EachPrompt p {
+    font-family: Poppins-Medium;
+    font-size: 30px;
+    color: black;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.EachPrompt textarea {
+    line-height: 45px;
+    padding: 7px;
+    padding-left: 10px;
+    font-size: 30px;
+    font-family: Poppins-Medium;
+    background-color: #43766c;
+    opacity: 0.9;
+    resize: none;
+    color: black;
+    border: none;
+    outline: none;
+    /* caret-color: transparent; */
+}
+
+.nameTextarea {
+    width: 350px;
+    height: 45px;
+}
+.styleTextarea {
+    width: 350px;
+    height: 45px;
+}
+.personalityTextarea {
+    width: 430px;
+    height: 200px;
+}
+.appearanceTextarea {
+    width: 440px;
+    height: 300px;
+}
+.introductionTextarea {
+    width: 440px;
+    height: 300px;
+}
+.furDescriptionTextarea {
+    width: 500px;
+    height: 45px;
+}
+.clothesTextarea {
+    width: 440px;
+    height: 200px;
+}
+.eyesTextarea {
+    width: 350px;
+    height: 45px;
+}
+
+.EachPrompt textarea::placeholder {
+    line-height: 45px;
+    font-size: 29px;
+    font-family: Poppins-Medium;
+    color: white;
+}
+
+.DescritionSection {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    width: 45%;
+    height: 1000px;
+    padding: 10px;
+    margin-top: 39px;
+}
+
+.Guide {
+    font-family: Poppins-Medium;
+    font-size: 40px;
+    color: #b19470;
+    margin: 0px;
+    margin-top: 20px;
+}
+
+.GuideTitle {
+    font-family: Poppins-Medium;
+    font-size: 30px;
+    color: black;
+    margin: 0;
+    margin-bottom: 5px;
+}
+
+.GuideDescription {
+    font-family: Poppins-Regular;
+    font-size: 20px;
+}

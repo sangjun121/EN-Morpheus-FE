@@ -1,0 +1,60 @@
+.box-wrapper {
+  position: relative;
+  width: 400px;
+  height: 600px;
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.box-wrapper:not(.expanded):hover {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.box-wrapper.expanded {
+  width: 70vw;
+  height: 70vh;
+}
+
+.box-wrapper-headline {
+  color: #162938;
+  font-family: Poppins-Medium;
+  font-size: 50px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: top 0.3s ease, transform 0.3s ease;
+}
+
+.box-wrapper.expanded .box-wrapper-headline {
+  position: absolute;
+  top: 0;
+  transform: translateY(0);
+}
+
+.box-close-button {
+  position: absolute;
+  bottom: 10px; /* 하단에 위치 */
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  background-color: #162938;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.box-close-button:hover {
+  background-color: #0d1c2a;
+}

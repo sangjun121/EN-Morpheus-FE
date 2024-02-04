@@ -1,0 +1,10 @@
+p {
+  white-space: pre-wrap;
+}
+
+.CharacterPrompt {
+  padding: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
