@@ -1,6 +1,5 @@
 import React, { useState, useReducer } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import API from "../../api/API";
 import reducer from "../../api/Reducer";
 import "./ScenarioCreator.css";
 

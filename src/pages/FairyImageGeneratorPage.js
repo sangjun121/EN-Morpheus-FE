@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useReducer } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import API from "../api/API";
 import reducer from "../api/Reducer";
 import imageReducer from "../api/ImageReducer";
 import "./FairyImageGeneratorPage.scss";
