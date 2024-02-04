@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 import "./LoginBox.css";
-import UserRequestAPI from "../../api/UserRequestAPI";
+import UserRequestAPI from "../../api/UserRequestApi";
 import { useNavigate } from "react-router-dom";
 
 const LoginBox = () => {

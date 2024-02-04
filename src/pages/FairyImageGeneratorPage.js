@@ -4,7 +4,7 @@ import API from "../api/API";
 import reducer from "../api/Reducer";
 import imageReducer from "../api/ImageReducer";
 import "./FairyImageGeneratorPage.scss";
-import UserRequestApi from "../api/UserRequestAPI";
+import UserRequestApi from "../api/UserRequestApi";
 import Loading from "../components/CharacterResult/imageGenerationProcess/Loading";
 import Error from "../components/CharacterResult/imageGenerationProcess/Error";
 import LoadingBook from "../components/loadingState/LoadingBook";

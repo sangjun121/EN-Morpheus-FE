@@ -4,7 +4,7 @@ import reducer from "../../api/Reducer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRotateRight } from "@fortawesome/free-solid-svg-icons";
 import "./ScenarioCreator.css";
-import UserRequestApi from "../../api/UserRequestAPI";
+import UserRequestApi from "../../api/UserRequestApi";
 import ThemeSelectorLoading from "./ThemeSelectorLoading";
 
 const ThemeSelector = ({ expanded, onClose, topic, setTopic }) => {

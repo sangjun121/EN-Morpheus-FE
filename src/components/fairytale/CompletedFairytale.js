@@ -2,7 +2,7 @@ import React, { useEffect, useState, useReducer } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import reducer from "../../api/Reducer";
 import "./CompletedFairytale.scss";
-import UserRequestApi from "../../api/UserRequestAPI";
+import UserRequestApi from "../../api/UserRequestApi";
 import Images from "../../images/ex_image1.png";
 
 const Fairytale = () => {
