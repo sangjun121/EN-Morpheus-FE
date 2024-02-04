@@ -349,7 +349,9 @@ const FairyImageGeneratorPage = () => {
         <div className="pages_page">
           <div
             className="pages_page__inner"
-            style={{ backgroundImage: `url(${backgroundImageUrls[0]})` }}
+            style={{
+              backgroundImage: `url(${backgroundImageUrls[0]})`,
+            }}
           >
             <div className="hamburger">
               <div className="hamburger_part"></div>
@@ -412,7 +414,9 @@ const FairyImageGeneratorPage = () => {
         <div className="pages_page">
           <div
             className="pages_page__inner"
-            style={{ backgroundImage: `url(${backgroundImageUrls[1]})` }}
+            style={{
+              backgroundImage: `url(${backgroundImageUrls[1]})`,
+            }}
           >
             <div className="hamburger">
               <div className="hamburger_part"></div>
@@ -477,7 +481,9 @@ const FairyImageGeneratorPage = () => {
         <div className="pages_page">
           <div
             className="pages_page__inner"
-            style={{ backgroundImage: `url(${backgroundImageUrls[2]})` }}
+            style={{
+              backgroundImage: `url(${backgroundImageUrls[2]})`,
+            }}
           >
             <div className="hamburger">
               <div className="hamburger_part"></div>
@@ -541,7 +547,9 @@ const FairyImageGeneratorPage = () => {
         <div className="pages_page">
           <div
             className="pages_page__inner"
-            style={{ backgroundImage: `url(${backgroundImageUrls[3]})` }}
+            style={{
+              backgroundImage: `url(${backgroundImageUrls[3]})`,
+            }}
           >
             <div className="hamburger">
               <div className="hamburger_part"></div>
@@ -605,7 +613,9 @@ const FairyImageGeneratorPage = () => {
         <div className="pages_page">
           <div
             className="pages_page__inner"
-            style={{ backgroundImage: `url(${backgroundImageUrls[4]})` }}
+            style={{
+              backgroundImage: `url(${backgroundImageUrls[4]})`,
+            }}
           >
             <div className="hamburger">
               <div className="hamburger_part"></div>
@@ -669,7 +679,9 @@ const FairyImageGeneratorPage = () => {
         <div className="pages_page">
           <div
             className="pages_page__inner"
-            style={{ backgroundImage: `url(${backgroundImageUrls[5]})` }}
+            style={{
+              backgroundImage: `url(${backgroundImageUrls[5]})`,
+            }}
           >
             <div className="hamburger">
               <div className="hamburger_part"></div>
@@ -733,7 +745,9 @@ const FairyImageGeneratorPage = () => {
         <div className="pages_page">
           <div
             className="pages_page__inner"
-            style={{ backgroundImage: `url(${backgroundImageUrls[6]})` }}
+            style={{
+              backgroundImage: `url(${backgroundImageUrls[6]})`,
+            }}
           >
             <div className="hamburger">
               <div className="hamburger_part"></div>
@@ -797,7 +811,9 @@ const FairyImageGeneratorPage = () => {
         <div className="pages_page">
           <div
             className="pages_page__inner"
-            style={{ backgroundImage: `url(${backgroundImageUrls[7]})` }}
+            style={{
+              backgroundImage: `url(${backgroundImageUrls[7]})`,
+            }}
           >
             <div className="hamburger">
               <div className="hamburger_part"></div>
@@ -861,7 +877,9 @@ const FairyImageGeneratorPage = () => {
         <div className="pages_page">
           <div
             className="pages_page__inner"
-            style={{ backgroundImage: `url(${backgroundImageUrls[8]})` }}
+            style={{
+              backgroundImage: `url(${backgroundImageUrls[8]})`,
+            }}
           >
             <div className="hamburger">
               <div className="hamburger_part"></div>
@@ -925,7 +943,9 @@ const FairyImageGeneratorPage = () => {
         <div className="pages_page">
           <div
             className="pages_page__inner"
-            style={{ backgroundImage: `url(${backgroundImageUrls[9]})` }}
+            style={{
+              backgroundImage: `url(${backgroundImageUrls[9]})`,
+            }}
           >
             <div className="hamburger">
               <div className="hamburger_part"></div>
@@ -989,7 +1009,9 @@ const FairyImageGeneratorPage = () => {
         <div className="pages_page">
           <div
             className="pages_page__inner"
-            style={{ backgroundImage: `url(${backgroundImageUrls[10]})` }}
+            style={{
+              backgroundImage: `url(${backgroundImageUrls[10]})`,
+            }}
           >
             <div className="hamburger">
               <div className="hamburger_part"></div>
@@ -1053,7 +1075,9 @@ const FairyImageGeneratorPage = () => {
         <div className="pages_page">
           <div
             className="pages_page__inner"
-            style={{ backgroundImage: `url(${backgroundImageUrls[11]})` }}
+            style={{
+              backgroundImage: `url(${backgroundImageUrls[11]})`,
+            }}
           >
             <div className="hamburger">
               <div className="hamburger_part"></div>
@@ -1117,7 +1141,9 @@ const FairyImageGeneratorPage = () => {
         <div className="pages_page">
           <div
             className="pages_page__inner"
-            style={{ backgroundImage: `url(${backgroundImageUrls[12]})` }}
+            style={{
+              backgroundImage: `url(${backgroundImageUrls[12]})`,
+            }}
           >
             <div className="hamburger">
               <div className="hamburger_part"></div>
@@ -1181,7 +1207,9 @@ const FairyImageGeneratorPage = () => {
         <div className="pages_page">
           <div
             className="pages_page__inner"
-            style={{ backgroundImage: `url(${backgroundImageUrls[13]})` }}
+            style={{
+              backgroundImage: `url(${backgroundImageUrls[13]})`,
+            }}
           >
             <div className="hamburger">
               <div className="hamburger_part"></div>
@@ -1245,7 +1273,9 @@ const FairyImageGeneratorPage = () => {
         <div className="pages_page">
           <div
             className="pages_page__inner"
-            style={{ backgroundImage: `url(${backgroundImageUrls[14]})` }}
+            style={{
+              backgroundImage: `url(${backgroundImageUrls[14]})`,
+            }}
           >
             <div className="hamburger">
               <div className="hamburger_part"></div>
@@ -1309,7 +1339,9 @@ const FairyImageGeneratorPage = () => {
         <div className="pages_page">
           <div
             className="pages_page__inner"
-            style={{ backgroundImage: `url(${backgroundImageUrls[15]})` }}
+            style={{
+              backgroundImage: `url(${backgroundImageUrls[15]})`,
+            }}
           >
             <div className="hamburger">
               <div className="hamburger_part"></div>

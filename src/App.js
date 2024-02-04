@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MainPage from "./pages/MainPage";
@@ -12,6 +11,8 @@ import FairyImageGeneratorPage from "./pages/FairyImageGeneratorPage";
 import CharacterResultPage from "./pages/CharacterResultPage";
 import MyPage from "./pages/MyPage/MyPage";
 import Fairytale from "./components/fairytale/CompletedFairytale";
+import PrivateRoute from "../src/route/PrivateRoute";
+import PublicRoute from "../src/route/PublicRoute";
 
 function App() {
   return (
@@ -19,28 +20,47 @@ function App() {
       <div className="App">
         <Routes>
           <Route path="/" element={<MainPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/character" element={<CharacterPage />} />
-          <Route path="/data-control" element={<DataControlPage />} />
+
+          <Route
+            path="/login"
+            element={<PublicRoute component={<LoginPage />} />}
+          ></Route>
+          <Route
+            path="/character"
+            element={<PrivateRoute component={<CharacterPage />} />}
+          ></Route>
+          <Route
+            path="/data-control"
+            element={<PrivateRoute component={<DataControlPage />} />}
+          ></Route>
           <Route
             path="/fairyImageGenerate"
-            element={<FairyImageGeneratePage />}
-          />
+            element={<PrivateRoute component={<FairyImageGeneratePage />} />}
+          ></Route>
           <Route
             path="/data-control/morpheus-builder"
-            element={<MorpheusBuilderPage />}
-          />
+            element={<PrivateRoute component={<MorpheusBuilderPage />} />}
+          ></Route>
           <Route
             path="/data-control/morpheus-builder/scenario-draft"
-            element={<ScenarioDraftPage />}
-          />
+            element={<PrivateRoute component={<ScenarioDraftPage />} />}
+          ></Route>
           <Route
             path="/fairy-image-generate-page"
-            element={<FairyImageGeneratorPage />}
-          />
-          <Route path="/character/result" element={<CharacterResultPage />} />
-          <Route path="/mypage" element={<MyPage />} />
-          <Route path="/completed-fairytale" element={<Fairytale />} />
+            element={<PrivateRoute component={<FairyImageGeneratorPage />} />}
+          ></Route>
+          <Route
+            path="/character/result"
+            element={<PrivateRoute component={<CharacterResultPage />} />}
+          ></Route>
+          <Route
+            path="/mypage"
+            element={<PrivateRoute component={<MyPage />} />}
+          ></Route>
+          <Route
+            path="/completed-fairytale"
+            element={<PrivateRoute component={<Fairytale />} />}
+          ></Route>
         </Routes>
       </div>
     </BrowserRouter>

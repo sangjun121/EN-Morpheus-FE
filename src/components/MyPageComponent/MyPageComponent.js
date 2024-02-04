@@ -7,34 +7,53 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import './MyPageComponent.css';
+import UserRequestApi from '../../api/UserRequestApi';
+import ImageDetail from './ImageDetail';
 
 const MyPageComponent = () => {
     const navigate = useNavigate();
     const [tabValue, setTabValue] = useState(0);
     const [userData, setUserData] = useState({
-        userName: 'USER',
-        userCharacter: [
-            // { url: '#', name: 'test' },
-            // { url: '#', name: 'test' },
-            // { url: '#', name: 'test' },
-            // { url: '#', name: 'test' },
-        ],
+        userCharacter: [],
         userStoryBook: [],
     });
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [modalImage, setModalImage] = useState('');
 
     const characterSortValue = 0;
     const bookSortValue = 1;
 
     //함수
     //1. API요청 (사용자 캐릭터)
-    const loadUserData = () => {
-        //API 연결후 요청 코드 - 응답값을 userData에 넣기
+    const loadUserCharacterData = async () => {
+        console.log('캐릭터 불러오기 api 호출!');
+        try {
+            const response = await UserRequestApi.get('/character/list');
+
+            //조회가능한 캐릭터가 없을때
+            if (response.data.response.result === 'FAIL') return;
+
+            const userCharacterResponse = response.data.response.code;
+            setUserData({
+                ...userData,
+                userCharacter: userCharacterResponse,
+            });
+            console.log(userData);
+        } catch (e) {
+            console.log(e);
+        }
     };
 
     //2. 캐릭터 및 동화책 추가 페이지로 이동
     const navigateCreateContentPage = () => {
         if (tabValue === characterSortValue) navigate('/character');
         else navigate('/morpheus-builder');
+    };
+
+    //3. 모달창 구현 (이미지 확대)
+    const viewImageMagnification = (data) => {
+        setModalIsOpen(true);
+        setModalImage(data.image);
     };
 
     //useEffect
@@ -46,7 +65,7 @@ const MyPageComponent = () => {
 
     //2. 초기 마운트 될때 사용자 정보 불러오기
     useEffect(() => {
-        loadUserData();
+        loadUserCharacterData();
     }, []);
 
     //Components
@@ -86,7 +105,6 @@ const MyPageComponent = () => {
         return (
             <div className="MyPageComponentAddBox">
                 <p>Add your {CategoryName}</p>
-                {/* <img src={addIcon} /> */}
                 <a
                     class="effect effect-5"
                     href="javascript:void(0);"
@@ -104,11 +122,23 @@ const MyPageComponent = () => {
         if (tabValue === characterSortValue) itemData = userData.userCharacter;
         else itemData = userData.userStoryBook;
 
-        const Item = ({ data }) => {
+        console.log(itemData);
+
+        //리액트 클로저
+        const Item = ({ index, data }) => {
             return (
                 <div className="MyPageComponentEachItem">
-                    <img src={data.url} />
+                    <img
+                        key={index}
+                        src={data.image}
+                        onClick={() => viewImageMagnification(data)}
+                    />
                     <p>{data.name}</p>
+                    <ImageDetail
+                        modalIsOpen={modalIsOpen}
+                        setModalIsOpen={setModalIsOpen}
+                        imgUrl={modalImage}
+                    />
                 </div>
             );
         };
@@ -116,7 +146,7 @@ const MyPageComponent = () => {
         return (
             <div className="MyPageComponentItemListContainer">
                 {itemData.map((data, index) => (
-                    <Item key={index} data={data} />
+                    <Item index={index} data={data} />
                 ))}
             </div>
         );
@@ -157,6 +187,7 @@ const MyPageComponent = () => {
             },
         },
     });
+
     return (
         <div className="MyPageComponent">
             <UserInformation />

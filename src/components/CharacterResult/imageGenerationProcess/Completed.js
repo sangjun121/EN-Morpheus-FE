@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import './Completed.css';
 
 const Completed = ({ characterImage, confirmState }) => {
-    const imgUrl = characterImage.data[0].url;
+    const imgUrl = characterImage;
 
     const [loaded, setLoaded] = useState(false); //이미지 완전히 로딩되었는지
     const [imgDarkStyle, setImgDarkStyle] = useState({}); //이미지 음영 처리
