@@ -70,7 +70,7 @@ const ScenarioDraftPage = () => {
     if (loading) return <Loading />;
     if (error) return <Error regenerateImage={regenerateDraft} />;
     if (!responseStory) return null;
-    return <div>{story}</div>;
+    return <div className="scenario-draft-story">{story}</div>;
   };
 
   useEffect(() => {
