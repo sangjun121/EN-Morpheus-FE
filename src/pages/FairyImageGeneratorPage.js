@@ -7,6 +7,7 @@ import UserRequestApi from "../api/UserRequestApi";
 import Loading from "../components/CharacterResult/imageGenerationProcess/Loading";
 import Error from "../components/CharacterResult/imageGenerationProcess/Error";
 import LoadingBook from "../components/loadingState/LoadingBook";
+import LoadingSaveBook from "../components/loadingState/LoadingSaveBook";
 
 const FairyImageGeneratorPage = () => {
   const inputCount = 19;
@@ -18,11 +19,16 @@ const FairyImageGeneratorPage = () => {
   const [backgroundImageUrls, setBackgroundImageUrls] = useState(
     Array(16).fill(null)
   );
+  const [chapterOrder, setChapterOrder] = useState([]);
+  const [chapterPlot, setChapterPlot] = useState([]);
   const [narrativeText, setNarrativeText] = useState([]);
   const [chapterBackground, setChapterBackground] = useState([]);
   const [chapterStory, setChapterStory] = useState([]);
   const [characterPosture, setCharacterPosture] = useState([]);
   const [characterId, setCharacterId] = useState(null);
+  const [plot, setPlot] = useState("");
+  const [title, setTitle] = useState("");
+  const [temporaryFairyId, setTemporaryFairyId] = useState("");
 
   //이미지 생성 리듀서
   const [imageState, imageDispatch] = useReducer(imageReducer, initialState);
@@ -33,6 +39,46 @@ const FairyImageGeneratorPage = () => {
     data: null,
     error: null,
   });
+
+  //동화 저장 리듀서
+  const [saveState, saveDispatch] = useReducer(reducer, {
+    loading: false,
+    data: null,
+    error: null,
+  });
+
+  //서버로 동화 내용을 저장하게 보내주는 함수
+  const fetchSaveFairyData = async () => {
+    //각 배열을 종합하여 새로운 chapters 배열 생성
+    const chapters = chapterOrder.map((order, index) => ({
+      story: chapterStory[index],
+      plot: chapterPlot[index],
+      background: chapterBackground[index],
+      narrativeText: narrativeText[index],
+      characterPosture: characterPosture[index],
+      order: order,
+      imageUrl: backgroundImageUrls[index],
+    }));
+
+    //전체 요청 본문
+    const requestBody = {
+      plot: plot,
+      title: title,
+      chapters: chapters,
+      temporaryFairyId: temporaryFairyId,
+      public: true,
+    };
+
+    saveDispatch({ type: "LOADING" });
+    try {
+      const response = await UserRequestApi.post("/fairy/save", requestBody);
+      console.log(response.data);
+      saveDispatch({ type: "SUCCESS", data: response.data });
+    } catch (e) {
+      saveDispatch({ type: "ERROR", error: e });
+      console.error(e);
+    }
+  };
 
   //서버에서 상세 에피소드 받아오는 함수
   const fetchMainScenario = async (
@@ -59,6 +105,9 @@ const FairyImageGeneratorPage = () => {
       setChapterBackground(data.map((chapter) => chapter.background));
       setCharacterPosture(data.map((chapter) => chapter.characterPosture));
       setChapterStory(data.map((chapter) => chapter.story));
+      setChapterOrder(data.map((chapter) => chapter.order));
+      setChapterPlot(data.map((chapter) => chapter.plot));
+      setTemporaryFairyId(response.data.response.code.temporaryFairyId);
       dispatch({ type: "SUCCESS", data: response.data });
       console.log(response.data);
     } catch (e) {
@@ -88,6 +137,16 @@ const FairyImageGeneratorPage = () => {
     }
   };
 
+  //동화 save버튼 클릭했을 때 정보 저장 이벤트
+  const saveButtonClickEvent = () => {
+    const allImagesLoaded = backgroundImageUrls.every((url) => url !== null);
+    if (!allImagesLoaded) {
+      alert("Please press the button after all images have been created.");
+      return;
+    }
+    fetchSaveFairyData();
+  };
+
   //이미지 generate버튼 클릭 이벤트
   const imageButtonClickEvent = (index) => {
     fetchScenarioImage(
@@ -99,6 +158,16 @@ const FairyImageGeneratorPage = () => {
     );
   };
 
+  //saveState를 관리하는 useEffect
+  useEffect(() => {
+    if (saveState.error) {
+      alert("An error occurred. Please press the save button again.");
+    } else if (saveState.data) {
+      navigate("/mypage");
+    }
+  }, [saveState.error, saveState.data, navigate]);
+
+  //페이지 들어왔을 때 useEffect
   useEffect(() => {
     const title = location.state?.title;
     const story = location.state?.story;
@@ -107,6 +176,8 @@ const FairyImageGeneratorPage = () => {
     const characters = location.state?.characters;
     const linguisticExpression = location.state?.linguisticExpression;
     setCharacterId(location.state?.characterId);
+    setPlot(plot);
+    setTitle(title);
     if (
       title &&
       story &&
@@ -126,10 +197,57 @@ const FairyImageGeneratorPage = () => {
     }
   }, [location.state]);
 
+  //상세 시나리오 불러오는 과정에서 오류 발생 시 다시 fetch하는 함수
+  const retryFetchFairyTale = () => {
+    const {
+      title,
+      story,
+      subjectMatter,
+      plot,
+      characters,
+      linguisticExpression,
+    } = location.state || {};
+    if (
+      title &&
+      story &&
+      subjectMatter &&
+      plot &&
+      characters &&
+      linguisticExpression
+    ) {
+      fetchMainScenario(
+        title,
+        story,
+        subjectMatter,
+        plot,
+        characters,
+        linguisticExpression
+      );
+    }
+  };
+
+  if (saveState.loading) {
+    return <LoadingSaveBook />;
+  }
+
   if (state.loading) {
     return (
       <div className="loading-page">
         <LoadingBook />;
+      </div>
+    );
+  }
+
+  if (state.error) {
+    return (
+      <div className="error-page">
+        <h3>An error has occurred. Please try again.</h3>
+        <button
+          className="error-book-retry-button"
+          onClick={() => retryFetchFairyTale()}
+        >
+          retry
+        </button>
       </div>
     );
   }
@@ -1420,7 +1538,9 @@ const FairyImageGeneratorPage = () => {
           </div>
         </div>
       </div>
-      <button className="final_button">finish</button>
+      <button className="final_button" onClick={() => saveButtonClickEvent()}>
+        Save
+      </button>
     </div>
   );
 };

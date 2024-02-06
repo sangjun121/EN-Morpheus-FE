@@ -1,5 +1,6 @@
 .headline {
   font-size: 80px;
+  height: 1100px;
   font-family: Poppins-Bold;
   padding-top: 10%;
   color: white;
@@ -7,8 +8,7 @@
     url(../../images/main_background4.png);
   background-repeat: no-repeat;
   background-position: top center;
-  background-size: 100%;
-  padding-bottom: 13%;
+  background-size: cover;
 }
 
 .headline-border {
