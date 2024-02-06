@@ -141,7 +141,7 @@ const LoginBox = () => {
                             <FontAwesomeIcon icon={faEnvelope} />
                         </span>
                         <input
-                            // type="email"
+                            type="email"
                             required
                             value={loginEmail}
                             onChange={handleLoginEmailChange}
