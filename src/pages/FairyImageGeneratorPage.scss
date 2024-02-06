@@ -2,6 +2,32 @@
 @import url("https://fonts.googleapis.com/css?family=Catamaran&display=swap");
 $totalPages: 38;
 
+.error-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Poppins-Medium;
+}
+
+.error-book-retry-button {
+  margin-top: 20px;
+  width: 200px;
+  height: 40px;
+  font-family: Poppins-Regular;
+  background-color: #162938;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.error-book-retry-button:hover {
+  background-color: #0d1c2a;
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
+
 .image-generate-page {
   --margin: 110px;
   --background: #e2e2f5;
