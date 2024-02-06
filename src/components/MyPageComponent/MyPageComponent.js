@@ -34,11 +34,28 @@ const MyPageComponent = () => {
             if (response.data.response.result === 'FAIL') return;
 
             const userCharacterResponse = response.data.response.code;
-            setUserData({
-                ...userData,
+            setUserData((prevUserData) => ({
+                ...prevUserData,
                 userCharacter: userCharacterResponse,
-            });
-            console.log(userData);
+            }));
+        } catch (e) {
+            console.log(e);
+        }
+    };
+    //(동화책 저장 데이터)
+    const loadUserStoryBookData = async () => {
+        console.log('동화책 불러오기 api 호출!');
+        try {
+            const response = await UserRequestApi.get('/fairy/lookup');
+
+            //조회가능한 캐릭터가 없을때
+            // if (response.data.response.result === 'FAIL') return;
+
+            const userStoryBookResponse = response.data.response.code;
+            setUserData((prevUserData) => ({
+                ...prevUserData,
+                userStoryBook: userStoryBookResponse,
+            }));
         } catch (e) {
             console.log(e);
         }
@@ -47,13 +64,18 @@ const MyPageComponent = () => {
     //2. 캐릭터 및 동화책 추가 페이지로 이동
     const navigateCreateContentPage = () => {
         if (tabValue === characterSortValue) navigate('/character');
-        else navigate('/morpheus-builder');
+        else navigate('/data-control/morpheus-builder');
     };
 
     //3. 모달창 구현 (이미지 확대)
     const viewImageMagnification = (data) => {
         setModalIsOpen(true);
         setModalImage(data.image);
+    };
+
+    //4. 실제 동화책 보기 페이지로 이동
+    const navigateFairyTalePage = (id) => {
+        navigate('/completed-fairytale', { state: id });
     };
 
     //useEffect
@@ -66,6 +88,7 @@ const MyPageComponent = () => {
     //2. 초기 마운트 될때 사용자 정보 불러오기
     useEffect(() => {
         loadUserCharacterData();
+        loadUserStoryBookData();
     }, []);
 
     //Components
@@ -117,15 +140,8 @@ const MyPageComponent = () => {
         );
     };
     const Items = () => {
-        let itemData;
-
-        if (tabValue === characterSortValue) itemData = userData.userCharacter;
-        else itemData = userData.userStoryBook;
-
-        console.log(itemData);
-
-        //리액트 클로저
-        const Item = ({ index, data }) => {
+        //1. 캐릭터 아이템 구성 (리액트 클로저 해결)
+        const CharacterItem = ({ index, data }) => {
             return (
                 <div className="MyPageComponentEachItem">
                     <img
@@ -142,14 +158,43 @@ const MyPageComponent = () => {
                 </div>
             );
         };
+        //2. 동화책 아이템 구성
+        const StoryBookItem = ({ index, data }) => {
+            return (
+                <div className="MyPageComponentEachItem">
+                    <img
+                        key={index}
+                        src={addIcon}
+                        onClick={() => navigateFairyTalePage(data.id)}
+                    />
+                    <p>{data.fairyInfo.title}</p>
+                </div>
+            );
+        };
 
-        return (
-            <div className="MyPageComponentItemListContainer">
-                {itemData.map((data, index) => (
-                    <Item index={index} data={data} />
-                ))}
-            </div>
-        );
+        //최종 컨포넌트 반환 1. 캐릭터 일때
+        if (tabValue === characterSortValue) {
+            const itemData = userData.userCharacter;
+            console.log('캐릭터: ', itemData);
+            return (
+                <div className="MyPageComponentItemListContainer">
+                    {itemData.map((data, index) => (
+                        <CharacterItem index={index} data={data} />
+                    ))}
+                </div>
+            );
+        } else if (tabValue === bookSortValue) {
+            //2. 동화책 일때
+            const itemData = userData.userStoryBook;
+            console.log('동화책: ', itemData);
+            return (
+                <div className="MyPageComponentItemListContainer">
+                    {itemData.map((data, index) => (
+                        <StoryBookItem index={index} data={data} />
+                    ))}
+                </div>
+            );
+        }
     };
 
     const ItemsByCategory = () => {

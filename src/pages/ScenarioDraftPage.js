@@ -48,6 +48,10 @@ const ScenarioDraftPage = () => {
 
   //동화책 이미지 생성 페이지로 정보 보내는 함수
   const navigateToImageGenerator = () => {
+    if (!story) {
+      alert("Please press the button after deciding on the scenario draft.");
+      return;
+    }
     navigate("/fairy-image-generate-page", {
       state: {
         title,
@@ -70,7 +74,7 @@ const ScenarioDraftPage = () => {
     if (loading) return <Loading />;
     if (error) return <Error regenerateImage={regenerateDraft} />;
     if (!responseStory) return null;
-    return <div>{story}</div>;
+    return <div className="scenario-draft-story">{story}</div>;
   };
 
   useEffect(() => {
