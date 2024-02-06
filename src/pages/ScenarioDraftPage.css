@@ -80,7 +80,7 @@
   font-family: Poppins-Regular;
   font-size: 25px;
   border: 2px solid black;
-  width: 90%;
+  width: calc(90% - 20px);
   height: 55%;
   margin-top: 5%;
   border-radius: 20px;
@@ -88,10 +88,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 20px;
 }
 
 .scenario-draft-story {
-  margin-top: 20%;
-  margin-left: 3%;
-  margin-right: 3%;
+  margin-top: 15%;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
 }

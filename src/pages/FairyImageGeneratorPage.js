@@ -71,9 +71,8 @@ const FairyImageGeneratorPage = () => {
 
     saveDispatch({ type: "LOADING" });
     try {
-      console.log(requestBody);
       const response = await UserRequestApi.post("/fairy/save", requestBody);
-      console.log("save data");
+      console.log(response.data);
       saveDispatch({ type: "SUCCESS", data: response.data });
     } catch (e) {
       saveDispatch({ type: "ERROR", error: e });
