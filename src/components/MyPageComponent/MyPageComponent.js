@@ -9,6 +9,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import './MyPageComponent.css';
 import UserRequestApi from '../../api/UserRequestApi';
 import ImageDetail from './ImageDetail';
+import { faL } from '@fortawesome/free-solid-svg-icons';
+import BasedLoading from '../BasedLoading/BasedLoading';
 
 const MyPageComponent = () => {
     const navigate = useNavigate();
@@ -22,6 +24,10 @@ const MyPageComponent = () => {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [modalImage, setModalImage] = useState('');
 
+    //아이템 로딩 state
+    const [characterLoading, setCharacterLoading] = useState(false);
+    const [bookLoading, setBookLoading] = useState(false);
+
     const characterSortValue = 0;
     const bookSortValue = 1;
 
@@ -29,6 +35,7 @@ const MyPageComponent = () => {
     //1. API요청 (사용자 캐릭터)
     const loadUserCharacterData = async () => {
         console.log('캐릭터 불러오기 api 호출!');
+        setCharacterLoading(true);
 
         try {
             const response = await UserRequestApi.get('/character/list');
@@ -41,13 +48,16 @@ const MyPageComponent = () => {
                 ...prevUserData,
                 userCharacter: userCharacterResponse,
             }));
+            setCharacterLoading(false);
         } catch (e) {
             console.log(e);
+            setCharacterLoading(false);
         }
     };
     //(동화책 저장 데이터)
     const loadUserStoryBookData = async () => {
         console.log('동화책 불러오기 api 호출!');
+        setBookLoading(true);
         try {
             const response = await UserRequestApi.get('/fairy/lookup');
 
@@ -60,8 +70,10 @@ const MyPageComponent = () => {
                 ...prevUserData,
                 userStoryBook: userStoryBookResponse,
             }));
+            setBookLoading(false);
         } catch (e) {
             console.log(e);
+            setBookLoading(false);
         }
     };
 
@@ -205,6 +217,13 @@ const MyPageComponent = () => {
     const ItemsByCategory = () => {
         //캐릭터 파트일 때
         if (tabValue === characterSortValue) {
+            if (characterLoading) {
+                return (
+                    <div className="MyPageComponentAddBox">
+                        <BasedLoading />
+                    </div>
+                );
+            }
             if (userData.userCharacter.length === 0) {
                 //아직 캐릭터가 없을 때
                 return <NoItem CategoryName={'Character'} />;
@@ -214,6 +233,13 @@ const MyPageComponent = () => {
 
         //사용자 동화책 파트일 때
         if (tabValue === bookSortValue) {
+            if (bookLoading) {
+                return (
+                    <div className="MyPageComponentAddBox">
+                        <BasedLoading />
+                    </div>
+                );
+            }
             if (userData.userStoryBook.length === 0) {
                 //아직 동화책이 없을 때
                 return <NoItem CategoryName={'Story Book'} />;
