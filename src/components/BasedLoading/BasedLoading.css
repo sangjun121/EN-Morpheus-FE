@@ -1,0 +1,13 @@
+.BasedLoading {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.BasedLoading p {
+    text-align: center;
+    font-family: Poppins-Medium;
+    font-size: 20px;
+    color: black;
+}
