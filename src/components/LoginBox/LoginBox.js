@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useReducer, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faLock, faUser } from '@fortawesome/free-solid-svg-icons';
 import './LoginBox.css';
 import UserRequestApi from '../../api/UserRequestApi';
 import { useNavigate } from 'react-router-dom';
+import reducer from '../../api/Reducer';
 
 const LoginBox = () => {
     const navigate = useNavigate();
@@ -14,6 +15,25 @@ const LoginBox = () => {
     const [registerEmail, setRegisterEmail] = useState('');
     const [registerPassword, setRegisterPassword] = useState('');
     const [registerPasswordCheck, setRegisterPasswordCheck] = useState('');
+
+    const [loginServerState, loginDispatch] = useReducer(reducer, {
+        loading: false,
+        data: null,
+        error: null,
+    });
+
+    const [registerServerState, registerDispatch] = useReducer(reducer, {
+        loading: false,
+        data: null,
+        error: null,
+    });
+
+    const { loginLoading, data: loginData, loginError } = loginServerState;
+    const {
+        registerLoading,
+        data: registerData,
+        registerError,
+    } = registerServerState;
 
     const handleLoginEmailChange = (event) => {
         setLoginEmail(event.target.value);
@@ -71,13 +91,19 @@ const LoginBox = () => {
 
         try {
             console.log('로그인 API 요청');
+            loginDispatch({ type: 'LOADING' });
             const response = await UserRequestApi.post(
                 '/members/login',
                 loginDataForm
             );
             addTokenToLocalStorage(response.data.response.code.accessToken);
+            loginDispatch({
+                type: 'SUCCESS',
+                data: 'login',
+            });
             navigate('/');
         } catch (error) {
+            loginDispatch({ type: 'ERROR', error: error });
             if (error.response) {
                 alert('Try Login Again');
             } else if (error.request) {
@@ -98,13 +124,19 @@ const LoginBox = () => {
 
         try {
             console.log('회원가입 API 요청');
+            registerDispatch({ type: 'LOADING' });
             const response = await UserRequestApi.post(
                 '/members/join',
                 registerDataForm
             );
             console.log('회원가입 성공');
+            registerDispatch({
+                type: 'SUCCESS',
+                data: 'register',
+            });
             navigate('/');
         } catch (error) {
+            registerDispatch({ type: 'ERROR', error: error });
             if (error.response) {
                 alert('Click Register Button Again');
             } else if (error.request) {
@@ -130,6 +162,9 @@ const LoginBox = () => {
             wrapper.classList.remove('active');
         });
     };
+
+    if (loginLoading) alert('Loading...');
+    if (registerLoading) alert('Loading...');
 
     return (
         <div className="wrapper">
