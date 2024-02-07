@@ -1,4 +1,4 @@
-import { useReducer, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import userIcon from '../../images/mypage/userIcon.png';
 import addIcon from '../../images/mypage/add.png';
@@ -9,7 +9,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import './MyPageComponent.css';
 import UserRequestApi from '../../api/UserRequestApi';
 import ImageDetail from './ImageDetail';
-import reducer from '../../api/Reducer';
+import { faL } from '@fortawesome/free-solid-svg-icons';
+import BasedLoading from '../BasedLoading/BasedLoading';
 
 const MyPageComponent = () => {
     const navigate = useNavigate();
@@ -23,18 +24,9 @@ const MyPageComponent = () => {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [modalImage, setModalImage] = useState('');
 
-    //이미지 응답 로딩 state
-    const [characterServerState, characterDispatch] = useReducer(reducer, {
-        loading: false,
-        data: null,
-        error: null,
-    });
-
-    const [storyBookServerState, storyBookDispatch] = useReducer(reducer, {
-        loading: false,
-        data: null,
-        error: null,
-    });
+    //아이템 로딩 state
+    const [characterLoading, setCharacterLoading] = useState(false);
+    const [bookLoading, setBookLoading] = useState(false);
 
     const characterSortValue = 0;
     const bookSortValue = 1;
@@ -43,7 +35,8 @@ const MyPageComponent = () => {
     //1. API요청 (사용자 캐릭터)
     const loadUserCharacterData = async () => {
         console.log('캐릭터 불러오기 api 호출!');
-        characterDispatch({ type: 'LOADING' });
+        setCharacterLoading(true);
+
         try {
             const response = await UserRequestApi.get('/character/list');
 
@@ -55,18 +48,16 @@ const MyPageComponent = () => {
                 ...prevUserData,
                 userCharacter: userCharacterResponse,
             }));
-            characterDispatch({
-                type: 'SUCCESS',
-                data: userCharacterResponse,
-            });
+            setCharacterLoading(false);
         } catch (e) {
-            characterDispatch({ type: 'ERROR', error: e });
+            console.log(e);
+            setCharacterLoading(false);
         }
     };
     //(동화책 저장 데이터)
     const loadUserStoryBookData = async () => {
         console.log('동화책 불러오기 api 호출!');
-        storyBookDispatch({ type: 'LOADING' });
+        setBookLoading(true);
         try {
             const response = await UserRequestApi.get('/fairy/lookup');
 
@@ -79,25 +70,12 @@ const MyPageComponent = () => {
                 ...prevUserData,
                 userStoryBook: userStoryBookResponse,
             }));
-            storyBookDispatch({
-                type: 'SUCCESS',
-                data: userStoryBookResponse,
-            });
+            setBookLoading(false);
         } catch (e) {
-            storyBookDispatch({ type: 'ERROR', error: e });
+            console.log(e);
+            setBookLoading(false);
         }
     };
-
-    const {
-        characterLoading,
-        data: character,
-        characterError,
-    } = characterServerState;
-    const {
-        storyBookLoading,
-        data: storybook,
-        storyBookError,
-    } = storyBookServerState;
 
     //2. 캐릭터 및 동화책 추가 페이지로 이동
     const navigateCreateContentPage = () => {
@@ -239,7 +217,13 @@ const MyPageComponent = () => {
     const ItemsByCategory = () => {
         //캐릭터 파트일 때
         if (tabValue === characterSortValue) {
-            if (characterLoading) return <div>loading</div>;
+            if (characterLoading) {
+                return (
+                    <div className="MyPageComponentAddBox">
+                        <BasedLoading />
+                    </div>
+                );
+            }
             if (userData.userCharacter.length === 0) {
                 //아직 캐릭터가 없을 때
                 return <NoItem CategoryName={'Character'} />;
@@ -249,7 +233,13 @@ const MyPageComponent = () => {
 
         //사용자 동화책 파트일 때
         if (tabValue === bookSortValue) {
-            if (storyBookLoading) return <div>loading</div>;
+            if (bookLoading) {
+                return (
+                    <div className="MyPageComponentAddBox">
+                        <BasedLoading />
+                    </div>
+                );
+            }
             if (userData.userStoryBook.length === 0) {
                 //아직 동화책이 없을 때
                 return <NoItem CategoryName={'Story Book'} />;
