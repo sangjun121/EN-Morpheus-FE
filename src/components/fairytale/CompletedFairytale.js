@@ -4,6 +4,7 @@ import reducer from "../../api/Reducer";
 import "./CompletedFairytale.scss";
 import UserRequestApi from "../../api/UserRequestApi";
 import Images from "../../images/ex_image1.png";
+import { render } from "@testing-library/react";
 
 const Fairytale = () => {
   const inputCount = 18;
@@ -33,6 +34,17 @@ const Fairytale = () => {
     }
   };
 
+  //서버에서 받아온 문자열을 처리하는 함수
+  const renderTextWithSpans = (text) => {
+    return text.split("").map((char, index) => {
+      if (char === " ") {
+        return <span dey={index}>&nbsp;</span>;
+      } else {
+        return <span key={index}>{char}</span>;
+      }
+    });
+  };
+
   useEffect(() => {
     const fairyId = location.state;
     fetchFairytaleData(fairyId);
@@ -51,7 +63,7 @@ const Fairytale = () => {
             <div className="final_pagenumber">1 2</div>
             <div className="final_content">
               <div className="final_content_center">
-                <h4>{/*title*/}Your Fairytale Title</h4>
+                <h4>{renderTextWithSpans("Your Fairytale Title")}</h4>
               </div>
             </div>
           </div>
@@ -60,7 +72,7 @@ const Fairytale = () => {
           <div className="final_pages_page__inner">
             <div className="final_content">
               <div className="final_content_center right">
-                <h4>{/*title*/}Your Fairytale Title</h4>
+                <h4>{renderTextWithSpans("Your Fairytale Title")}</h4>
               </div>
             </div>
             <div className="final_bg"></div>

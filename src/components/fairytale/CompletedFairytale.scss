@@ -231,6 +231,110 @@ body {
       }
     }
 
+    input:nth-of-type(1):checked
+      + input
+      + input
+      + input
+      + input
+      + input
+      + input
+      + input
+      + input
+      + input
+      + input
+      + input
+      + input
+      + input
+      + input
+      + input
+      + input
+      + input
+      + div,
+    input:nth-of-type(1):checked
+      + input
+      + input
+      + input
+      + input
+      + input
+      + input
+      + input
+      + input
+      + input
+      + input
+      + input
+      + input
+      + input
+      + input
+      + input
+      + input
+      + input
+      + div
+      + div {
+      h4 {
+        span {
+          transition: all 1.5s 0s cubic-bezier(0.6, 0.045, 0.165, 1);
+
+          @for $i from 1 through 48 {
+            &:nth-of-type(#{$i}) {
+              transform: translateZ(random(600) + 170px);
+            }
+          }
+        }
+      }
+    }
+
+    input:nth-of-type(1):not(:checked)
+      + input
+      + input
+      + input
+      + input
+      + input
+      + input
+      + input
+      + input
+      + input
+      + input
+      + input
+      + input
+      + input
+      + input
+      + input
+      + input
+      + input
+      + div,
+    input:nth-of-type(1):not(:checked)
+      + input
+      + input
+      + input
+      + input
+      + input
+      + input
+      + input
+      + input
+      + input
+      + input
+      + input
+      + input
+      + input
+      + input
+      + input
+      + input
+      + input
+      + div
+      + div {
+      h4 {
+        span {
+          transition: all 1.5s 0s cubic-bezier(0.6, 0.045, 0.165, 1);
+
+          @for $i from 1 through 48 {
+            &:nth-of-type(#{$i}) {
+              transform: translateZ(random(600) + 170px);
+            }
+          }
+        }
+      }
+    }
+
     &_page {
       @extend %page;
 
