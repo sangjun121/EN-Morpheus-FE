@@ -61,8 +61,7 @@ const MyPageComponent = () => {
     try {
       const response = await UserRequestApi.get("/fairy/lookup");
 
-      //조회가능한 캐릭터가 없을때
-      // if (response.data.response.result === 'FAIL') return;
+      if (response.data.response.result === "FAIL") return;
 
       const userStoryBookResponse = response.data.response.code;
       console.log(userStoryBookResponse);
