@@ -231,104 +231,97 @@ body {
       }
     }
 
-    input:nth-of-type(1):checked
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + div,
-    input:nth-of-type(1):checked
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + div
-      + div {
-      h4 {
-        span {
-          transition: all 1.5s 0s cubic-bezier(0.6, 0.045, 0.165, 1);
+    @for $a from 2 through 17 {
+      // input에 대한 선택자
+      $input-selectors: "input:nth-of-type(#{$a}):checked";
+      // input 갯수 계산 (총 합이 18이 되도록)
+      $inputs-count: 18 - $a;
 
-          @for $i from 1 through 48 {
-            &:nth-of-type(#{$i}) {
-              transform: translateZ(random(600) + 170px);
+      // input 선택자 생성
+      @for $i from 1 through $inputs-count {
+        $input-selectors: $input-selectors + " + input";
+      }
+
+      // div 선택자 생성 (2a - 1, 2a)
+      $divs-count-first: 2 * $a - 1;
+      $divs-count-second: 2 * $a;
+      $div-selectors-first: $input-selectors;
+      $div-selectors-second: $input-selectors;
+
+      // div 선택자에 div 추가
+      @for $j from 1 through $divs-count-first {
+        $div-selectors-first: $div-selectors-first + " + div";
+      }
+      @for $k from 1 through $divs-count-second {
+        $div-selectors-second: $div-selectors-second + " + div";
+      }
+
+      // 최종 선택자에 스타일 적용
+      #{$div-selectors-first},
+      #{$div-selectors-second} {
+        .final_content_section {
+          filter: blur(0px);
+          opacity: 1;
+          transition: all 1s 0.5s;
+          perspective: var(--perspective);
+
+          h2 {
+            span {
+              transition: all 1.5s 0.4s cubic-bezier(0.6, 0.045, 0.165, 1);
+              @for $i from 1 through 48 {
+                &:nth-of-type(#{$i}) {
+                  transform: translateZ(0);
+                }
+              }
             }
           }
         }
       }
     }
 
-    input:nth-of-type(1):not(:checked)
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + div,
-    input:nth-of-type(1):not(:checked)
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + input
-      + div
-      + div {
-      h4 {
-        span {
-          transition: all 1.5s 0s cubic-bezier(0.6, 0.045, 0.165, 1);
+    @for $a from 2 through 17 {
+      // input에 대한 선택자
+      $input-selectors: "input:nth-of-type(#{$a}):not(:checked)";
+      // input 갯수 계산 (총 합이 18이 되도록)
+      $inputs-count: 18 - $a;
 
-          @for $i from 1 through 48 {
-            &:nth-of-type(#{$i}) {
-              transform: translateZ(random(600) + 170px);
+      // input 선택자 생성
+      @for $i from 1 through $inputs-count {
+        $input-selectors: $input-selectors + " + input";
+      }
+
+      // div 선택자 생성 (2a - 1, 2a)
+      $divs-count-first: 2 * $a - 1;
+      $divs-count-second: 2 * $a;
+      $div-selectors-first: $input-selectors;
+      $div-selectors-second: $input-selectors;
+
+      // div 선택자에 div 추가
+      @for $j from 1 through $divs-count-first {
+        $div-selectors-first: $div-selectors-first + " + div";
+      }
+      @for $k from 1 through $divs-count-second {
+        $div-selectors-second: $div-selectors-second + " + div";
+      }
+
+      // 최종 선택자에 스타일 적용
+      #{$div-selectors-first},
+      #{$div-selectors-second} {
+        .final_content_section {
+          filter: blur(10px);
+          opacity: 0;
+          transform: translateZ(50px);
+          transition: all 1s 0.2s;
+
+          h2 {
+            span {
+              transition: all 1.5s 0s cubic-bezier(0.6, 0.045, 0.165, 1);
+
+              @for $i from 1 through 48 {
+                &:nth-of-type(#{$i}) {
+                  transform: translateZ(random(600) + 170px);
+                }
+              }
             }
           }
         }
@@ -427,6 +420,8 @@ body {
               justify-content: center;
               align-items: center;
               flex-direction: column;
+              transform-style: preserve-3d;
+              perspective: (var(--perspective));
               &_button {
                 margin: 0;
                 width: 140px;
@@ -455,7 +450,8 @@ body {
                 }
 
                 h2,
-                p {
+                p,
+                span {
                   margin: 0;
                   color: var(--yellow);
                 }

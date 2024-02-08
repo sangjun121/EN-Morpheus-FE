@@ -2,6 +2,12 @@
 @import url("https://fonts.googleapis.com/css?family=Catamaran&display=swap");
 $totalPages: 38;
 
+.loading-page {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 .error-page {
   display: flex;
   justify-content: center;
@@ -10,7 +16,6 @@ $totalPages: 38;
 }
 
 .error-book-retry-button {
-  margin-top: 20px;
   width: 200px;
   height: 40px;
   font-family: Poppins-Regular;

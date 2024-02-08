@@ -92,7 +92,9 @@
 }
 
 .scenario-draft-story {
-  margin-top: 15%;
+  align-self: flex-start;
+  text-align: center;
+  width: 100%;
 }
 
 ::-webkit-scrollbar {

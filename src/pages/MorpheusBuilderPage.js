@@ -55,6 +55,32 @@ const MorpheusBuilderPage = () => {
     navigate("./scenario-draft", { state: { formattingTopic, characterId } });
   };
 
+  //해당 컴포넌트가 체크되었을 때 표시해주는 컴포넌트
+  const CheckAnimation = () => {
+    return (
+      <div className="builder_checkMarkWrapper">
+        <svg
+          className="builder_checkmark"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 52 52"
+        >
+          <circle
+            className="builder_checkmark__circle"
+            cx="26"
+            cy="26"
+            r="25"
+            fill="none"
+          />
+          <path
+            className="builder_checkmark__check"
+            fill="none"
+            d="M14.1 27.2l7.1 7.2 16.7-16.8"
+          />
+        </svg>
+      </div>
+    );
+  };
+
   return (
     <div className="scenario-making-page">
       {loading && <MorpheusLoading onFinished={handleLoadingFinished} />}
@@ -66,6 +92,11 @@ const MorpheusBuilderPage = () => {
               onClose={handleCloseButtonClick}
               onCharacterSelect={onCharacterSelected}
             ></CharactorSelector>
+            {characterId && !isCharacterBoxExpanded && (
+              <div className="check-animation-wrapper">
+                <CheckAnimation />
+              </div>
+            )}
           </div>
         )}
         {!isCharacterBoxExpanded && (
@@ -76,6 +107,11 @@ const MorpheusBuilderPage = () => {
               topic={topic}
               setTopic={setTopic}
             ></ThemeSelector>
+            {topic && !isThemeBoxExpanded && (
+              <div className="check-animation-wrapper">
+                <CheckAnimation />
+              </div>
+            )}
           </div>
         )}
       </div>

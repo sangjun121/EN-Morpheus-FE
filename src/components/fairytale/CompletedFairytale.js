@@ -46,7 +46,8 @@ const Fairytale = () => {
   };
 
   useEffect(() => {
-    const fairyId = location.state;
+    const fairyId = location.state.id;
+    setTitle(location.state.title);
     fetchFairytaleData(fairyId);
   }, [location.state]);
 
@@ -63,7 +64,7 @@ const Fairytale = () => {
             <div className="final_pagenumber">1 2</div>
             <div className="final_content">
               <div className="final_content_center">
-                <h4>{renderTextWithSpans("Your Fairytale Title")}</h4>
+                <h4>{title}</h4>
               </div>
             </div>
           </div>
@@ -72,7 +73,7 @@ const Fairytale = () => {
           <div className="final_pages_page__inner">
             <div className="final_content">
               <div className="final_content_center right">
-                <h4>{renderTextWithSpans("Your Fairytale Title")}</h4>
+                <h4>{title}</h4>
               </div>
             </div>
             <div className="final_bg"></div>
@@ -89,7 +90,17 @@ const Fairytale = () => {
 
             <div className="final_content">
               <div className="final_content_section">
-                <h2>Episode 1</h2>
+                <h2>
+                  <span>E</span>
+                  <span>p</span>
+                  <span>i</span>
+                  <span>s</span>
+                  <span>o</span>
+                  <span>d</span>
+                  <span>e</span>
+                  <span>&nbsp;</span>
+                  <span>1</span>
+                </h2>
                 <p>{narrativeText[0]}</p>
               </div>
             </div>
@@ -135,7 +146,7 @@ const Fairytale = () => {
 
             <div className="final_content">
               <div className="final_content_section">
-                <h2>Episode 2</h2>
+                <h2>{renderTextWithSpans("Episode 2")}</h2>
                 <p>{narrativeText[1]}</p>
               </div>
             </div>
