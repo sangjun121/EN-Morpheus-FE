@@ -17,6 +17,7 @@ const ScenarioDraftPage = () => {
   const [plot, setPlot] = useState("");
   const [characters, setCharacters] = useState("");
   const [linguisticExpression, setLinguisticExpression] = useState("");
+
   const [state, dispatch] = useReducer(reducer, {
     loading: false,
     data: null,
@@ -102,7 +103,8 @@ const ScenarioDraftPage = () => {
           {draftComponentAfterRequest()}
         </div>
         <button
-          className="change-scenario-draft-button" /*onClick={changeScenarioDraft}*/
+          className="change-scenario-draft-button"
+          onClick={() => regenerateDraft()}
         >
           retry
         </button>
