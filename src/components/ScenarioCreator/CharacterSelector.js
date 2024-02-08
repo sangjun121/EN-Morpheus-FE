@@ -33,6 +33,11 @@ const CharacterSelector = ({ expanded, onClose, onCharacterSelect }) => {
     dispatch({ type: "LOADING" });
     try {
       const response = await UserRequestApi.get("/character/list");
+      if (response.data.response.result === "FAIL") {
+        dispatch({ type: "SUCCESS", data: [] });
+        setCharacterInfo([]);
+        return;
+      }
       setCharacterInfo(response.data.response.code);
       dispatch({ type: "SUCCESS", data: response.data });
       console.log(response.data.response.code);
