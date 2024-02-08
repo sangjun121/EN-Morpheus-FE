@@ -46,31 +46,12 @@ const DataControlPage = () => {
     <div className="data-control-page">
       {loading && <MorpheusLoading onFinished={handleLoadingFinished} />}
       <div className="data-control-panel">
-        {!isStoryCreateBoxExpanded && !isStoryCompletedBoxExpanded && (
-          <div className="panel story-load" onClick={handleStoryLoadBoxClick}>
-            <StoryLoadBox
-              expanded={isStoryLoadBoxExpanded}
-              onClose={handleCloseButtonClick}
-            />
-          </div>
-        )}
         {!isStoryLoadBoxExpanded && !isStoryCompletedBoxExpanded && (
           <div
             className="panel story-create"
             onClick={handleStoryCreateBoxClick}
           >
             <StoryCreateBox />
-          </div>
-        )}
-        {!isStoryLoadBoxExpanded && !isStoryCreateBoxExpanded && (
-          <div
-            className="panel story-completed"
-            onClick={handleStoryCompletedBoxClick}
-          >
-            <StoryCompletedBox
-              expanded={isStoryCompletedBoxExpanded}
-              onClose={handleCloseButtonClick}
-            />
           </div>
         )}
       </div>

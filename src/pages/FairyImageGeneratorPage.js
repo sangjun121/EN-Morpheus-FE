@@ -4,7 +4,7 @@ import reducer from "../api/Reducer";
 import imageReducer from "../api/ImageReducer";
 import "./FairyImageGeneratorPage.scss";
 import UserRequestApi from "../api/UserRequestApi";
-import Loading from "../components/CharacterResult/imageGenerationProcess/Loading";
+import LoadingBackgroundImage from "../components/loadingState/loadingBackgroundImage";
 import Error from "../components/CharacterResult/imageGenerationProcess/Error";
 import LoadingBook from "../components/loadingState/LoadingBook";
 import LoadingSaveBook from "../components/loadingState/LoadingSaveBook";
@@ -76,7 +76,6 @@ const FairyImageGeneratorPage = () => {
       saveDispatch({ type: "SUCCESS", data: response.data });
     } catch (e) {
       saveDispatch({ type: "ERROR", error: e });
-      console.error(e);
     }
   };
 
@@ -89,17 +88,19 @@ const FairyImageGeneratorPage = () => {
     characters,
     linguisticExpression
   ) => {
-    console.log("main scenario api호출");
     dispatch({ type: "LOADING" });
+    const dataa = {
+      title: title,
+      story: story,
+      subjectMatter: subjectMatter,
+      plot: plot,
+      characters: characters,
+      characterId: characterId,
+      linguisticExpression: linguisticExpression,
+    };
+    console.log(dataa);
     try {
-      const response = await UserRequestApi.post("/fairy/actualization", {
-        title: title,
-        story: story,
-        subjectMatter: subjectMatter,
-        plot: plot,
-        characters: characters,
-        linguisticExpression: linguisticExpression,
-      });
+      const response = await UserRequestApi.post("/fairy/actualization", dataa);
       const data = response.data.response.code.chapters;
       setNarrativeText(data.map((chapter) => chapter.narrativeText));
       setChapterBackground(data.map((chapter) => chapter.background));
@@ -109,9 +110,9 @@ const FairyImageGeneratorPage = () => {
       setChapterPlot(data.map((chapter) => chapter.plot));
       setTemporaryFairyId(response.data.response.code.temporaryFairyId);
       dispatch({ type: "SUCCESS", data: response.data });
-      console.log(response.data);
     } catch (e) {
       dispatch({ type: "ERROR", error: e });
+      console.log(e);
     }
   };
 
@@ -233,7 +234,7 @@ const FairyImageGeneratorPage = () => {
   if (state.loading) {
     return (
       <div className="loading-page">
-        <LoadingBook />;
+        <LoadingBook />
       </div>
     );
   }
@@ -483,7 +484,7 @@ const FairyImageGeneratorPage = () => {
             <div className="content_centerimage"></div>
             <div className="content">
               {imageState.images[0].loading ? (
-                <Loading />
+                <LoadingBackgroundImage />
               ) : imageState.images[0].error ? (
                 <Error
                   regenerateImage={() =>
@@ -498,7 +499,6 @@ const FairyImageGeneratorPage = () => {
                 />
               ) : null}
             </div>
-            ;
             <div className="footer">
               <i className="fab fa-google-plus-g"></i>
               <i className="fas fa-retweet"></i>
@@ -550,7 +550,7 @@ const FairyImageGeneratorPage = () => {
             </div>
             <div className="content">
               {imageState.images[1].loading ? (
-                <Loading />
+                <LoadingBackgroundImage />
               ) : imageState.images[1].error ? (
                 <Error
                   regenerateImage={() =>
@@ -565,7 +565,6 @@ const FairyImageGeneratorPage = () => {
                 />
               ) : null}
             </div>
-            ;
             <div className="footer">
               <i className="fab fa-google-plus-g"></i>
               <i className="fas fa-retweet"></i>
@@ -617,7 +616,7 @@ const FairyImageGeneratorPage = () => {
             </div>
             <div className="content">
               {imageState.images[2].loading ? (
-                <Loading />
+                <LoadingBackgroundImage />
               ) : imageState.images[2].error ? (
                 <Error
                   regenerateImage={() =>
@@ -683,7 +682,7 @@ const FairyImageGeneratorPage = () => {
             </div>
             <div className="content">
               {imageState.images[3].loading ? (
-                <Loading />
+                <LoadingBackgroundImage />
               ) : imageState.images[3].error ? (
                 <Error
                   regenerateImage={() =>
@@ -749,7 +748,7 @@ const FairyImageGeneratorPage = () => {
             </div>
             <div className="content">
               {imageState.images[4].loading ? (
-                <Loading />
+                <LoadingBackgroundImage />
               ) : imageState.images[4].error ? (
                 <Error
                   regenerateImage={() =>
@@ -815,7 +814,7 @@ const FairyImageGeneratorPage = () => {
             </div>
             <div className="content">
               {imageState.images[5].loading ? (
-                <Loading />
+                <LoadingBackgroundImage />
               ) : imageState.images[5].error ? (
                 <Error
                   regenerateImage={() =>
@@ -881,7 +880,7 @@ const FairyImageGeneratorPage = () => {
             </div>
             <div className="content">
               {imageState.images[6].loading ? (
-                <Loading />
+                <LoadingBackgroundImage />
               ) : imageState.images[6].error ? (
                 <Error
                   regenerateImage={() =>
@@ -947,7 +946,7 @@ const FairyImageGeneratorPage = () => {
             </div>
             <div className="content">
               {imageState.images[7].loading ? (
-                <Loading />
+                <LoadingBackgroundImage />
               ) : imageState.images[7].error ? (
                 <Error
                   regenerateImage={() =>
@@ -1013,7 +1012,7 @@ const FairyImageGeneratorPage = () => {
             </div>
             <div className="content">
               {imageState.images[8].loading ? (
-                <Loading />
+                <LoadingBackgroundImage />
               ) : imageState.images[8].error ? (
                 <Error
                   regenerateImage={() =>
@@ -1079,7 +1078,7 @@ const FairyImageGeneratorPage = () => {
             </div>
             <div className="content">
               {imageState.images[9].loading ? (
-                <Loading />
+                <LoadingBackgroundImage />
               ) : imageState.images[9].error ? (
                 <Error
                   regenerateImage={() =>
@@ -1145,7 +1144,7 @@ const FairyImageGeneratorPage = () => {
             </div>
             <div className="content">
               {imageState.images[10].loading ? (
-                <Loading />
+                <LoadingBackgroundImage />
               ) : imageState.images[10].error ? (
                 <Error
                   regenerateImage={() =>
@@ -1211,7 +1210,7 @@ const FairyImageGeneratorPage = () => {
             </div>
             <div className="content">
               {imageState.images[11].loading ? (
-                <Loading />
+                <LoadingBackgroundImage />
               ) : imageState.images[11].error ? (
                 <Error
                   regenerateImage={() =>
@@ -1277,7 +1276,7 @@ const FairyImageGeneratorPage = () => {
             </div>
             <div className="content">
               {imageState.images[12].loading ? (
-                <Loading />
+                <LoadingBackgroundImage />
               ) : imageState.images[12].error ? (
                 <Error
                   regenerateImage={() =>
@@ -1343,7 +1342,7 @@ const FairyImageGeneratorPage = () => {
             </div>
             <div className="content">
               {imageState.images[13].loading ? (
-                <Loading />
+                <LoadingBackgroundImage />
               ) : imageState.images[13].error ? (
                 <Error
                   regenerateImage={() =>
@@ -1409,7 +1408,7 @@ const FairyImageGeneratorPage = () => {
             </div>
             <div className="content">
               {imageState.images[14].loading ? (
-                <Loading />
+                <LoadingBackgroundImage />
               ) : imageState.images[14].error ? (
                 <Error
                   regenerateImage={() =>
@@ -1475,7 +1474,7 @@ const FairyImageGeneratorPage = () => {
             </div>
             <div className="content">
               {imageState.images[15].loading ? (
-                <Loading />
+                <LoadingBackgroundImage />
               ) : imageState.images[15].error ? (
                 <Error
                   regenerateImage={() =>

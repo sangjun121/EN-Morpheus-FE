@@ -6,6 +6,7 @@ import { faRotateRight } from "@fortawesome/free-solid-svg-icons";
 import "./ScenarioCreator.css";
 import UserRequestApi from "../../api/UserRequestApi";
 import ThemeSelectorLoading from "./ThemeSelectorLoading";
+import BasedLoading from "../BasedLoading/BasedLoading";
 
 const ThemeSelector = ({ expanded, onClose, topic, setTopic }) => {
   //서버에서 받아온 주제들
@@ -20,18 +21,25 @@ const ThemeSelector = ({ expanded, onClose, topic, setTopic }) => {
     error: null,
   });
 
+  //서버에서 주제 받아올 때 reducer
+  const [themeState, themeDispatch] = useReducer(reducer, {
+    loading: false,
+    data: null,
+    error: null,
+  });
+
   //서버에서 ai가 선정한 주제들을 받아오는 함수
   const fetchAiTopic = async () => {
     console.log("api호출");
-    dispatch({ type: "LOADING" });
+    themeDispatch({ type: "LOADING" });
     try {
       const response = await UserRequestApi.get("/fairy/topic-random");
       const data = response.data.response.code;
       setAiTopic(data);
       pickRandomItems(data);
-      dispatch({ type: "SUCCESS", data: data });
+      themeDispatch({ type: "SUCCESS", data: data });
     } catch (error) {
-      dispatch({ type: "ERROR", error });
+      themeDispatch({ type: "ERROR", error });
     }
   };
 
@@ -49,17 +57,6 @@ const ThemeSelector = ({ expanded, onClose, topic, setTopic }) => {
       dispatch({ type: "ERROR", error });
     }
   };
-
-  //서버에 최종으로 정해진 주제를 보내주며 다음 페이지로 넘어가게 해주는 함수
-  // const submitThemeAndNavigate = async () => {
-  //   dispatch({ type: "LOADING" });
-  //   try {
-  //     await API.post("url", { topic });
-  //     navigate("/select-character");
-  //   } catch (error) {
-  //     dispatch({ type: "ERROR", error });
-  //   }
-  // };
 
   const handleInputChange = (event) => {
     setTopic(event.target.value);
@@ -108,7 +105,7 @@ const ThemeSelector = ({ expanded, onClose, topic, setTopic }) => {
               </div>
             </div>
             <button className="process-theme" onClick={processTheme}>
-              Check Theme
+              AI Generate
             </button>
           </div>
           <div className="theme-example">
@@ -122,17 +119,22 @@ const ThemeSelector = ({ expanded, onClose, topic, setTopic }) => {
               <FontAwesomeIcon icon={faRotateRight} />
             </span>
           </div>
-          <div className="random-theme">
-            {randomAiTopic.map((item, index) => (
-              <button
-                key={index}
-                onClick={() => setTopic(item)}
-                className="random-theme-select"
-              >
-                {item}
-              </button>
-            ))}
-          </div>
+          {themeState.loading ? (
+            <BasedLoading />
+          ) : (
+            <div className="random-theme">
+              {randomAiTopic.map((item, index) => (
+                <button
+                  key={index}
+                  onClick={() => setTopic(item)}
+                  className="random-theme-select"
+                >
+                  {item}
+                </button>
+              ))}
+            </div>
+          )}
+
           <button className="box-close-button" onClick={handleButtonClick}>
             Select Theme
           </button>

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import reducer from "../../api/Reducer";
 import "./ScenarioCreator.css";
 import UserRequestApi from "../../api/UserRequestApi";
+import BasedLoading from "../BasedLoading/BasedLoading";
 
 const CharacterSelector = ({ expanded, onClose, onCharacterSelect }) => {
   const navigate = useNavigate();
@@ -57,28 +58,32 @@ const CharacterSelector = ({ expanded, onClose, onCharacterSelect }) => {
       </div>
       {expanded && (
         <div className="character-list-parent">
-          <div className="character-list">
-            <div className="character-header">
-              <div>Number</div>
-              <div className="character-name">Character Name</div>
-              <div>Character Image</div>
-            </div>
-            {characterInfo.map((character, index) => (
-              <div
-                className={`character-info ${
-                  index === selectedCharacterIndex ? "selected" : ""
-                }`}
-                key={index}
-                onClick={() => onCharacterClick(index)}
-              >
-                <div>{index + 1}</div>
-                <div className="charcter-name">{character.name}</div>
-                <div className="character-image">
-                  <img src={character.image} alt={character.name}></img>
-                </div>
+          {state.loading ? (
+            <BasedLoading />
+          ) : (
+            <div className="character-list">
+              <div className="character-header">
+                <div>Number</div>
+                <div className="character-name">Character Name</div>
+                <div>Character Image</div>
               </div>
-            ))}
-          </div>
+              {characterInfo.map((character, index) => (
+                <div
+                  className={`character-info ${
+                    index === selectedCharacterIndex ? "selected" : ""
+                  }`}
+                  key={index}
+                  onClick={() => onCharacterClick(index)}
+                >
+                  <div>{index + 1}</div>
+                  <div className="charcter-name">{character.name}</div>
+                  <div className="character-image">
+                    <img src={character.image} alt={character.name}></img>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
           <button
             className="character-selector-create-button"
             onClick={() => navigate("/character")}
