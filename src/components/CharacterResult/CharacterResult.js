@@ -82,7 +82,7 @@ const CharacterResult = ({ userCharacterPromptInput }) => {
     navigate("/character");
   };
   const navigateMorpheusBuilderPage = () => {
-    navigate("/morpheus-builder");
+    navigate("/data-control/morpheus-builder");
   };
   const navigateMyPage = () => {
     navigate("/mypage");
